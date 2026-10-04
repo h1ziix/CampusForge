@@ -1,0 +1,9 @@
+
+> campusforge@ format:check C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> node scripts/format.mjs --check
+
+Checking formatting...
+ ELIFECYCLE  Command failed with exit code 1.
+[[33mwarn[39m] tests/fixtures/next-runtime/src/server/actions/workspace.ts
+[[33mwarn[39m] tests/fixtures/next-runtime/src/server/services/document.ts
+[[33mwarn[39m] Code style issues found in 2 files. Run Prettier with --write to fix.

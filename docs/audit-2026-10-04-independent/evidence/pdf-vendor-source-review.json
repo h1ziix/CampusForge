@@ -1,0 +1,759 @@
+{
+  "method": "static source excerpts; no PDF execution",
+  "sources": [
+    {
+      "file": "apps/worker/src/jobs/parse-document.ts",
+      "sha256": "feab37671339709face36fb3116e37bb9bc54273509e1eab69ec7f8159344df9",
+      "excerpts": [
+        {
+          "start": 65,
+          "end": 70,
+          "lines": [
+            {
+              "line": 65,
+              "text": "    if (doc.mimeType === 'application/pdf') {"
+            },
+            {
+              "line": 66,
+              "text": "      // Dynamic import to avoid loading pdf-parse unless needed"
+            },
+            {
+              "line": 67,
+              "text": "      const pdfParse = (await import('pdf-parse')).default;"
+            },
+            {
+              "line": 68,
+              "text": "      const result = await pdfParse(buffer);"
+            },
+            {
+              "line": 69,
+              "text": "      parsedText = result.text;"
+            },
+            {
+              "line": 70,
+              "text": "    } else if ("
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "node_modules/.pnpm/pdf-parse@1.1.4/node_modules/pdf-parse/lib/pdf-parse.js",
+      "sha256": "4e36221a626d02d5d44968cefcbf5675c8d8ae7205872f8c3d32f0f90243a093",
+      "excerpts": [
+        {
+          "start": 1,
+          "end": 17,
+          "lines": [
+            {
+              "line": 1,
+              "text": "var PDFJS = null;"
+            },
+            {
+              "line": 2,
+              "text": ""
+            },
+            {
+              "line": 3,
+              "text": "function render_page(pageData) {"
+            },
+            {
+              "line": 4,
+              "text": "    //check documents https://mozilla.github.io/pdf.js/"
+            },
+            {
+              "line": 5,
+              "text": "    //ret.text = ret.text ? ret.text : \"\";"
+            },
+            {
+              "line": 6,
+              "text": ""
+            },
+            {
+              "line": 7,
+              "text": "    let render_options = {"
+            },
+            {
+              "line": 8,
+              "text": "        //replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`."
+            },
+            {
+              "line": 9,
+              "text": "        normalizeWhitespace: false,"
+            },
+            {
+              "line": 10,
+              "text": "        //do not attempt to combine same line TextItem's. The default value is `false`."
+            },
+            {
+              "line": 11,
+              "text": "        disableCombineTextItems: false"
+            },
+            {
+              "line": 12,
+              "text": "    }"
+            },
+            {
+              "line": 13,
+              "text": ""
+            },
+            {
+              "line": 14,
+              "text": "    return pageData.getTextContent(render_options)"
+            },
+            {
+              "line": 15,
+              "text": "        .then(function(textContent) {"
+            },
+            {
+              "line": 16,
+              "text": "            let lastY, text = '';"
+            },
+            {
+              "line": 17,
+              "text": "            //https://github.com/mozilla/pdf.js/issues/8963"
+            }
+          ]
+        },
+        {
+          "start": 40,
+          "end": 48,
+          "lines": [
+            {
+              "line": 40,
+              "text": "    max: 0,"
+            },
+            {
+              "line": 41,
+              "text": "    //check https://mozilla.github.io/pdf.js/getting_started/"
+            },
+            {
+              "line": 42,
+              "text": "    version: 'v1.10.100'"
+            },
+            {
+              "line": 43,
+              "text": "}"
+            },
+            {
+              "line": 44,
+              "text": ""
+            },
+            {
+              "line": 45,
+              "text": "async function PDF(dataBuffer, options) {"
+            },
+            {
+              "line": 46,
+              "text": ""
+            },
+            {
+              "line": 47,
+              "text": "    let ret = {"
+            },
+            {
+              "line": 48,
+              "text": "        numpages: 0,"
+            }
+          ]
+        },
+        {
+          "start": 64,
+          "end": 71,
+          "lines": [
+            {
+              "line": 64,
+              "text": "    ret.version = PDFJS.version;"
+            },
+            {
+              "line": 65,
+              "text": ""
+            },
+            {
+              "line": 66,
+              "text": "    // Disable workers to avoid yet another cross-origin issue (workers need"
+            },
+            {
+              "line": 67,
+              "text": "    // the URL of the script to be loaded, and dynamically loading a cross-origin"
+            },
+            {
+              "line": 68,
+              "text": "    // script does not work)."
+            },
+            {
+              "line": 69,
+              "text": "    PDFJS.disableWorker = true;"
+            },
+            {
+              "line": 70,
+              "text": "    let doc = await PDFJS.getDocument(dataBuffer);"
+            },
+            {
+              "line": 71,
+              "text": "    ret.numpages = doc.numPages;"
+            }
+          ]
+        },
+        {
+          "start": 95,
+          "end": 103,
+          "lines": [
+            {
+              "line": 95,
+              "text": ""
+            },
+            {
+              "line": 96,
+              "text": "    return ret;"
+            },
+            {
+              "line": 97,
+              "text": "}"
+            },
+            {
+              "line": 98,
+              "text": ""
+            },
+            {
+              "line": 99,
+              "text": "module.exports = PDF;"
+            },
+            {
+              "line": 100,
+              "text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "node_modules/.pnpm/pdf-parse@1.1.4/node_modules/pdf-parse/lib/pdf.js/v1.10.100/build/pdf.js",
+      "sha256": "960c5b7628e982a2c1abbc6bcdc55ae9455b6baea2f2c6d79834e6c9e5abda6c",
+      "excerpts": [
+        {
+          "start": 3800,
+          "end": 3819,
+          "lines": [
+            {
+              "line": 3800,
+              "text": "      }"
+            },
+            {
+              "line": 3801,
+              "text": "      return intentState.opListReadCapability.promise;"
+            },
+            {
+              "line": 3802,
+              "text": "    },"
+            },
+            {
+              "line": 3803,
+              "text": "    streamTextContent: function streamTextContent() {"
+            },
+            {
+              "line": 3804,
+              "text": "      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};"
+            },
+            {
+              "line": 3805,
+              "text": ""
+            },
+            {
+              "line": 3806,
+              "text": "      var TEXT_CONTENT_CHUNK_SIZE = 100;"
+            },
+            {
+              "line": 3807,
+              "text": "      return this.transport.messageHandler.sendWithStream('GetTextContent', {"
+            },
+            {
+              "line": 3808,
+              "text": "        pageIndex: this.pageNumber - 1,"
+            },
+            {
+              "line": 3809,
+              "text": "        normalizeWhitespace: params.normalizeWhitespace === true,"
+            },
+            {
+              "line": 3810,
+              "text": "        combineTextItems: params.disableCombineTextItems !== true"
+            },
+            {
+              "line": 3811,
+              "text": "      }, {"
+            },
+            {
+              "line": 3812,
+              "text": "        highWaterMark: TEXT_CONTENT_CHUNK_SIZE,"
+            },
+            {
+              "line": 3813,
+              "text": "        size: function size(textContent) {"
+            },
+            {
+              "line": 3814,
+              "text": "          return textContent.items.length;"
+            },
+            {
+              "line": 3815,
+              "text": "        }"
+            },
+            {
+              "line": 3816,
+              "text": "      });"
+            },
+            {
+              "line": 3817,
+              "text": "    },"
+            },
+            {
+              "line": 3818,
+              "text": ""
+            },
+            {
+              "line": 3819,
+              "text": "    getTextContent: function PDFPageProxy_getTextContent(params) {"
+            }
+          ]
+        },
+        {
+          "start": 14544,
+          "end": 14563,
+          "lines": [
+            {
+              "line": 14544,
+              "text": "    getPathGenerator: function FontFaceObject_getPathGenerator(objs, character) {"
+            },
+            {
+              "line": 14545,
+              "text": "      if (!(character in this.compiledGlyphs)) {"
+            },
+            {
+              "line": 14546,
+              "text": "        var cmds = objs.get(this.loadedName + '_path_' + character);"
+            },
+            {
+              "line": 14547,
+              "text": "        var current, i, len;"
+            },
+            {
+              "line": 14548,
+              "text": "        if (this.options.isEvalSupported && IsEvalSupportedCached.value) {"
+            },
+            {
+              "line": 14549,
+              "text": "          var args,"
+            },
+            {
+              "line": 14550,
+              "text": "              js = '';"
+            },
+            {
+              "line": 14551,
+              "text": "          for (i = 0, len = cmds.length; i < len; i++) {"
+            },
+            {
+              "line": 14552,
+              "text": "            current = cmds[i];"
+            },
+            {
+              "line": 14553,
+              "text": "            if (current.args !== undefined) {"
+            },
+            {
+              "line": 14554,
+              "text": "              args = current.args.join(',');"
+            },
+            {
+              "line": 14555,
+              "text": "            } else {"
+            },
+            {
+              "line": 14556,
+              "text": "              args = '';"
+            },
+            {
+              "line": 14557,
+              "text": "            }"
+            },
+            {
+              "line": 14558,
+              "text": "            js += 'c.' + current.cmd + '(' + args + ');\\n';"
+            },
+            {
+              "line": 14559,
+              "text": "          }"
+            },
+            {
+              "line": 14560,
+              "text": "          this.compiledGlyphs[character] = new Function('c', 'size', js);"
+            },
+            {
+              "line": 14561,
+              "text": "        } else {"
+            },
+            {
+              "line": 14562,
+              "text": "          this.compiledGlyphs[character] = function (c, size) {"
+            },
+            {
+              "line": 14563,
+              "text": "            for (i = 0, len = cmds.length; i < len; i++) {"
+            }
+          ]
+        },
+        {
+          "start": 15638,
+          "end": 15656,
+          "lines": [
+            {
+              "line": 15638,
+              "text": "    nextLine: function CanvasGraphics_nextLine() {"
+            },
+            {
+              "line": 15639,
+              "text": "      this.moveText(0, this.current.leading);"
+            },
+            {
+              "line": 15640,
+              "text": "    },"
+            },
+            {
+              "line": 15641,
+              "text": "    paintChar: function CanvasGraphics_paintChar(character, x, y) {"
+            },
+            {
+              "line": 15642,
+              "text": "      var ctx = this.ctx;"
+            },
+            {
+              "line": 15643,
+              "text": "      var current = this.current;"
+            },
+            {
+              "line": 15644,
+              "text": "      var font = current.font;"
+            },
+            {
+              "line": 15645,
+              "text": "      var textRenderingMode = current.textRenderingMode;"
+            },
+            {
+              "line": 15646,
+              "text": "      var fontSize = current.fontSize / current.fontSizeScale;"
+            },
+            {
+              "line": 15647,
+              "text": "      var fillStrokeMode = textRenderingMode & _util.TextRenderingMode.FILL_STROKE_MASK;"
+            },
+            {
+              "line": 15648,
+              "text": "      var isAddToPathSet = !!(textRenderingMode & _util.TextRenderingMode.ADD_TO_PATH_FLAG);"
+            },
+            {
+              "line": 15649,
+              "text": "      var addToPath;"
+            },
+            {
+              "line": 15650,
+              "text": "      if (font.disableFontFace || isAddToPathSet) {"
+            },
+            {
+              "line": 15651,
+              "text": "        addToPath = font.getPathGenerator(this.commonObjs, character);"
+            },
+            {
+              "line": 15652,
+              "text": "      }"
+            },
+            {
+              "line": 15653,
+              "text": "      if (font.disableFontFace) {"
+            },
+            {
+              "line": 15654,
+              "text": "        ctx.save();"
+            },
+            {
+              "line": 15655,
+              "text": "        ctx.translate(x, y);"
+            },
+            {
+              "line": 15656,
+              "text": "        ctx.beginPath();"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "node_modules/.pnpm/pdf-parse@1.1.4/node_modules/pdf-parse/lib/pdf.js/v1.10.100/build/pdf.worker.js",
+      "sha256": "652458d8b2cd510dddd51984b06d423ea2cd51a947ce7180cc57f51422f76964",
+      "excerpts": [
+        {
+          "start": 25414,
+          "end": 25432,
+          "lines": [
+            {
+              "line": 25414,
+              "text": "    handler.on('GetTextContent', function wphExtractText(data, sink) {"
+            },
+            {
+              "line": 25415,
+              "text": "      var pageIndex = data.pageIndex;"
+            },
+            {
+              "line": 25416,
+              "text": "      sink.onPull = function (desiredSize) {};"
+            },
+            {
+              "line": 25417,
+              "text": "      sink.onCancel = function (reason) {};"
+            },
+            {
+              "line": 25418,
+              "text": "      pdfManager.getPage(pageIndex).then(function (page) {"
+            },
+            {
+              "line": 25419,
+              "text": "        var task = new WorkerTask('GetTextContent: page ' + pageIndex);"
+            },
+            {
+              "line": 25420,
+              "text": "        startWorkerTask(task);"
+            },
+            {
+              "line": 25421,
+              "text": "        var pageNum = pageIndex + 1;"
+            },
+            {
+              "line": 25422,
+              "text": "        var start = Date.now();"
+            },
+            {
+              "line": 25423,
+              "text": "        page.extractTextContent({"
+            },
+            {
+              "line": 25424,
+              "text": "          handler: handler,"
+            },
+            {
+              "line": 25425,
+              "text": "          task: task,"
+            },
+            {
+              "line": 25426,
+              "text": "          sink: sink,"
+            },
+            {
+              "line": 25427,
+              "text": "          normalizeWhitespace: data.normalizeWhitespace,"
+            },
+            {
+              "line": 25428,
+              "text": "          combineTextItems: data.combineTextItems"
+            },
+            {
+              "line": 25429,
+              "text": "        }).then(function () {"
+            },
+            {
+              "line": 25430,
+              "text": "          finishWorkerTask(task);"
+            },
+            {
+              "line": 25431,
+              "text": "          (0, _util.info)('text indexing: page=' + pageNum + ' - time=' + (Date.now() - start) + 'ms');"
+            },
+            {
+              "line": 25432,
+              "text": "          sink.close();"
+            }
+          ]
+        },
+        {
+          "start": 32077,
+          "end": 32115,
+          "lines": [
+            {
+              "line": 32077,
+              "text": "    extractTextContent: function extractTextContent(_ref7) {"
+            },
+            {
+              "line": 32078,
+              "text": "      var _this3 = this;"
+            },
+            {
+              "line": 32079,
+              "text": ""
+            },
+            {
+              "line": 32080,
+              "text": "      var handler = _ref7.handler,"
+            },
+            {
+              "line": 32081,
+              "text": "          task = _ref7.task,"
+            },
+            {
+              "line": 32082,
+              "text": "          normalizeWhitespace = _ref7.normalizeWhitespace,"
+            },
+            {
+              "line": 32083,
+              "text": "          sink = _ref7.sink,"
+            },
+            {
+              "line": 32084,
+              "text": "          combineTextItems = _ref7.combineTextItems;"
+            },
+            {
+              "line": 32085,
+              "text": ""
+            },
+            {
+              "line": 32086,
+              "text": "      var contentStreamPromise = this.pdfManager.ensure(this, 'getContentStream');"
+            },
+            {
+              "line": 32087,
+              "text": "      var resourcesPromise = this.loadResources(['ExtGState', 'XObject', 'Font']);"
+            },
+            {
+              "line": 32088,
+              "text": "      var dataPromises = Promise.all([contentStreamPromise, resourcesPromise]);"
+            },
+            {
+              "line": 32089,
+              "text": "      return dataPromises.then(function (_ref8) {"
+            },
+            {
+              "line": 32090,
+              "text": "        var _ref9 = _slicedToArray(_ref8, 1),"
+            },
+            {
+              "line": 32091,
+              "text": "            contentStream = _ref9[0];"
+            },
+            {
+              "line": 32092,
+              "text": ""
+            },
+            {
+              "line": 32093,
+              "text": "        var partialEvaluator = new _evaluator.PartialEvaluator({"
+            },
+            {
+              "line": 32094,
+              "text": "          pdfManager: _this3.pdfManager,"
+            },
+            {
+              "line": 32095,
+              "text": "          xref: _this3.xref,"
+            },
+            {
+              "line": 32096,
+              "text": "          handler: handler,"
+            },
+            {
+              "line": 32097,
+              "text": "          pageIndex: _this3.pageIndex,"
+            },
+            {
+              "line": 32098,
+              "text": "          idFactory: _this3.idFactory,"
+            },
+            {
+              "line": 32099,
+              "text": "          fontCache: _this3.fontCache,"
+            },
+            {
+              "line": 32100,
+              "text": "          builtInCMapCache: _this3.builtInCMapCache,"
+            },
+            {
+              "line": 32101,
+              "text": "          options: _this3.evaluatorOptions,"
+            },
+            {
+              "line": 32102,
+              "text": "          pdfFunctionFactory: _this3.pdfFunctionFactory"
+            },
+            {
+              "line": 32103,
+              "text": "        });"
+            },
+            {
+              "line": 32104,
+              "text": "        return partialEvaluator.getTextContent({"
+            },
+            {
+              "line": 32105,
+              "text": "          stream: contentStream,"
+            },
+            {
+              "line": 32106,
+              "text": "          task: task,"
+            },
+            {
+              "line": 32107,
+              "text": "          resources: _this3.resources,"
+            },
+            {
+              "line": 32108,
+              "text": "          normalizeWhitespace: normalizeWhitespace,"
+            },
+            {
+              "line": 32109,
+              "text": "          combineTextItems: combineTextItems,"
+            },
+            {
+              "line": 32110,
+              "text": "          sink: sink"
+            },
+            {
+              "line": 32111,
+              "text": "        });"
+            },
+            {
+              "line": 32112,
+              "text": "      });"
+            },
+            {
+              "line": 32113,
+              "text": "    },"
+            },
+            {
+              "line": 32114,
+              "text": ""
+            },
+            {
+              "line": 32115,
+              "text": "    getAnnotationsData: function Page_getAnnotationsData(intent) {"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "publisher": [
+    {
+      "id": "GHSA-wgrm-67xf-hhpq",
+      "url": "https://github.com/mozilla/pdf.js/security/advisories/GHSA-wgrm-67xf-hhpq",
+      "status": 200,
+      "fetchedAt": "2026-10-04T18:06:17.221Z",
+      "sha256": "061447851d57d69d41a22cd47f17a9482f2065341a0f9cb0324f4b43d77732c6",
+      "title": "Arbitrary JavaScript execution upon opening a malicious PDF · Advisory · mozilla/pdf.js · GitHub"
+    },
+    {
+      "id": "GHSA-hq66-cqwq-w95j",
+      "url": "https://github.com/mozilla/pdf.js/security/advisories/GHSA-hq66-cqwq-w95j",
+      "status": 200,
+      "fetchedAt": "2026-10-04T18:06:17.867Z",
+      "sha256": "96f2e2c8b9f42a779e578cd0545c9aa6a058fff8a3e555fb79b3283e9bb212bf",
+      "title": "Arbitrary JavaScript execution upon opening a malicious PDF  · Advisory · mozilla/pdf.js · GitHub"
+    }
+  ]
+}

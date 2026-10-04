@@ -1,0 +1,334 @@
+{
+  "reference": "C:/Users/rausa/AppData/Local/Temp/campusforge-r1-clean-5sA7wj",
+  "boundary": "Final R1 clean source snapshot; excludes generated/build/user secrets; sample-env exception documented",
+  "files": [
+    {
+      "kind": "added",
+      "path": "scripts/verify-r2.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "scripts/probe-turbo-env.mjs"
+    },
+    {
+      "kind": "added",
+      "path": "scripts/probe-r2-middleware.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "scripts/probe-env.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "scripts/next-runtime-fixture.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "scripts/format.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/fixtures/next-runtime/tsconfig.json"
+    },
+    {
+      "kind": "added",
+      "path": "tests/browser/r2-security.spec.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/browser/r2-ui-privacy.spec.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/fixtures/next-runtime/next.config.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/package.json"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/tests/web-security.test.mjs"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/tests/privacy.test.mjs"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/tests/auth-security.test.mjs"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/tailwind.config.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/fixtures/next-runtime/src/app/assistant/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/markdown/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/server/services/document.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/r2-onboarding-real/real-onboarding.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/r2-onboarding-real/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/fixtures/next-runtime/src/app/document/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/api/r2-middleware-probe/route.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/dashboard/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/browser/react-lifecycle.spec.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/onboarding/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "packages/shared/src/schemas/auth.ts"
+    },
+    {
+      "kind": "added",
+      "path": "packages/shared/src/password-policy.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "packages/shared/src/index.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "packages/shared/src/env.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "tests/fixtures/next-runtime/src/server/actions/workspace.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/server/actions/auth.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/auth-entrance/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/r2-private-shell/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/api/r2-control/route.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/middleware.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/sign-in/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/r2-privacy/privacy-fixture.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/r2-privacy/page.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/api/auth/[...nextauth]/route.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/fixture/state.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/fixture/redis.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/fixture/db.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/fixture/bcrypt.ts"
+    },
+    {
+      "kind": "added",
+      "path": "tests/fixtures/next-runtime/src/app/sign-up/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/styles/globals.css"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/use-privacy-lease.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/request-origin.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/lib/query-client.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/privacy.ts"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/markdown-url.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/lib/auth.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/lib/auth.config.ts"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/auth-redirect.ts"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/auth-rate-limit.ts"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/lib/auth-errors.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/app/onboarding/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/server/services/auth.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/server/services/auth-helpers.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/lib/assistant/storage.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/layout/app-shell.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/app/api/workspaces/[workspaceId]/documents/upload/route.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/server/actions/auth.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/app/(dashboard)/layout.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/auth/sign-up-form.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/auth/sign-out-button.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/auth/sign-in-form.tsx"
+    },
+    {
+      "kind": "added",
+      "path": "apps/web/src/components/auth/authenticated-privacy-boundary.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/document/document-detail-view.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/assistant/assistant-app.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/onboarding/onboarding-form.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/assistant/chat-input.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/assistant/markdown.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/components/assistant/settings-dialog.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/app/(dashboard)/w/[workspaceId]/documents/[documentId]/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "apps/web/src/app/(dashboard)/w/[workspaceId]/assistant/page.tsx"
+    },
+    {
+      "kind": "modified",
+      "path": "README.md"
+    },
+    {
+      "kind": "modified",
+      "path": "package.json"
+    },
+    {
+      "kind": "modified",
+      "path": "playwright.config.ts"
+    },
+    {
+      "kind": "modified",
+      "path": "turbo.json"
+    },
+    {
+      "path": ".env.example",
+      "note": "Existing sample is excluded from R1 clean snapshot, never a real .env",
+      "kind": "modified"
+    }
+  ],
+  "documentation": [
+    "docs/releases/R2.md",
+    "docs/releases/R2-auth.md",
+    "docs/releases/R2-privacy.md",
+    "docs/releases/R2-review.md",
+    "docs/releases/R2-evidence/*"
+  ]
+}

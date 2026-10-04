@@ -1,0 +1,13 @@
+Scope: all 6 workspace projects
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 34, reused 0, downloaded 0, added 0
+ WARN  deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+Progress: resolved 37, reused 0, downloaded 0, added 0
+Progress: resolved 40, reused 0, downloaded 0, added 0
+Progress: resolved 41, reused 0, downloaded 0, added 0
+Progress: resolved 189, reused 0, downloaded 0, added 0
+Progress: resolved 432, reused 0, downloaded 0, added 0
+Progress: resolved 611, reused 0, downloaded 0, added 0
+Progress: resolved 611, reused 0, downloaded 0, added 0, done
+
+Done in 8.6s using pnpm v10.33.0

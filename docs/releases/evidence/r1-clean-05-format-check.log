@@ -1,0 +1,6 @@
+
+> campusforge@ format:check C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-Y7mKeV
+> node scripts/format.mjs --check
+
+Checking formatting...
+All matched files use Prettier code style!

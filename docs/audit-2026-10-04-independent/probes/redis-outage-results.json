@@ -1,0 +1,15 @@
+{
+  "executedAt": "2026-10-04T17:49:20.324Z",
+  "source": "apps/web/src/lib/queue.ts",
+  "libraries": {
+    "bullmq": "5.74.1",
+    "ioredis": "5.10.1"
+  },
+  "endpoint": "isolated loopback close-only TCP server; no real Redis",
+  "elapsedMs": 1513,
+  "connectionAttempts": 8,
+  "enqueueOutcome": "pending",
+  "maxRetriesPerRequest": null,
+  "enableOfflineQueue": true,
+  "actualRedisWrites": 0
+}

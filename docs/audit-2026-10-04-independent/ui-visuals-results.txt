@@ -1,0 +1,44 @@
+### Result
+[{"view":"assistant-new","width":390,"height":844,"theme":"light","composer":{"top":1335,"bottom":1379,"height":44,"withinViewport":false},"workspaceNavLinks":[],"docScrollWidth":390,"bodyScrollHeight":844},{"view":"assistant-active","width":390,"height":844,"theme":"light","composer":{"top":773,"bottom":817,"withinViewport":true},"docScrollWidth":390},{"view":"assistant-new","width":390,"height":844,"theme":"dark","composer":{"top":1335,"bottom":1379,"height":44,"withinViewport":false},"workspaceNavLinks":[],"docScrollWidth":390,"bodyScrollHeight":844},{"view":"assistant-active","width":390,"height":844,"theme":"dark","composer":{"top":773,"bottom":817,"withinViewport":true},"docScrollWidth":390},{"view":"assistant-new","width":768,"height":1024,"theme":"light","composer":{"top":953,"bottom":997,"height":44,"withinViewport":true},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":768,"bodyScrollHeight":1024},{"view":"assistant-active","width":768,"height":1024,"theme":"light","composer":{"top":953,"bottom":997,"withinViewport":true},"docScrollWidth":768},{"view":"assistant-new","width":768,"height":1024,"theme":"dark","composer":{"top":953,"bottom":997,"height":44,"withinViewport":true},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":768,"bodyScrollHeight":1024},{"view":"assistant-active","width":768,"height":1024,"theme":"dark","composer":{"top":953,"bottom":997,"withinViewport":true},"docScrollWidth":768},{"view":"assistant-new","width":1024,"height":900,"theme":"light","composer":{"top":945,"bottom":989,"height":44,"withinViewport":false},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":1024,"bodyScrollHeight":900},{"view":"assistant-active","width":1024,"height":900,"theme":"light","composer":{"top":829,"bottom":873,"withinViewport":true},"docScrollWidth":1024},{"view":"assistant-new","width":1024,"height":900,"theme":"dark","composer":{"top":945,"bottom":989,"height":44,"withinViewport":false},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":1024,"bodyScrollHeight":900},{"view":"assistant-active","width":1024,"height":900,"theme":"dark","composer":{"top":829,"bottom":873,"withinViewport":true},"docScrollWidth":1024},{"view":"assistant-new","width":1440,"height":900,"theme":"light","composer":{"top":871,"bottom":915,"height":44,"withinViewport":false},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":1440,"bodyScrollHeight":900},{"view":"assistant-active","width":1440,"height":900,"theme":"light","composer":{"top":829,"bottom":873,"withinViewport":true},"docScrollWidth":1440},{"view":"assistant-new","width":1440,"height":900,"theme":"dark","composer":{"top":871,"bottom":915,"height":44,"withinViewport":false},"workspaceNavLinks":["Dashboard","AI Assistant","Tasks","Notes","Documents","Flashcards"],"docScrollWidth":1440,"bodyScrollHeight":900},{"view":"assistant-active","width":1440,"height":900,"theme":"dark","composer":{"top":829,"bottom":873,"withinViewport":true},"docScrollWidth":1440}]
+### Ran Playwright code
+```js
+await (async page => {
+  const base='http://127.0.0.1:3107';
+  const dir='C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/docs/audit-2026-10-04-independent/screenshots';
+  const results=[];
+  await page.goto(base+'/audit');
+  await page.evaluate(()=>localStorage.clear());
+  for(const [width,height] of [[390,844],[768,1024],[1024,900],[1440,900]]) {
+    for(const theme of ['light','dark']) {
+      await page.setViewportSize({width,height});
+      await page.emulateMedia({colorScheme:theme});
+      await page.goto(base+'/sign-in');
+      await page.evaluate(theme=>{localStorage.setItem('campusforge-theme',theme);localStorage.setItem('campusforge:assistant:v1',JSON.stringify({conversations:[],activeId:null,settings:{theme,model:'gpt-4.1',autoSave:true}}))},theme);
+      await page.goto(base+'/audit');
+      await page.getByRole('heading',{name:'How can I help you, Audit today?'}).waitFor();
+      await page.waitForTimeout(550);
+      await page.screenshot({path:`${dir}/assistant-new-${width}-${theme}.png`,animations:'disabled'});
+      const metrics=await page.evaluate(()=>{
+        const el=document.querySelector('textarea');const r=el.getBoundingClientRect();
+        const visible=a=>{const x=a.getBoundingClientRect();return x.width>0&&x.height>0};
+        return {composer:{top:r.top,bottom:r.bottom,height:r.height,withinViewport:r.top>=0&&r.bottom<=innerHeight},workspaceNavLinks:[...document.querySelectorAll('a')].filter(visible).map(x=>x.textContent.trim()),docScrollWidth:document.documentElement.scrollWidth,bodyScrollHeight:document.body.scrollHeight,theme:document.documentElement.classList.contains('dark')?'dark':'light'};
+      });
+      results.push({view:'assistant-new',width,height,theme,...metrics});
+      await page.goto(base+'/sign-in');
+      await page.evaluate(()=>{const state=JSON.parse(localStorage.getItem('campusforge:assistant:v1'));state.conversations=[{id:'audit-conversation',title:'Audit fixture conversation',model:'gpt-4.1',createdAt:Date.now(),updatedAt:Date.now(),messages:[{id:'audit-user-message',role:'user',content:'Audit evidence fixture',createdAt:Date.now()},{id:'audit-assistant-message',role:'assistant',content:'This response is an audit fixture. The original assistant implementation is a local mock engine.',model:'gpt-4.1',createdAt:Date.now()}]}];state.activeId='audit-conversation';localStorage.setItem('campusforge:assistant:v1',JSON.stringify(state))});
+      await page.goto(base+'/audit');
+      await page.getByText('Audit evidence fixture',{exact:true}).waitFor();
+      await page.waitForTimeout(400);
+      await page.screenshot({path:`${dir}/assistant-active-${width}-${theme}.png`,animations:'disabled'});
+      results.push({view:'assistant-active',width,height,theme,...await page.evaluate(()=>{const r=document.querySelector('textarea').getBoundingClientRect();return {composer:{top:r.top,bottom:r.bottom,withinViewport:r.top>=0&&r.bottom<=innerHeight},docScrollWidth:document.documentElement.scrollWidth}})});
+    }
+  }
+  return results;
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3107/audit
+- Page Title: CampusForge
+### Events
+- New console entries: .playwright-cli\console-2026-10-04T17-47-24-126Z.log#L54-L86

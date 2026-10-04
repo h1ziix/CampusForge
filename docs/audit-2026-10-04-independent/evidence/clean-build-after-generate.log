@@ -1,0 +1,63 @@
+
+> campusforge@ build C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn
+> turbo build "--force"
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running build in 5 packages
+   • Remote caching disabled
+
+@campusforge/web:build: cache bypass, force executing c0922268a86567ba
+@campusforge/web:build: 
+@campusforge/web:build: > @campusforge/web@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn\apps\web
+@campusforge/web:build: > dotenv -e ../../.env -- next build
+@campusforge/web:build: 
+@campusforge/web:build:   ▲ Next.js 14.2.35
+@campusforge/web:build: 
+@campusforge/web:build:    Creating an optimized production build ...
+@campusforge/web:build:  ✓ Compiled successfully
+@campusforge/web:build:    Linting and checking validity of types ...
+@campusforge/web:build:    Collecting page data ...
+@campusforge/web:build:    Generating static pages (0/8) ...
+@campusforge/web:build:    Generating static pages (2/8) 
+@campusforge/web:build:    Generating static pages (4/8) 
+@campusforge/web:build:    Generating static pages (6/8) 
+@campusforge/web:build:  ✓ Generating static pages (8/8)
+@campusforge/web:build:    Finalizing page optimization ...
+@campusforge/web:build:    Collecting build traces ...
+@campusforge/web:build: 
+@campusforge/web:build: Route (app)                                         Size     First Load JS
+@campusforge/web:build: ┌ ○ /                                               180 B          96.2 kB
+@campusforge/web:build: ├ ○ /_not-found                                     872 B          88.2 kB
+@campusforge/web:build: ├ ƒ /api/auth/[...nextauth]                         0 B                0 B
+@campusforge/web:build: ├ ƒ /api/workspaces/[workspaceId]/documents/upload  0 B                0 B
+@campusforge/web:build: ├ ƒ /dashboard                                      146 B          87.5 kB
+@campusforge/web:build: ├ ƒ /onboarding                                     2.2 kB          101 kB
+@campusforge/web:build: ├ ○ /sign-in                                        2.28 kB         106 kB
+@campusforge/web:build: ├ ○ /sign-up                                        2.27 kB         106 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/assistant                      49.3 kB         173 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/dashboard                      180 B          96.2 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents                      183 B           135 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents/[documentId]         6.38 kB         124 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards                     178 B           107 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards/[flashcardSetId]    4.24 kB         108 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes                          180 B          96.2 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/[noteId]                 7.59 kB         125 kB
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/new                      2.53 kB         106 kB
+@campusforge/web:build: └ ƒ /w/[workspaceId]/tasks                          181 B           126 kB
+@campusforge/web:build: + First Load JS shared by all                       87.3 kB
+@campusforge/web:build:   ├ chunks/5b8f0dd8-2c4e61f65fdcf01b.js             53.6 kB
+@campusforge/web:build:   ├ chunks/749-0bce3ad1d7306fd6.js                  31.7 kB
+@campusforge/web:build:   └ other shared chunks (total)                     1.96 kB
+@campusforge/web:build: 
+@campusforge/web:build: 
+@campusforge/web:build: ƒ Middleware                                        77 kB
+@campusforge/web:build: 
+@campusforge/web:build: ○  (Static)   prerendered as static content
+@campusforge/web:build: ƒ  (Dynamic)  server-rendered on demand
+@campusforge/web:build: 
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    26.584s 
+

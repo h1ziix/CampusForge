@@ -1,0 +1,18 @@
+▲ Next.js 16.3.8
+- Local:         http://127.0.0.1:56826
+- Network:       http://127.0.0.1:56826
+✓ Ready in 183ms
+✓ Running next.config.mjs took 20ms
+[31m[auth][error][0m JWTSessionError: Read more at https://errors.authjs.dev#jwtsessionerror
+[31m[auth][cause][0m: dJ: Invalid Compact JWE
+    at fc (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:9:111700)
+    at fd (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:9:111876)
+    at Object.fs [as decode] (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:9:116754)
+    at jd (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:412:43760)
+    at jk (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:412:50502)
+    at async jm (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:412:55061)
+    at async jT (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:412:69658)
+    at async handler (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:412:76225)
+    at async C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:9:45327
+    at async bO (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\.next\server\src\middleware.js:9:41463)
+[31m[auth][details][0m: {}

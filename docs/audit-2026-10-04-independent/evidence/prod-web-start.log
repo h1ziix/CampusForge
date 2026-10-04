@@ -1,0 +1,9 @@
+
+> @campusforge/web@0.0.0 start C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn\apps\web
+> dotenv -e ../../.env -- next start
+
+'dotenv' is not recognized as an internal or external command,
+operable program or batch file.
+C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn\apps\web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @campusforge/web@0.0.0 start: `dotenv -e ../../.env -- next start`
+Exit status 1

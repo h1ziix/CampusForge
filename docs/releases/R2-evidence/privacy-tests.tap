@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: actual storage isolates user + workspace; only metadata persists for attachments
+ok 1 - actual storage isolates user + workspace; only metadata persists for attachments
+  ---
+  duration_ms: 98.586
+  type: 'test'
+  ...
+# Subtest: autosave false removes sensitive history and custom prompt while retaining preferences and in-memory state
+ok 2 - autosave false removes sensitive history and custom prompt while retaining preferences and in-memory state
+  ---
+  duration_ms: 20.4589
+  type: 'test'
+  ...
+# Subtest: ownerless legacy history is never loaded, corrupt data and storage failures are safe
+ok 3 - ownerless legacy history is never loaded, corrupt data and storage failures are safe
+  ---
+  duration_ms: 43.6472
+  type: 'test'
+  ...
+# Subtest: logout revokes both tabs and pending writes; removes only documented sensitive keys
+ok 4 - logout revokes both tabs and pending writes; removes only documented sensitive keys
+  ---
+  duration_ms: 31.708
+  type: 'test'
+  ...
+# Subtest: epoch fences content when removal fails, storage-only and BroadcastChannel-only logout work
+ok 5 - epoch fences content when removal fails, storage-only and BroadcastChannel-only logout work
+  ---
+  duration_ms: 57.3621
+  type: 'test'
+  ...
+# Subtest: BFCache restoration revokes memory and forces the trusted server boundary
+ok 6 - BFCache restoration revokes memory and forces the trusted server boundary
+  ---
+  duration_ms: 11.8055
+  type: 'test'
+  ...
+# Subtest: snapshot catches an epoch change between render and subscription even without an event
+ok 7 - snapshot catches an epoch change between render and subscription even without an event
+  ---
+  duration_ms: 16.1279
+  type: 'test'
+  ...
+# Subtest: actual assistant server entrance rejects malformed/foreign principals before returning identity (auth and membership mocked)
+ok 8 - actual assistant server entrance rejects malformed/foreign principals before returning identity (auth and membership mocked)
+  ---
+  duration_ms: 14.7686
+  type: 'test'
+  ...
+# Subtest: actual document entrance passes verified principal into the cache view (auth, membership and queries mocked)
+ok 9 - actual document entrance passes verified principal into the cache view (auth, membership and queries mocked)
+  ---
+  duration_ms: 5.6164
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 580.461

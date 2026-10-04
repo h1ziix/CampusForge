@@ -1,0 +1,9 @@
+{
+  "runtimeArtifactBuilder": "C:/Users/rausa/AppData/Local/Temp/campusforge-r1-clean-xU6zKr",
+  "filesCompared": 168,
+  "generatedDeclarationExcluded": "apps/web/next-env.d.ts",
+  "sourceVsRuntimeBuilderMismatch": [],
+  "currentWebWrapperMatchesShipped": true,
+  "currentWorkerWrapperMatchesShipped": true,
+  "note": "App/package source and configs match runtime builder. Generated Next declaration differs after build and is excluded. Root CI/docs/clean-copy verification script may differ."
+}

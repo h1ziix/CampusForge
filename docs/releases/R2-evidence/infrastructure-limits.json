@@ -1,0 +1,11 @@
+{
+  "existingDbUsed": false,
+  "nativeRedisCommandAvailable": false,
+  "commands": [
+    "docker info --format {{.ServerVersion}}",
+    "Get-Command redis-server -ErrorAction SilentlyContinue"
+  ],
+  "liveDbRedisAcceptance": "unverified",
+  "dockerAvailable": false,
+  "diagnostic": "DockerDesktopLinuxEngine named pipe absent; no native redis-server command in PATH"
+}

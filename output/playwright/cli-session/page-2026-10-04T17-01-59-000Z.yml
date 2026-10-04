@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: CampusForge
+        - navigation [ref=e6]:
+          - link [ref=e7] [cursor=pointer]:
+            - /url: /sign-in
+            - button "Sign In" [ref=e8]
+          - link [ref=e9] [cursor=pointer]:
+            - /url: /sign-up
+            - button "Get Started" [ref=e10]
+    - main [ref=e11]:
+      - heading "Your AI-powered academic workspace" [level=1] [ref=e12]: Your AI-poweredacademic workspace
+      - paragraph [ref=e13]: CampusForge helps students manage deadlines, collaborate in teams, study with AI, and prepare for careers - all in one place.
+      - link [ref=e15] [cursor=pointer]:
+        - /url: /sign-up
+        - button "Start for Free" [ref=e16]
+    - contentinfo [ref=e17]:
+      - generic [ref=e18]: CampusForge - Built for students who ship.
+  - alert [ref=e19]

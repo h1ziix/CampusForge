@@ -1,0 +1,58 @@
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +142
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 142, reused 0, downloaded 5, added 5
+Progress: resolved 142, reused 0, downloaded 15, added 5
+Progress: resolved 142, reused 0, downloaded 23, added 5
+Progress: resolved 142, reused 0, downloaded 30, added 8
+Progress: resolved 142, reused 0, downloaded 38, added 9
+Progress: resolved 142, reused 0, downloaded 42, added 9
+Progress: resolved 142, reused 0, downloaded 51, added 10
+Progress: resolved 142, reused 0, downloaded 62, added 13
+Progress: resolved 142, reused 0, downloaded 81, added 16
+Progress: resolved 142, reused 0, downloaded 92, added 17
+Progress: resolved 142, reused 0, downloaded 99, added 20
+Progress: resolved 142, reused 0, downloaded 108, added 20
+Progress: resolved 142, reused 0, downloaded 111, added 21
+Progress: resolved 142, reused 0, downloaded 112, added 21
+Progress: resolved 142, reused 0, downloaded 114, added 22
+Progress: resolved 142, reused 0, downloaded 116, added 22
+Progress: resolved 142, reused 0, downloaded 119, added 24
+Progress: resolved 142, reused 0, downloaded 121, added 24
+Progress: resolved 142, reused 0, downloaded 122, added 24
+Progress: resolved 142, reused 0, downloaded 123, added 24
+Progress: resolved 142, reused 0, downloaded 124, added 24
+Progress: resolved 142, reused 0, downloaded 126, added 25
+Progress: resolved 142, reused 0, downloaded 128, added 26
+Progress: resolved 142, reused 0, downloaded 130, added 26
+Progress: resolved 142, reused 0, downloaded 133, added 29
+Progress: resolved 142, reused 0, downloaded 133, added 44
+Progress: resolved 142, reused 0, downloaded 134, added 59
+Progress: resolved 142, reused 0, downloaded 135, added 74
+Progress: resolved 142, reused 0, downloaded 136, added 92
+Progress: resolved 142, reused 0, downloaded 137, added 109
+Progress: resolved 142, reused 0, downloaded 138, added 110
+Progress: resolved 142, reused 0, downloaded 138, added 120
+Progress: resolved 142, reused 0, downloaded 138, added 122
+Progress: resolved 142, reused 0, downloaded 138, added 124
+Progress: resolved 142, reused 0, downloaded 138, added 130
+Progress: resolved 142, reused 0, downloaded 138, added 131
+Progress: resolved 142, reused 0, downloaded 138, added 134
+Progress: resolved 142, reused 0, downloaded 138, added 135
+Progress: resolved 142, reused 0, downloaded 138, added 137
+Progress: resolved 142, reused 0, downloaded 138, added 138
+Progress: resolved 142, reused 0, downloaded 139, added 138
+Progress: resolved 142, reused 0, downloaded 139, added 139
+Progress: resolved 142, reused 0, downloaded 140, added 139
+Progress: resolved 142, reused 0, downloaded 141, added 139
+Progress: resolved 142, reused 0, downloaded 141, added 140
+Progress: resolved 142, reused 0, downloaded 141, added 141
+Progress: resolved 142, reused 0, downloaded 142, added 141
+Progress: resolved 142, reused 0, downloaded 142, added 142
+Progress: resolved 142, reused 0, downloaded 142, added 142, done
+
+devDependencies: skipped
+
+Done in 1m 25.5s using pnpm v10.33.0

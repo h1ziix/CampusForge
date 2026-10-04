@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /CampusForge production PDF probe/. Input:
+
+'CampusForge production PDF pr\n\n'
+
+    at file:///C:/Users/rausa/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/CampusForge/scripts/probe-release.mjs:87:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'CampusForge production PDF pr\n\n',
+  expected: /CampusForge production PDF probe/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

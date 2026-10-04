@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-04",
+  "boundary": "actual-source modules; isolated in-memory dependencies; no live login/DB/storage/provider",
+  "results": [
+    {
+      "name": "jwt-client-update",
+      "status": "PASS",
+      "details": {
+        "onboardingChangedWithoutDB": true,
+        "nameChangedWithoutDB": true,
+        "roleInjectionRejected": true,
+        "idInjectionRejected": true
+      }
+    },
+    {
+      "name": "bcrypt-72-byte-collision",
+      "status": "PASS",
+      "details": {
+        "saltRounds": 12,
+        "asciiDifferentSuffixAuthenticates": true,
+        "unicodeDifferentSuffixAuthenticates": true,
+        "schemaAllowed": true
+      }
+    },
+    {
+      "name": "credentials-no-application-throttle",
+      "status": "PASS",
+      "details": {
+        "attempts": 12,
+        "databaseLookups": 12,
+        "bcryptCompares": 12,
+        "noThrottleInAuthorize": true
+      }
+    },
+    {
+      "name": "signup-no-application-throttle-and-enumeration",
+      "status": "PASS",
+      "details": {
+        "mockedNewEmails": 12,
+        "hashes": 12,
+        "transactions": 12,
+        "existingEmailHasDistinctError": true
+      }
+    },
+    {
+      "name": "assistant-storage-isolation-and-logout",
+      "status": "PASS",
+      "details": {
+        "keys": [
+          "campusforge:assistant:v1"
+        ],
+        "otherPrincipalLoadsPriorContent": true,
+        "logoutRetainsContent": true
+      }
+    },
+    {
+      "name": "sign-in-callback-url-sink",
+      "status": "PASS",
+      "details": {
+        "javascriptPassedToRouterPush": true,
+        "crossOriginPassedToRouterPush": true,
+        "successLoginMocked": true
+      }
+    },
+    {
+      "name": "markdown-url-schemes-vs-react-escaping",
+      "status": "PASS",
+      "details": {
+        "javascriptHrefRendered": true,
+        "dataHrefRendered": true,
+        "rawHtmlEscaped": true,
+        "clickExecutionNotTested": true
+      }
+    },
+    {
+      "name": "authorization-matrix",
+      "status": "PASS",
+      "details": {
+        "anonRejected": true,
+        "nonmemberRejected": true,
+        "matrix": [
+          {
+            "name": "task-update",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          },
+          {
+            "name": "note-update",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          },
+          {
+            "name": "document-delete",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          },
+          {
+            "name": "flashcard-delete",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          },
+          {
+            "name": "summary-generate",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          },
+          {
+            "name": "flashcard-generate",
+            "foreignObjectUnderOwnWorkspace": "rejected",
+            "foreignWorkspace": "rejected"
+          }
+        ],
+        "dbWrites": 0,
+        "s3Deletes": 0,
+        "aiEnqueues": 0
+      }
+    }
+  ]
+}

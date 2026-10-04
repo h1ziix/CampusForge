@@ -1,0 +1,46 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build outputs
+dist/
+.next/
+out/
+
+# turbo
+.turbo/
+
+# environment
+.env
+.env.local
+.env.*.local
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# os
+.DS_Store
+Thumbs.db
+
+# prisma
+packages/db/generated/
+
+# debug
+npm-debug.log*
+pnpm-debug.log*
+
+# testing
+coverage/
+test-results/
+playwright-report/
+
+# misc
+*.tsbuildinfo
+
+# R1 generated runtime artifacts and isolated browser fixture
+packages/db/generated/
+.r1-runtime-fixture/
+release/

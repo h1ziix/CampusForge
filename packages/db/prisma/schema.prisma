@@ -1,0 +1,358 @@
+// CampusForge Database Schema
+// All domain entities for the platform.
+// This schema is deployed in full from day one.
+// Tables are queried incrementally as features are built.
+
+// Explicit runtime artifact survives a fresh production-only install.
+generator runtimeClient {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── AUTH + USER ────────────────────────────────────────────
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  name                String?
+  passwordHash        String?
+  image               String?
+  role                UserRole  @default(STUDENT)
+  university          String?
+  major               String?
+  graduationYear      Int?
+  onboardingCompleted Boolean   @default(false)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  memberships     Membership[]
+  ownedWorkspaces Workspace[]      @relation("WorkspaceOwner")
+  assignedTasks   Task[]           @relation("TaskAssignee")
+  resumeReviews   ResumeReview[]
+  analyticsEvents AnalyticsEvent[]
+}
+
+enum UserRole {
+  STUDENT
+  ADMIN
+}
+
+// NextAuth.js required models ─────────────────────────────────
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── WORKSPACES ─────────────────────────────────────────────
+
+model Workspace {
+  id        String        @id @default(cuid())
+  name      String
+  type      WorkspaceType
+  ownerId   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  owner           User             @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  memberships     Membership[]
+  tasks           Task[]
+  notes           Note[]
+  documents       Document[]
+  flashcardSets   FlashcardSet[]
+  quizzes         Quiz[]
+  researchPapers  ResearchPaper[]
+  analyticsEvents AnalyticsEvent[]
+
+  @@index([ownerId])
+}
+
+enum WorkspaceType {
+  PERSONAL
+  TEAM
+  RESEARCH
+}
+
+model Membership {
+  id          String         @id @default(cuid())
+  userId      String
+  workspaceId String
+  role        MembershipRole @default(MEMBER)
+  createdAt   DateTime       @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+  @@index([workspaceId])
+}
+
+enum MembershipRole {
+  OWNER
+  MEMBER
+}
+
+// ─── TASKS ──────────────────────────────────────────────────
+
+model Task {
+  id          String       @id @default(cuid())
+  workspaceId String
+  title       String
+  description String?      @db.Text
+  priority    TaskPriority @default(MEDIUM)
+  status      TaskStatus   @default(TODO)
+  dueDate     DateTime?
+  assigneeId  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  assignee  User?     @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, status])
+  @@index([assigneeId])
+  @@index([dueDate])
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+// ─── NOTES ──────────────────────────────────────────────────
+
+model Note {
+  id          String     @id @default(cuid())
+  workspaceId String
+  title       String
+  content     String     @db.Text
+  sourceType  NoteSource @default(MANUAL)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+enum NoteSource {
+  MANUAL
+  AI_GENERATED
+  IMPORTED
+}
+
+// ─── DOCUMENTS ──────────────────────────────────────────────
+
+model Document {
+  id               String           @id @default(cuid())
+  workspaceId      String
+  filename         String
+  mimeType         String
+  sizeBytes        Int
+  storageKey       String
+  parsedText       String?          @db.Text
+  summaryJson      Json?            // Structured summary: { title, tldr, sections[], keyTerms[] }
+  processingStatus ProcessingStatus @default(PENDING)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  flashcardSets FlashcardSet[]
+  quizzes       Quiz[]
+  aiJobs        AIJob[]
+
+  @@index([workspaceId])
+  @@index([processingStatus])
+}
+
+enum ProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// ─── AI STUDY FEATURES ──────────────────────────────────────
+
+model FlashcardSet {
+  id               String   @id @default(cuid())
+  workspaceId      String
+  title            String
+  sourceDocumentId String?
+  cardsJson        Json     // Array of { front: string, back: string }
+  cardCount        Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  workspace      Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  sourceDocument Document? @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+}
+
+model Quiz {
+  id               String         @id @default(cuid())
+  workspaceId      String
+  title            String
+  sourceDocumentId String?
+  difficulty       QuizDifficulty @default(MEDIUM)
+  questionsJson    Json           // Array of { question, options[], correctIndex, explanation }
+  questionCount    Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  workspace      Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  sourceDocument Document? @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+}
+
+enum QuizDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// ─── RESEARCH ───────────────────────────────────────────────
+
+model ResearchPaper {
+  id          String   @id @default(cuid())
+  workspaceId String
+  title       String
+  authors     String[]
+  year        Int?
+  abstract    String?  @db.Text
+  sourceUrl   String?
+  documentId  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+// ─── CAREER ─────────────────────────────────────────────────
+
+model ResumeReview {
+  id          String   @id @default(cuid())
+  userId      String
+  documentId  String?
+  score       Int?
+  strengths   Json     // string[]
+  weaknesses  Json     // string[]
+  suggestions Json     // string[]
+  rawOutput   Json?
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── AI JOBS ────────────────────────────────────────────────
+
+model AIJob {
+  id            String    @id @default(cuid())
+  type          AIJobType
+  status        JobStatus @default(PENDING)
+  documentId    String?
+  workspaceId   String?
+  userId        String?
+  inputJson     Json?
+  outputJson    Json?
+  tokenUsage    Int?
+  estimatedCost Float?
+  latencyMs     Int?
+  errorMessage  String?   @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  document Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+
+  @@index([type, status])
+  @@index([createdAt])
+  @@index([userId])
+}
+
+enum AIJobType {
+  DOCUMENT_PARSE
+  SUMMARY
+  FLASHCARD
+  QUIZ
+  RESEARCH_SUMMARY
+  RESEARCH_COMPARE
+  RESUME_REVIEW
+  EXPLANATION
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// ─── ANALYTICS ──────────────────────────────────────────────
+
+model AnalyticsEvent {
+  id             String   @id @default(cuid())
+  userId         String?
+  workspaceId    String?
+  eventName      String
+  propertiesJson Json?
+  createdAt      DateTime @default(now())
+
+  user      User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+
+  @@index([eventName, createdAt])
+  @@index([userId, createdAt])
+}

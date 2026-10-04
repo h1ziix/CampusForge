@@ -1,0 +1,160 @@
+
+> campusforge@ build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr
+> node scripts/build.mjs "--force"
+
+
+> campusforge@ db:generate C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr
+> pnpm --filter @campusforge/db db:generate
+
+
+> @campusforge/db@0.0.0 db:generate C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\db
+> prisma generate
+
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v5.22.0) to .\generated\client in 160ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running build in 5 packages
+   • Remote caching disabled
+
+@campusforge/db:build: cache bypass, force executing 4829754695e4968a
+@campusforge/shared:build: cache bypass, force executing af23ea8390579b00
+@campusforge/db:build: 
+@campusforge/db:build: > @campusforge/db@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\db
+@campusforge/db:build: > tsc -p tsconfig.build.json
+@campusforge/db:build: 
+@campusforge/shared:build: 
+@campusforge/shared:build: > @campusforge/shared@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\shared
+@campusforge/shared:build: > tsc -p tsconfig.build.json
+@campusforge/shared:build: 
+@campusforge/web:build: cache bypass, force executing 86fb95e7fb810d85
+@campusforge/ai:build: cache bypass, force executing 3ad39fcc4f57fa50
+@campusforge/web:build: 
+@campusforge/web:build: > @campusforge/web@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\apps\web
+@campusforge/web:build: > next build --webpack
+@campusforge/web:build: 
+@campusforge/ai:build: 
+@campusforge/ai:build: > @campusforge/ai@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\ai
+@campusforge/ai:build: > tsc -p tsconfig.build.json
+@campusforge/ai:build: 
+@campusforge/web:build: ▲ Next.js 16.3.8 (webpack)
+@campusforge/web:build: ✓ Running next.config.mjs took 30ms
+@campusforge/web:build: ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+@campusforge/web:build: 
+@campusforge/web:build: ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+@campusforge/web:build: 
+@campusforge/web:build:   To migrate automatically, run:
+@campusforge/web:build:   npx @next/codemod@canary middleware-to-proxy .
+@campusforge/web:build: 
+@campusforge/web:build:   Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+@campusforge/web:build:   Creating an optimized production build ...
+@campusforge/worker:build: cache bypass, force executing ba976a855597bbc5
+@campusforge/worker:build: 
+@campusforge/worker:build: > @campusforge/worker@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\apps\worker
+@campusforge/worker:build: > tsc -p tsconfig.build.json
+@campusforge/worker:build: 
+@campusforge/web:build: ⚠ Compiled with warnings in 2.1s
+@campusforge/web:build: 
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+@campusforge/web:build: A Node.js API is used (process.cwd at line: 1044) which is not supported in the Edge Runtime.
+@campusforge/web:build: Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+@campusforge/web:build: 
+@campusforge/web:build: Import trace for requested module:
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/request/connection.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/web/exports/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/api/server.js
+@campusforge/web:build: 
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+@campusforge/web:build: A Node.js API is used (process.cwd at line: 1044) which is not supported in the Edge Runtime.
+@campusforge/web:build: Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+@campusforge/web:build: 
+@campusforge/web:build: Import trace for requested module:
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/request/connection.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/server/web/exports/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/next@16.3.8_@playwright+tes_cd3a64d805841d5b87a8badd703af1ed/node_modules/next/dist/esm/api/server.js
+@campusforge/web:build: 
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/deflate.js
+@campusforge/web:build: A Node.js API is used (CompressionStream at line: 31) which is not supported in the Edge Runtime.
+@campusforge/web:build: Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+@campusforge/web:build: 
+@campusforge/web:build: Import trace for requested module:
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/deflate.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/jwe_decrypt.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/jwt/decrypt.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/jwt.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/lib/init.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/lib/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/next-auth@5.0.0-beta.32_nex_802f9b66f986dc81a53d09345fc28904/node_modules/next-auth/index.js
+@campusforge/web:build: 
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/deflate.js
+@campusforge/web:build: A Node.js API is used (DecompressionStream at line: 34) which is not supported in the Edge Runtime.
+@campusforge/web:build: Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+@campusforge/web:build: 
+@campusforge/web:build: Import trace for requested module:
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/deflate.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/lib/jwe_decrypt.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/jwt/decrypt.js
+@campusforge/web:build: ../../node_modules/.pnpm/jose@6.2.12/node_modules/jose/dist/webapi/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/jwt.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/lib/init.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/lib/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/@auth+core@0.41.3/node_modules/@auth/core/index.js
+@campusforge/web:build: ../../node_modules/.pnpm/next-auth@5.0.0-beta.32_nex_802f9b66f986dc81a53d09345fc28904/node_modules/next-auth/index.js
+@campusforge/web:build: 
+@campusforge/web:build: ✓ Compiled successfully in 23.4s
+@campusforge/web:build:   Running TypeScript ...
+@campusforge/web:build:   Finished TypeScript in 6.2s ...
+@campusforge/web:build:   Collecting page data using 11 workers ...
+@campusforge/web:build:   Generating static pages using 11 workers (0/7) ...
+@campusforge/web:build:   Generating static pages using 11 workers (1/7) 
+@campusforge/web:build:   Generating static pages using 11 workers (3/7) 
+@campusforge/web:build:   Generating static pages using 11 workers (5/7) 
+@campusforge/web:build: ✓ Generating static pages using 11 workers (7/7) in 1195ms
+@campusforge/web:build:   Finalizing page optimization ...
+@campusforge/web:build:   Collecting build traces ...
+@campusforge/web:build: 
+@campusforge/web:build: Route (app)
+@campusforge/web:build: ┌ ○ /
+@campusforge/web:build: ├ ○ /_not-found
+@campusforge/web:build: ├ ƒ /api/auth/[...nextauth]
+@campusforge/web:build: ├ ƒ /api/workspaces/[workspaceId]/documents/upload
+@campusforge/web:build: ├ ƒ /dashboard
+@campusforge/web:build: ├ ƒ /onboarding
+@campusforge/web:build: ├ ○ /sign-in
+@campusforge/web:build: ├ ○ /sign-up
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/assistant
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/dashboard
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents/[documentId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards/[flashcardSetId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/[noteId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/new
+@campusforge/web:build: └ ƒ /w/[workspaceId]/tasks
+@campusforge/web:build: 
+@campusforge/web:build: 
+@campusforge/web:build: ƒ Proxy (Middleware)
+@campusforge/web:build: 
+@campusforge/web:build: ○  (Static)   prerendered as static content
+@campusforge/web:build: ƒ  (Dynamic)  server-rendered on demand
+@campusforge/web:build: 
+
+ Tasks:    5 successful, 5 total
+Cached:    0 cached, 5 total
+  Time:    56.649s 
+
+(node:5368) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/rausa/AppData/Local/Temp/campusforge-r1-clean-xU6zKr/packages/shared/src/env.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\shared\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

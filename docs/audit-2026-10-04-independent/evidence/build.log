@@ -1,0 +1,48 @@
+
+> campusforge@ build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> turbo build "--force"
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running build in 5 packages
+   • Remote caching disabled
+
+@campusforge/web:build: cache bypass, force executing bb978dbc46e64c06
+@campusforge/web:build: 
+@campusforge/web:build: > @campusforge/web@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web
+@campusforge/web:build: > dotenv -e ../../.env -- next build
+@campusforge/web:build: 
+@campusforge/web:build: Attention: Next.js now collects completely anonymous telemetry regarding usage.
+@campusforge/web:build: This information is used to shape Next.js' roadmap and prioritize features.
+@campusforge/web:build: You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+@campusforge/web:build: https://nextjs.org/telemetry
+@campusforge/web:build: 
+@campusforge/web:build:   ▲ Next.js 14.2.35
+@campusforge/web:build: 
+@campusforge/web:build:    Creating an optimized production build ...
+@campusforge/web:build:  ✓ Compiled successfully
+@campusforge/web:build:    Linting and checking validity of types ...
+@campusforge/web:build: Failed to compile.
+@campusforge/web:build: 
+@campusforge/web:build: ./src/components/auth/sign-in-form.tsx:27:21
+@campusforge/web:build: Type error: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+@campusforge/web:build:   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+@campusforge/web:build: 
+@campusforge/web:build: [0m [90m 25 |[39m     [36mconst[39m formData [33m=[39m [36mnew[39m [33mFormData[39m(e[33m.[39mcurrentTarget)[33m;[39m[0m
+@campusforge/web:build: [0m [90m 26 |[39m[0m
+@campusforge/web:build: [0m[31m[1m>[22m[39m[90m 27 |[39m     startTransition([36masync[39m () [33m=>[39m {[0m
+@campusforge/web:build: [0m [90m    |[39m                     [31m[1m^[22m[39m[0m
+@campusforge/web:build: [0m [90m 28 |[39m       [36mconst[39m result [33m=[39m [36mawait[39m signInAction(formData)[33m;[39m[0m
+@campusforge/web:build: [0m [90m 29 |[39m[0m
+@campusforge/web:build: [0m [90m 30 |[39m       [36mif[39m ([33m![39mresult[33m.[39msuccess) {[0m
+@campusforge/web:build: Next.js build worker exited with code: 1 and signal: null
+@campusforge/web:build:  ELIFECYCLE  Command failed with exit code 1.
+
+ Tasks:    0 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    14.885s 
+Failed:    @campusforge/web#build
+
+ ERROR  @campusforge/web#build: command (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web) C:\Users\rausa\AppData\Roaming\npm\pnpm.cmd run build exited (1)
+ ERROR  run failed: command  exited (1)
+ ELIFECYCLE  Command failed with exit code 1.

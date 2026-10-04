@@ -1,0 +1,766 @@
+[
+  {
+    "id": "GHSA-pxg6-pf52-xh8x",
+    "url": "https://github.com/jshttp/cookie/security/advisories/GHSA-pxg6-pf52-xh8x",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:03.206Z",
+    "title": "Cookie name, path, and domain accept out of bounds characters · Advisory · jshttp/cookie · GitHub",
+    "contentSHA256": "4d76a1ffe1454b5bfac3c3eade0081806ce0cbde64dae989cf811e735925a2d3",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=0.7.0",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-5jpx-9hw9-2fx4",
+    "url": "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-5jpx-9hw9-2fx4",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:03.508Z",
+    "title": "NextAuthjs Email misdelivery Vulnerability · Advisory · nextauthjs/next-auth · GitHub",
+    "contentSHA256": "be361f6705a02a308b44cffb2efba8393de1ed8afd8b05b10a3fa219c1efc902",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.0.0-beta.30",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-9g9p-9gw9-jx7f",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-9g9p-9gw9-jx7f",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:03.407Z",
+    "title": "Denial of Service in Image Optimizer · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "c997d6201304bbac884b5c208b203f2b67192f197c1fd5a1ba7b3be0332dc883",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.10",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-h25m-26qc-wcjf",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:04.448Z",
+    "title": "Denial of Service with Server Components · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "11a96a42eb4ec2d7f9c1992947773aa35ec355f0618219b909552adade3228b5",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.0.8",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-ggv3-7p47-pfv8",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-ggv3-7p47-pfv8",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:03.410Z",
+    "title": "HTTP request smuggling in rewrites · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "c10d031b7a7b8835a07ca2f80b0288f0caf8a993d609bc7e799d990f04ad8e0b",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.13",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-3x4c-7xq6-9pq8",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:03.170Z",
+    "title": "Unbounded next/image disk cache growth can exhaust storage · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "e0f1508fb799e95b2b39c6f55dd968eba06299aab674d9d6d144e3a3c2c7b137",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.14",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-q4gf-8mx6-v5v3",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.188Z",
+    "title": "Denial of Service with Server Components · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "d8ec7302b9a4ff062b5d21f08e6d4d3c9335fc5c671b1f90ad10f3a0c60041e5",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.15",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-qx2v-qp2m-jg93",
+    "url": "https://github.com/postcss/postcss/security/advisories/GHSA-qx2v-qp2m-jg93",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.062Z",
+    "title": "XSS via Unescaped &lt;/style&gt; in CSS Stringify Output · Advisory · postcss/postcss · GitHub",
+    "contentSHA256": "2529d6053e9af1743a3ee077015f360b3090445f5f996a097ca1d016c00ad8fe",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=8.5.10",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-gh4j-gqv2-49f6",
+    "url": "https://github.com/NaturalIntelligence/fast-xml-parser/security/advisories/GHSA-gh4j-gqv2-49f6",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.088Z",
+    "title": "XML Comment and CDATA Injection via Unescaped Delimiters in XMLBuilder · Advisory · NaturalIntelligence/fast-xml-parser · GitHub",
+    "contentSHA256": "8112656e161cb5134fc28b3086f27b9ac85dcc514d1b84736cd22a5ea9ccfb65",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.7.0",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-8h8q-6873-q5fj",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-8h8q-6873-q5fj",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.070Z",
+    "title": "Denial of Service with Server Components · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "febc57a432e656beabc52416e601045befda2ac381298aec78c94f58100f75c8",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-3g8h-86w9-wvmq",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-3g8h-86w9-wvmq",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.273Z",
+    "title": "Middleware / Proxy redirects can be cache-poisoned · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "05036be8ba2d5e4c9b5d0acef3868bf26b6e33d3d37745ba33da8228fddfff3d",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-ffhc-5mcf-pf4q",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-ffhc-5mcf-pf4q",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.215Z",
+    "title": "Cross-site scripting in App Router applications using CSP nonces · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "3f301779066dc9f76f926c1e699ec29c17ccbf4abbd07ac3c3bea190ea34b7c5",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-vfv6-92ff-j949",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-vfv6-92ff-j949",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.845Z",
+    "title": "Cache poisoning via collisions in React Server Component cache-busting · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "ea594e40cb8b6400a13ce0ab1a48aa7182ba8d7a513208b23df4f53c5f373603",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-gx5p-jg67-6x7h",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-gx5p-jg67-6x7h",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.763Z",
+    "title": "Cross-site scripting in beforeInteractive scripts with untrusted input · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "8089958e2cf8899fe9239249b2ee04716c482200b317cc08c88f5fd5d6520943",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-h64f-5h5j-jqjh",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-h64f-5h5j-jqjh",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.890Z",
+    "title": "Denial of Service in the Image Optimization API · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "4cb56d7946e691f2ad64f464a963575e22d4cf487e49e5511ebe442c9e9a0f06",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-c4j6-fc7j-m34r",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-c4j6-fc7j-m34r",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.838Z",
+    "title": "Server-side request forgery in applications using WebSocket upgrades · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "0fd79c78ce5460cb4b44e1116535d5c08d9570f70a62d597e622f34fbefeea56",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-wfc6-r584-vfw7",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-wfc6-r584-vfw7",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.868Z",
+    "title": "Cache poisoning in React Server Component responses · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "07479abed9a93b4ebd74960a7228d80188a0f550a970423c50eadbcb3176d47c",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-36qx-fr4f-26g5",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-36qx-fr4f-26g5",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:05.866Z",
+    "title": "Middleware / Proxy bypass in Pages Router applications using i18n · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "a15779abcf9a984397a9f38d2fdffdc84d5ea07680b28bd8730c2c71b147e34d",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.16",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-5wm8-gmm8-39j9",
+    "url": "https://github.com/NaturalIntelligence/fast-xml-builder/security/advisories/GHSA-5wm8-gmm8-39j9",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.429Z",
+    "title": "Attribute values with unwanted quotes can bypass malicious or unwanted attributes · Advisory · NaturalIntelligence/fast-xml-builder · GitHub",
+    "contentSHA256": "8cbd2cf470717ba4c1c9a6a7df978917b67a19fb882fbd51e0daee46ffa376b1",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=1.1.7",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-3qcw-2rhx-2726",
+    "url": "https://github.com/vercel/turborepo/security/advisories/GHSA-3qcw-2rhx-2726",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.472Z",
+    "title": "Unexpected local code execution during Yarn Berry detection · Advisory · vercel/turborepo · GitHub",
+    "contentSHA256": "fe981de18dd5b2b80b36bafc73c61e6642787029b9e4306605ebc37a6c7e8348",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=2.9.14",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-w5hq-g745-h8pq",
+    "url": "https://github.com/uuidjs/uuid/security/advisories/GHSA-w5hq-g745-h8pq",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.501Z",
+    "title": "Missing buffer bounds check in `v3()`/`v5()`/`v6()` methods when `buf` is provided · Advisory · uuidjs/uuid · GitHub",
+    "contentSHA256": "f139426e9a71d4c079ee83eef23f751824535e8eade49bf0789dd2595553d4b4",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=11.1.1",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-g7r4-m6w7-qqqr",
+    "url": "https://github.com/evanw/esbuild/security/advisories/GHSA-g7r4-m6w7-qqqr",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.364Z",
+    "title": "Arbitrary file read when running the development server on Windows · Advisory · evanw/esbuild · GitHub",
+    "contentSHA256": "f5b80edc509ef060b083c2a14324746b9506562e2c17f54f829cc39131935372",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=0.28.1",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-hcf7-66rw-9f5r",
+    "url": "https://github.com/vercel/turborepo/security/advisories/GHSA-hcf7-66rw-9f5r",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.464Z",
+    "title": "Login callback CSRF/session fixation · Advisory · vercel/turborepo · GitHub",
+    "contentSHA256": "270b567fe031a8da1e3e7a982a1e8d0c3f4306455ac8ec0750496d3ab4a587b1",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=2.9.14",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-m99w-x7hq-7vfj",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:06.710Z",
+    "title": "Denial of Service in App Router using Server Actions · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "7faf838d30ee50116d70eb4f710244bdefaa06672cea5cfccc458c11cf01cebf",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-89xv-2m56-2m9x",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.244Z",
+    "title": "Server-Side Request Forgery in Server Actions on custom servers · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "03d1869d8e324969f694cec4f675fbbdf24c06e40e33b1b5a58c487ce725df31",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-68g3-v927-f742",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.172Z",
+    "title": "Cache confusion of response bodies for requests with bodies · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "1f7b2309257fb3c77f513f24067383ddee5c03003ffb8276131175d8e994c9ab",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-4633-3j49-mh5q",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.323Z",
+    "title": "Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "c175c0ad8da90b57c1c3f573982b3d1763d5b11d0e7a3af95cab12153151de9d",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-4c39-4ccg-62r3",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.494Z",
+    "title": "Unbounded Server Action payload in Edge runtime · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "5e39fffe219eb5d5a105f46cbe8aa98007d39516bf4aa7853730b0f685cadd3d",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-p9j2-gv94-2wf4",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.320Z",
+    "title": "Server-Side Request Forgery in rewrites via attacker-controlled destination hostname · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "a864498a8c9162f0498239f3e154adad4a159437c7854b6ac074e94b33a533ea",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-955p-x3mx-jcvp",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.340Z",
+    "title": "Unauthenticated disclosure of internal Server Function endpoints · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "57e1a4e487059d4c3e2f225f4c8ea66025ce42d8f5f954225f89801cb3c893a9",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.21",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-6g55-p6wh-862q",
+    "url": "https://github.com/postcss/postcss/security/advisories/GHSA-6g55-p6wh-862q",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.406Z",
+    "title": "Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments · Advisory · postcss/postcss · GitHub",
+    "contentSHA256": "78b148cbcce3233021c415dcefa81c36d33c9c29c444811c1d7e1ce87b22b09c",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=8.5.12",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-fxqj-rqcc-2cmp",
+    "url": "https://github.com/postcss/postcss/security/advisories/GHSA-fxqj-rqcc-2cmp",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.067Z",
+    "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset · Advisory · postcss/postcss · GitHub",
+    "contentSHA256": "1399a9e3ac184803d4a95e6aa3a5cfae21bdcdfaad742a23f3185d450256e631",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=8.5.23",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-28wg-ghj8-5hjv",
+    "url": "https://github.com/ai/nanoid/commit/e835c9b71eab832bc6106944bdd26ea96cf2c66d",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.021Z",
+    "title": "fix(non-secure): clamp negative size to prevent infinite loop (#601) · ai/nanoid@e835c9b · GitHub",
+    "contentSHA256": "ea3802278549fa17364691d5cb12edd5d7f4c4ee5f4c0241d2de23deed314190",
+    "containsGHSA": false,
+    "patchedVersionMentions": [
+      {
+        "range": ">=3.3.16",
+        "versionMentioned": false
+      }
+    ],
+    "sourceType": "publisher commit/issue"
+  },
+  {
+    "id": "GHSA-8fpg-xm3f-6cx3",
+    "url": "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-8fpg-xm3f-6cx3",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.121Z",
+    "title": "Configuration errors can cause existence-based auth checks to fail open (auth object populated with an error) · Advisory · nextauthjs/next-auth · GitHub",
+    "contentSHA256": "dd74e9e7fad25d9b5614f4b08160b704c538354480294c79b8fa73dfec7f5749",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.0.0-beta.32",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-7rqj-j65f-68wh",
+    "url": "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-7rqj-j65f-68wh",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.002Z",
+    "title": "Email normalizer validates the address before Unicode normalization, allowing a homoglyph @ bypass · Advisory · nextauthjs/next-auth · GitHub",
+    "contentSHA256": "4e4698ed61a1ee666292e043bf3f9e85653fad2b128cce212081dd518a530b70",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.0.0-beta.32",
+        "versionMentioned": true
+      },
+      {
+        "range": ">=0.41.3",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-2v37-7h3g-55p8",
+    "url": "https://github.com/ai/nanoid/commit/e10f8d40ce9d1ab47f66d65a16b48086432730d0",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:07.977Z",
+    "title": "Update index.native.js (#606) · ai/nanoid@e10f8d4 · GitHub",
+    "contentSHA256": "5d117a31175690a64b107d20fc6559a370ccec0344f35b5dbce6fb1cd857d1d7",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=3.3.18",
+        "versionMentioned": false
+      }
+    ],
+    "sourceType": "publisher commit/issue"
+  },
+  {
+    "id": "GHSA-r28c-9q8g-f849",
+    "url": "https://github.com/postcss/postcss/security/advisories/GHSA-r28c-9q8g-f849",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.087Z",
+    "title": "Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure · Advisory · postcss/postcss · GitHub",
+    "contentSHA256": "1cc6f35652a95187fd2b52bf70bba5cfc4632bc221c6f554dd51e1de9b26c0f9",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=8.5.18",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-xmf8-cvqr-rfgj",
+    "url": "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-xmf8-cvqr-rfgj",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.041Z",
+    "title": "getToken() throws an uncaught exception on malformed Bearer authorization headers · Advisory · nextauthjs/next-auth · GitHub",
+    "contentSHA256": "38845033f3952aaae5dd3347048d525021d349fa0e8cb79f7ce88df4ac58551d",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.0.0-beta.32",
+        "versionMentioned": true
+      },
+      {
+        "range": ">=0.41.3",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-x445-f3h2-j279",
+    "url": "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-x445-f3h2-j279",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.054Z",
+    "title": "OAuth state, nonce, and PKCE check cookies are not bound to the provider that created them · Advisory · nextauthjs/next-auth · GitHub",
+    "contentSHA256": "b78958c7a5c9fb917a52868b0d95ece1c1aaa2acb0db1b9e3a1af62ef2d71676",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=5.0.0-beta.32",
+        "versionMentioned": true
+      },
+      {
+        "range": ">=0.41.3",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-w9m9-85wc-3x92",
+    "url": "https://github.com/postcss/postcss-selector-parser/commit/5bc698cef66f8abd12610dc623e5d67cbc0f869d",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.912Z",
+    "title": "Improve fix CVE-2026-9358 (NVD) / SNYK-JS-POSTCSSSELECTORPARSER-16873… · postcss/postcss-selector-parser@5bc698c · GitHub",
+    "contentSHA256": "ae44ef4c88a498b42b8622d97c962b6e74b40f73b1ec409d248e39ebf78f5d12",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=6.1.3",
+        "versionMentioned": false
+      }
+    ],
+    "sourceType": "publisher commit/issue"
+  },
+  {
+    "id": "GHSA-c83g-rgw3-j3cx",
+    "url": "https://github.com/browserslist/browserslist/security/advisories/GHSA-c83g-rgw3-j3cx",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:08.933Z",
+    "title": "Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM · Advisory · browserslist/browserslist · GitHub",
+    "contentSHA256": "a8233196d2e391c47a259405d236810e0ee31a90abba09eff71b0f5b07c9e5fe",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=4.28.7",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-73wf-gq98-2v4g",
+    "url": "https://github.com/browserslist/browserslist/security/advisories/GHSA-73wf-gq98-2v4g",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.174Z",
+    "title": "Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) · Advisory · browserslist/browserslist · GitHub",
+    "contentSHA256": "fe8552dccb016c0b16fafdd8c5b6d0e94e872ce9ee9e188e1ea713d4fe1ea47c",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=4.28.7",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-xwg4-73v4-xw9w",
+    "url": "https://github.com/ai/nanoid/security/advisories/GHSA-xwg4-73v4-xw9w",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.817Z",
+    "title": "Integer Overflow or Wraparound in nanoid · Advisory · ai/nanoid · GitHub",
+    "contentSHA256": "8b16322dc07a59d6fcb716c7b0183f7c9e2f0310944158eecc75378d2f269151",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=3.3.12",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-p293-qw3h-jr36",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-p293-qw3h-jr36",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.705Z",
+    "title": "Unauthenticated Remote Code Execution on windows-hosted servers · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "9f8f9bf871db5d116ba101772cf3d9f7cdb1d01cfd9ff5566402c77537efa5ee",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.24",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-w5vr-8v7q-w6rv",
+    "url": "https://github.com/web-platform-dx/baseline-browser-mapping/commit/de733e2d8959559f7bb255d5927f3afcb6f31589",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.701Z",
+    "title": "feat: add getTimeline() and refactor data compression (#137) · web-platform-dx/baseline-browser-mapping@de733e2 · GitHub",
+    "contentSHA256": "c9cd673913d72f4cbaa247c43703a6379148a6ca4619660e2368e2e0d46b5748",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=2.11.0",
+        "versionMentioned": false
+      }
+    ],
+    "sourceType": "publisher commit/issue"
+  },
+  {
+    "id": "GHSA-2xp9-vwfh-vxw4",
+    "url": "https://github.com/vercel/next.js/security/advisories/GHSA-2xp9-vwfh-vxw4",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.775Z",
+    "title": "Unauthenticated Remote Code Execution in Image Optimization API when AVIF files are used · Advisory · vercel/next.js · GitHub",
+    "contentSHA256": "00bde004c24bfaf5520566c218e7ee68cf8ee2650e8328a78f12698b990fa7bd",
+    "containsGHSA": true,
+    "patchedVersionMentions": [
+      {
+        "range": ">=15.5.24",
+        "versionMentioned": true
+      }
+    ],
+    "sourceType": "publisher security advisory"
+  },
+  {
+    "id": "GHSA-vfj7-8cjw-p6xm",
+    "url": "https://github.com/micromatch/braces/issues/70",
+    "status": 200,
+    "fetchedAt": "2026-10-04T18:00:09.837Z",
+    "title": "Security Advisory: Uncontrolled Recursion Depth in Tree Walkers Leads to Stack-Overflow DoS · Issue #70 · micromatch/braces · GitHub",
+    "contentSHA256": "7b231fb151a27f8535dd836f34ce095c04ce28a4e21d7faf16ef89fd451ddba4",
+    "containsGHSA": false,
+    "patchedVersionMentions": [
+      {
+        "range": "<0.0.0",
+        "versionMentioned": false
+      }
+    ],
+    "sourceType": "publisher commit/issue"
+  }
+]

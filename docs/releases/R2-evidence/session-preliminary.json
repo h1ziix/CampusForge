@@ -1,0 +1,157 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\rausa\\AppData\\Local\\pnpm-cache\\dlx\\4113e0156f1bebff8f9956ac1db8efea5ba2cf4c6f701cbd0e94910b468234f7\\1a1085defa4-4104\\node_modules\\.pnpm\\node@24.21.0\\node_modules\\node\\bin\\node.exe",
+      "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser/r2-security.spec.ts",
+      "--grep",
+      "session update ignores",
+      "--reporter=json"
+    ],
+    "configFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\playwright.config.ts",
+    "rootDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "cwd": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge",
+      "command": "node scripts/next-runtime-fixture.mjs dev --webpack --hostname 127.0.0.1 --port 3217",
+      "url": "http://127.0.0.1:3217",
+      "reuseExistingServer": false,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "r2-security.spec.ts",
+      "file": "r2-security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "actual session update ignores attacker claims, bounds cookie size and reloads legitimate DB writes",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5449,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n    at C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\tests\\browser\\r2-security.spec.ts:75:31",
+                    "location": {
+                      "file": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\tests\\browser\\r2-security.spec.ts",
+                      "column": 31,
+                      "line": 75
+                    },
+                    "snippet": "  73 |   expect((await updated.json()).user).toMatchObject({ id: 'r2-user-a', name: 'R2 trusted onboarding name', onboardingCompleted: true, role: 'STUDENT' });\n  74 |   const middleware = await request.get('/api/r2-middleware-probe?path=/dashboard', { maxRedirects: 0 });\n> 75 |   expect(middleware.status()).toBe(200);\n     |                               ^\n  76 | });\n  77 |\n  78 | test('credentials API and actual server action share budget; spoofed forwarding does not bypass it', async ({ page }) => {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\tests\\browser\\r2-security.spec.ts",
+                        "column": 31,
+                        "line": 75
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n\n  73 |   expect((await updated.json()).user).toMatchObject({ id: 'r2-user-a', name: 'R2 trusted onboarding name', onboardingCompleted: true, role: 'STUDENT' });\n  74 |   const middleware = await request.get('/api/r2-middleware-probe?path=/dashboard', { maxRedirects: 0 });\n> 75 |   expect(middleware.status()).toBe(200);\n     |                               ^\n  76 | });\n  77 |\n  78 | test('credentials API and actual server action share budget; spoofed forwarding does not bypass it', async ({ page }) => {\n    at C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\tests\\browser\\r2-security.spec.ts:75:31"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T19:32:34.155Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\test-results\\r2-security-actual-session-203f9-eloads-legitimate-DB-writes\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\test-results\\r2-security-actual-session-203f9-eloads-legitimate-DB-writes\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\tests\\browser\\r2-security.spec.ts",
+                    "column": 31,
+                    "line": 75
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9f0e496b44ba8c218bbd-382a0f8b518b8d3f3232",
+          "file": "r2-security.spec.ts",
+          "line": 49,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T19:32:26.604Z",
+    "duration": 14236.622000000001,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

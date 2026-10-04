@@ -1,0 +1,13 @@
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Packages: -1
+-
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: msgpackr-extract@3.0.4, unrs-resolver@1.12.2.       │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 1.7s using pnpm v10.33.0

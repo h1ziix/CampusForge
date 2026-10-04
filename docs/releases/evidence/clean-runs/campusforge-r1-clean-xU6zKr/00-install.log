@@ -1,0 +1,129 @@
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +506
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 506, reused 0, downloaded 0, added 0
+Progress: resolved 506, reused 0, downloaded 14, added 0
+Progress: resolved 506, reused 0, downloaded 17, added 0
+Progress: resolved 506, reused 0, downloaded 31, added 4
+Progress: resolved 506, reused 0, downloaded 34, added 4
+Progress: resolved 506, reused 0, downloaded 44, added 4
+Progress: resolved 506, reused 0, downloaded 52, added 8
+Progress: resolved 506, reused 0, downloaded 57, added 8
+Progress: resolved 506, reused 0, downloaded 59, added 8
+Progress: resolved 506, reused 0, downloaded 65, added 8
+Progress: resolved 506, reused 0, downloaded 71, added 8
+Progress: resolved 506, reused 0, downloaded 73, added 8
+Progress: resolved 506, reused 0, downloaded 86, added 12
+Progress: resolved 506, reused 0, downloaded 97, added 13
+Progress: resolved 506, reused 0, downloaded 106, added 16
+Progress: resolved 506, reused 0, downloaded 123, added 17
+Progress: resolved 506, reused 0, downloaded 130, added 19
+Progress: resolved 506, reused 0, downloaded 134, added 20
+Progress: resolved 506, reused 0, downloaded 135, added 20
+Progress: resolved 506, reused 0, downloaded 136, added 20
+Progress: resolved 506, reused 0, downloaded 137, added 20
+Progress: resolved 506, reused 0, downloaded 138, added 20
+Progress: resolved 506, reused 0, downloaded 140, added 20
+Progress: resolved 506, reused 0, downloaded 142, added 20
+Progress: resolved 506, reused 0, downloaded 143, added 20
+Progress: resolved 506, reused 0, downloaded 148, added 22
+Progress: resolved 506, reused 0, downloaded 153, added 23
+Progress: resolved 506, reused 0, downloaded 157, added 24
+Progress: resolved 506, reused 0, downloaded 166, added 26
+Progress: resolved 506, reused 0, downloaded 173, added 26
+Progress: resolved 506, reused 0, downloaded 185, added 28
+Progress: resolved 506, reused 0, downloaded 193, added 30
+Progress: resolved 506, reused 0, downloaded 204, added 31
+Progress: resolved 506, reused 0, downloaded 215, added 34
+Progress: resolved 506, reused 0, downloaded 233, added 36
+Progress: resolved 506, reused 0, downloaded 242, added 37
+Progress: resolved 506, reused 0, downloaded 245, added 38
+Progress: resolved 506, reused 0, downloaded 257, added 40
+Progress: resolved 506, reused 0, downloaded 267, added 40
+Progress: resolved 506, reused 0, downloaded 283, added 43
+Progress: resolved 506, reused 0, downloaded 298, added 45
+Progress: resolved 506, reused 0, downloaded 312, added 46
+Progress: resolved 506, reused 0, downloaded 329, added 48
+Progress: resolved 506, reused 0, downloaded 343, added 50
+Progress: resolved 506, reused 0, downloaded 362, added 53
+Progress: resolved 506, reused 0, downloaded 382, added 56
+Progress: resolved 506, reused 0, downloaded 400, added 58
+Progress: resolved 506, reused 0, downloaded 410, added 59
+Progress: resolved 506, reused 0, downloaded 418, added 59
+Progress: resolved 506, reused 0, downloaded 422, added 61
+Progress: resolved 506, reused 0, downloaded 429, added 61
+Progress: resolved 506, reused 0, downloaded 435, added 61
+Progress: resolved 506, reused 0, downloaded 441, added 61
+Progress: resolved 506, reused 0, downloaded 448, added 65
+Progress: resolved 506, reused 0, downloaded 452, added 65
+Progress: resolved 506, reused 0, downloaded 461, added 65
+Progress: resolved 506, reused 0, downloaded 467, added 67
+Progress: resolved 506, reused 0, downloaded 471, added 68
+Progress: resolved 506, reused 0, downloaded 475, added 68
+Progress: resolved 506, reused 0, downloaded 479, added 68
+Progress: resolved 506, reused 0, downloaded 481, added 69
+Progress: resolved 506, reused 0, downloaded 486, added 70
+Progress: resolved 506, reused 0, downloaded 491, added 71
+Progress: resolved 506, reused 0, downloaded 494, added 72
+Progress: resolved 506, reused 0, downloaded 496, added 73
+Progress: resolved 506, reused 0, downloaded 496, added 74
+Progress: resolved 506, reused 0, downloaded 500, added 78
+Progress: resolved 506, reused 0, downloaded 501, added 95
+Progress: resolved 506, reused 0, downloaded 502, added 111
+Progress: resolved 506, reused 0, downloaded 502, added 124
+Progress: resolved 506, reused 0, downloaded 502, added 135
+Progress: resolved 506, reused 0, downloaded 502, added 136
+Progress: resolved 506, reused 0, downloaded 503, added 137
+Progress: resolved 506, reused 0, downloaded 503, added 143
+Progress: resolved 506, reused 0, downloaded 503, added 163
+Progress: resolved 506, reused 0, downloaded 503, added 164
+Progress: resolved 506, reused 0, downloaded 504, added 191
+Progress: resolved 506, reused 0, downloaded 504, added 221
+Progress: resolved 506, reused 0, downloaded 504, added 248
+Progress: resolved 506, reused 0, downloaded 504, added 274
+Progress: resolved 506, reused 0, downloaded 504, added 296
+Progress: resolved 506, reused 0, downloaded 505, added 318
+Progress: resolved 506, reused 0, downloaded 505, added 376
+Progress: resolved 506, reused 0, downloaded 505, added 426
+Progress: resolved 506, reused 0, downloaded 505, added 463
+Progress: resolved 506, reused 0, downloaded 505, added 493
+Progress: resolved 506, reused 0, downloaded 505, added 499
+Progress: resolved 506, reused 0, downloaded 505, added 500
+Progress: resolved 506, reused 0, downloaded 505, added 501
+Progress: resolved 506, reused 0, downloaded 505, added 502
+Progress: resolved 506, reused 0, downloaded 505, added 503
+Progress: resolved 506, reused 0, downloaded 505, added 504
+Progress: resolved 506, reused 0, downloaded 505, added 505
+Progress: resolved 506, reused 0, downloaded 506, added 505
+Progress: resolved 506, reused 0, downloaded 506, added 506
+Progress: resolved 506, reused 0, downloaded 506, added 506, done
+.../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+.../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+.../node_modules/@prisma/engines postinstall: Done
+.../prisma@5.22.0/node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+.../prisma@5.22.0/node_modules/prisma preinstall: Done
+.../node_modules/@prisma/client postinstall$ node scripts/postinstall.js
+.../node_modules/@prisma/client postinstall: Done
+
+devDependencies:
++ @playwright/test 1.63.0
++ eslint 9.39.5
++ eslint-config-next 16.3.8
++ prettier 3.9.9
++ prettier-plugin-tailwindcss 0.8.1
++ tsx 4.23.15
++ turbo 2.11.7
++ typescript 5.9.3
++ typescript-eslint 8.71.0
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: msgpackr-extract@3.0.4, unrs-resolver@1.12.2.       │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 2m 4.2s using pnpm v10.33.0

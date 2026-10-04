@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "boundary": "Current checkout; synthetic DATABASE_URL; runtime secrets not inherited; no DB migrations",
+  "results": [
+    {
+      "command": "pnpm db:generate",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1589,
+      "log": "01-db-generate.log"
+    },
+    {
+      "command": "pnpm db:validate",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1116,
+      "log": "02-db-validate.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 7221,
+      "log": "03-typecheck.log"
+    },
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 10962,
+      "log": "04-lint.log"
+    },
+    {
+      "command": "pnpm format:check",
+      "exitCode": 1,
+      "signal": null,
+      "durationMs": 3047,
+      "log": "05-format-check.log"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 161357,
+      "log": "06-test.log"
+    },
+    {
+      "command": "pnpm env:probe",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1639,
+      "log": "07-env-probe.log"
+    },
+    {
+      "command": "pnpm build --force",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 46502,
+      "log": "08-build.log"
+    },
+    {
+      "command": "node scripts/probe-r2-middleware.mjs",
+      "exitCode": 0,
+      "durationMs": 1059,
+      "log": "09-production-middleware.log"
+    },
+    {
+      "command": "pnpm format:check",
+      "note": "Targeted Prettier repair of two final fixture type edits; tests/build already pass; only whitespace changed",
+      "exitCode": 0,
+      "log": "10-format-recheck.log"
+    },
+    {
+      "command": "pnpm format:check",
+      "note": "Final check after report formatting; source changes limited to prior whitespace repair",
+      "exitCode": 0,
+      "durationMs": 3130,
+      "log": "11-final-format.log"
+    }
+  ],
+  "initialVerifierExitCode": 1,
+  "finalChecksPassed": true,
+  "tests": {
+    "skips": 0,
+    "unitIntegration": 36,
+    "compiledMiddlewareAssertions": 9,
+    "failures": 0,
+    "browser": 20
+  }
+}

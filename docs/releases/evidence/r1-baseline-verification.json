@@ -1,0 +1,9 @@
+{
+  "baselineArchive": "C:/Users/rausa/.codex/backups/CampusForge-R1-20261004/baseline.zip",
+  "baselineArchiveSHA256": "EB3ED325FD87D8AEF17E19127E912902D378A85200C37E786CDB69602F31F170",
+  "baselineFiles": 331,
+  "pastAuditFiles": 152,
+  "missingBaseline": [],
+  "auditMismatch": [],
+  "gitHEADPresent": false
+}

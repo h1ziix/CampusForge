@@ -1,0 +1,60 @@
+{
+  "name": "campusforge",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm db:generate && pnpm build:packages && node --env-file-if-exists=.env node_modules/turbo/bin/turbo dev",
+    "build": "node scripts/build.mjs",
+    "db:generate": "pnpm --filter @campusforge/db db:generate",
+    "db:migrate": "pnpm --filter @campusforge/db db:migrate",
+    "db:push": "pnpm --filter @campusforge/db db:push",
+    "db:studio": "pnpm --filter @campusforge/db db:studio",
+    "clean": "turbo clean",
+    "build:packages": "turbo build --filter=./packages/*",
+    "dev:web": "pnpm db:generate && pnpm build:packages && pnpm --filter @campusforge/web dev",
+    "start:web": "pnpm --filter @campusforge/web start",
+    "start:worker": "pnpm --filter @campusforge/worker start",
+    "release:pack": "node scripts/package-release.mjs",
+    "env:check": "node scripts/check-env.mjs",
+    "env:probe": "node scripts/probe-turbo-env.mjs",
+    "db:validate": "pnpm --filter @campusforge/db exec prisma validate",
+    "db:deploy": "pnpm --filter @campusforge/db exec prisma migrate deploy",
+    "format": "node scripts/format.mjs --write",
+    "test:browser": "playwright test",
+    "format:check": "node scripts/format.mjs --check",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint && eslint scripts tests playwright.config.ts --max-warnings 0",
+    "test": "pnpm -r --workspace-concurrency=1 test",
+    "release:probe": "node scripts/probe-release.mjs",
+    "verify:clean": "node scripts/verify-clean.mjs",
+    "verify:r2": "node scripts/verify-r2.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.9.9",
+    "turbo": "2.11.7",
+    "typescript": "5.9.3",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.8",
+    "typescript-eslint": "8.71.0",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "tsx": "4.23.15",
+    "@playwright/test": "1.63.0"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24.21.0 <25"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "sharp"
+    ],
+    "overrides": {
+      "postcss-selector-parser@>=6.1.0 <6.1.3": "6.1.4",
+      "browserslist@<4.28.7": "4.29.3",
+      "baseline-browser-mapping@<2.11.0": "2.11.27"
+    }
+  }
+}

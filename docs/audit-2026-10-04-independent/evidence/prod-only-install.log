@@ -1,0 +1,18 @@
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Packages: -101
+--------------------------------------------------------------------------------
+
+devDependencies:
+- prettier 3.8.3
+- turbo 2.9.6
+- typescript 5.5.4
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: msgpackr-extract@3.0.3.                             │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 953ms using pnpm v10.33.0

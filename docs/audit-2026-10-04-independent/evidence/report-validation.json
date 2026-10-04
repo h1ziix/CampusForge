@@ -1,0 +1,15 @@
+{
+  "output": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\docs\\AUDIT-INDEPENDENT-2026-10-04.md",
+  "reportBytes": 167682,
+  "findings": 29,
+  "priorities": {
+    "P1": 14,
+    "P2": 13,
+    "P3": 2
+  },
+  "duplicateIds": [],
+  "sourceFiles": 159,
+  "sourceChanged": [],
+  "invalidSourceLinks": [],
+  "screenshots": 78
+}

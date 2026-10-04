@@ -1,0 +1,9 @@
+{
+  "timezone": "Asia/Qyzylorda",
+  "exitCode": 0,
+  "node": "v24.21.0",
+  "command": "node ../../../node_modules/typescript/bin/tsc --noEmit --incremental false",
+  "date": "2026-10-05",
+  "cwd": "apps/web/.r1-runtime-fixture",
+  "boundary": "Generated exact-source runtime fixture with explicitly synthetic infrastructure"
+}

@@ -1,0 +1,16 @@
+
+> campusforge@ db:generate C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-5sA7wj
+> pnpm --filter @campusforge/db db:generate
+
+
+> @campusforge/db@0.0.0 db:generate C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-5sA7wj\packages\db
+> prisma generate
+
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v5.22.0) to .\generated\client in 153ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Easily identify and fix slow SQL queries in your app. Optimize helps you enhance your visibility: https://pris.ly/--optimize
+

@@ -1,0 +1,46 @@
+async page => {
+ const base='http://127.0.0.1:3107';
+ const dir='C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/docs/audit-2026-10-04-independent/screenshots';
+ const results={};
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'/audit?view=tasks&state=empty');
+ await page.getByRole('button',{name:'Create First Task'}).click();
+ await page.getByLabel('Title',{exact:true}).fill('AUDIT_DUPLICATE_PROBE');
+ results.taskDialogInitialFocus=await page.evaluate(()=>({id:document.activeElement.id,inDialog:!!document.activeElement.closest('[role=dialog]')}));
+ for(let i=0;i<18;i++) await page.keyboard.press('Tab');
+ results.taskDialogFocusAfterTabs=await page.evaluate(()=>({tag:document.activeElement.tagName,inDialog:!!document.activeElement.closest('[role=dialog]')}));
+ let requests=[];
+ const capture=r=>{if(r.headers()['next-action'])requests.push({url:r.url(),method:r.method()})};
+ page.on('request',capture);
+ await page.getByRole('button',{name:'Create Task',exact:true}).click();
+ await page.waitForTimeout(250);
+ const submit=page.locator('form button[type=submit]');
+ results.transitionDuringDeferredAction={disabled:await submit.isDisabled(),text:await submit.innerText(),requests:requests.length};
+ await page.screenshot({path:dir+'/task-deferred-action-390.png',animations:'disabled'});
+ if(!await submit.isDisabled()) await submit.click();
+ await page.waitForTimeout(2500);
+ results.duplicateSubmitRequests=requests;
+ results.actionErrorDisplayed=await page.getByText('Audit mock: no mutation was performed',{exact:true}).count();
+ await page.screenshot({path:dir+'/task-mock-error-390.png',animations:'disabled'});
+ page.off('request',capture);
+ await page.keyboard.press('Escape');
+ results.radixDialogClosesWithEscape=await page.getByRole('dialog').count()===0;
+ await page.goto(base+'/audit?view=flashcards');
+ await page.getByRole('button',{name:'Next card',exact:true}).focus();
+ await page.keyboard.press('Enter');
+ await page.waitForTimeout(50);
+ results.flashcardNextButtonEnter=await page.evaluate(()=>({progress:document.querySelector('main').innerText.match(/\d \/ \d/)[0],flipped:!!document.querySelector('[style*="min-height"]').className.includes('rotateY(180deg)'),focusedLabel:document.activeElement.getAttribute('aria-label')}));
+ await page.screenshot({path:dir+'/flashcards-keyboard-390.png',animations:'disabled'});
+ await page.getByRole('button',{name:'Next card',exact:true}).click();
+ results.flashcardPointerNextProgress=await page.evaluate(()=>document.querySelector('main').innerText.match(/\d \/ \d/)[0]);
+ await page.goto(base+'/audit');
+ await page.getByRole('button',{name:'Open chats'}).click();
+ await page.keyboard.press('Escape');
+ results.assistantDrawerAfterEscape={closeVisible:await page.getByRole('button',{name:'Close sidebar'}).isVisible(),dialogCount:await page.getByRole('dialog').count()};
+ let outside=[];
+ for(let i=0;i<20;i++) {await page.keyboard.press('Tab'); const f=await page.evaluate(()=>({label:document.activeElement.getAttribute('aria-label')||document.activeElement.textContent,insideDrawer:!!document.activeElement.closest('.fixed.inset-0.z-40')}));if(!f.insideDrawer)outside.push(f)}
+ results.assistantDrawerOutsideFocus=outside;
+ await page.screenshot({path:dir+'/assistant-drawer-keyboard-390.png',animations:'disabled'});
+ await page.getByRole('button',{name:'Close sidebar'}).click();
+ return results;
+}

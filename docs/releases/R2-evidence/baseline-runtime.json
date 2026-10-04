@@ -1,0 +1,61 @@
+{
+  "runtime": {
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "nextAuth": "5.0.0-beta.32",
+    "node": "20.20.0 (baseline only)"
+  },
+  "boundary": "Exact source components in real Next App Router; signInAction synthetic successful mock; external destination intercepted; no live authentication or DB",
+  "callback": [
+    {
+      "input": "javascript:window.__r2Callback=42",
+      "marker": null,
+      "origin": "http://127.0.0.1:3217",
+      "url": "http://127.0.0.1:3217/sign-in?callbackUrl=javascript%3Awindow.__r2Callback%3D42",
+      "errors": [
+        "Next.js has blocked a javascript: URL as a security precaution."
+      ]
+    },
+    {
+      "input": "https://example.invalid/r2",
+      "marker": null,
+      "origin": "https://example.invalid",
+      "url": "https://example.invalid/r2",
+      "errors": []
+    },
+    {
+      "input": "/dashboard",
+      "marker": null,
+      "origin": "http://127.0.0.1:3217",
+      "url": "http://127.0.0.1:3217/dashboard",
+      "errors": []
+    }
+  ],
+  "markdown": [
+    {
+      "text": "unsafe-js",
+      "href": "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "text": "unsafe-data",
+      "href": "data:text/html,marker",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "text": "safe-local",
+      "href": "/dashboard",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "text": "safe-external",
+      "href": "https://example.test/guide",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    }
+  ],
+  "rawHtml": "unsafe-js\n\nunsafe-data\n\nsafe-local\n\nsafe-external\n\n<img src=x onerror=window.__r2RawHtml=1>"
+}

@@ -1,0 +1,2 @@
+# This metadata is part of the migration source contract.
+provider = "postgresql"

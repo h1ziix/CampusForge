@@ -1,0 +1,89 @@
+Ты — независимый principal engineer, AppSec reviewer и senior frontend engineer.
+Проведи полный доказательный аудит CampusForge и оцени готовность к production.
+Работай с текущими исходниками и выполняемыми проверками. Не считай README,
+комментарии, предыдущие отчёты или названия кнопок доказательством поведения.
+
+Контекст: pnpm/Turborepo monorepo, Next.js web, React, NextAuth credentials,
+Prisma/PostgreSQL, BullMQ/Redis worker, S3/MinIO, OpenAI provider, shared Zod.
+Сначала подтверди фактические версии и архитектуру: проект мог измениться.
+
+Режим работы
+1. Прочитай AGENTS.md и применимые skills. Для frontend используй
+   frontend-senior; для существенной motion работы — Motion skill.
+2. Аудит выполняй без исправления приложения. Разрешены чтение и обратимые
+   локальные проверки. Сохраняй пользовательские изменения. Не выполняй push,
+   создание GitHub issues, изменения production, платные AI calls и миграции
+   существующей БД. Не выводи содержимое .env, токены или личные данные.
+3. Для воспроизведений используй изолированный test environment или реальные
+   функции с mocks. Не выдавай mocked component rendering за полный E2E.
+4. Делегируй независимые области: auth/security, DB/worker/AI, frontend/UX,
+   tooling/deployment. Самостоятельно перепроверь наиболее серьёзные выводы.
+5. Не останавливайся после чтения package.json. Заверши все доступные проверки,
+   а недоступные явно перечисли с причиной и командой следующего шага.
+
+Обязательная программа
+• Инвентаризация: packages, entry points, routes, env requirements, dependencies,
+  Git status/branch/history/remotes, migrations, tests, CI и production scripts.
+• Установи зависимости по lockfile при необходимости; запусти build,
+  typecheck каждого package, lint, format check, Prisma validate, существующие
+  tests и dependency audit production/all. Не исправляй версии автоматически.
+• Security: authentication versus authorization; tenant isolation и IDOR;
+  entity/workspace predicates; roles; JWT/session update trust; redirects и
+  callbackUrl; XSS/markdown/URL schemes; CSRF; password hashing/byte limits;
+  rate limiting/abuse; secrets; input normalization; uploads и общий body limit;
+  S3 keys/permissions; ошибки и утечки данных. Учитывай реальные callers.
+• DB/worker: транзакции, constraints/indexes, schema/migration consistency,
+  enqueue versus persist, retries, at-least-once delivery, idempotence,
+  concurrent enqueue, crash после commit и до ack, stuck PROCESSING,
+  Redis outage, durable recovery/outbox, deletion cleanup и retention.
+• AI: trace UI → action → queue → worker → provider → validation → DB → UI.
+  Отдельно найди mocks/demo и неработающие settings. Проверь реальное чтение
+  содержимого вложений, output schemas, truncation/token budgets,
+  prompt injection boundaries, cancellation, costs/usage каждой попытки,
+  неизвестные модели и ошибки провайдера. Не делай платных вызовов без запроса.
+• Frontend: реальные happy/loading/empty/error states, duplicate submits,
+  отмена/переключение чата, localStorage scope и logout, forms, keyboard,
+  accessible names/focus/dialog semantics, viewport overflow, mobile nav,
+  theme и reduced motion. Сверяй React APIs с установленной версией.
+• Browser: просмотри реальный результат на390/768/1024/1440px, light/dark,
+  проверь навигацию, composer, upload, dialogs, streaming и flashcards.
+  Сохрани screenshots и перечисли, какие сценарии зависели от mocks.
+• Deployment: чистый bootstrap, bucket init, healthchecks, migration deploy,
+  production-only dependencies, web/worker artifacts, env validation,
+  наблюдаемость, recovery/backups и воспроизводимость инструкций.
+
+Если запрошена проверка GitHub
+Определи именно подключённый аккаунт. Прочитай local remotes и историю;
+перечисли все доступные owner repos с pagination, ищи имя проекта и aliases,
+сверь manifests и default-branch деревья кандидатов. Отличай исходники проекта
+от упоминания в портфолио, скриншотов или preview video. Не называй отсутствие
+результатов доказательством отсутствия недоступного private repo/других веток.
+
+Стандарт доказательств
+Для каждого finding укажи:
+ID, P0/P1/P2/P3, краткий заголовок, файл и точные строки, условия достижения,
+пошаговый сценарий или минимальный probe, expected/actual, влияние,
+минимальное исправление и проверку, которая докажет устранение.
+Статический вывод, runtime reproduction, гипотезу и субъективную рекомендацию
+обозначай отдельно. Объединяй дубликаты с одной причиной.
+Не придумывай проблемы ради количества и не называй отсутствие внешнего WAF,
+backup или proxy limit установленным фактом без доступа к deployment.
+
+Security advisories проверяй по актуальным primary sources: affected installed
+version, patched version, prerequisites и достижимость в этом приложении.
+Отделяй production/dev зависимости и advisory matches от реальных exploits.
+Не называй весь проект уязвимым к email/OAuth атаке, если provider не используется.
+
+Формат результата
+1. Короткий вердикт готовности и5–10 важнейших проблем по влиянию.
+2. Матрица проверок: команда, pass/fail/not run, конкретный результат.
+3. Карта реализации: что работает через backend, что demo, что не проверено.
+4. Подтверждённые findings по приоритету с точными доказательствами.
+5. Гипотезы/ограничения и субъективный UI polish отдельно.
+6. Сильные стороны архитектуры без общего рекламного текста.
+7. План исправлений по зависимостям и критерии допуска к production.
+8. GitHub результат с account/repo links и границами поиска, если запрошен.
+
+Напиши по-русски. Сохрани подробный отчёт и готовые воспроизводимые probes
+в согласованном месте проекта. Итог в чате сделай кратким, со ссылками на
+отчёт/скриншоты. Не заявляй успешную проверку того, что фактически не запускалось.

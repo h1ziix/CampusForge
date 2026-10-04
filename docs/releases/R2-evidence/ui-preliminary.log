@@ -1,0 +1,165 @@
+
+Running 5 tests using 1 worker
+
+(node:19632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\r2-ui-privacy.spec.ts:28:5 › fixture-login callbacks remain same-origin and valid local destinations work (22.1s)
+  x  2 tests\browser\r2-ui-privacy.spec.ts:66:5 › Markdown allowlist renders dangerous links as text and escapes raw HTML (6.6s)
+(node:28804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\browser\r2-ui-privacy.spec.ts:85:5 › A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transient drafts across tabs/reload/back (7.9s)
+(node:25220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\browser\r2-ui-privacy.spec.ts:156:5 › autosave false and blocked storage preserve operation without persisting private conversations (6.3s)
+(node:23512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\browser\r2-ui-privacy.spec.ts:190:5 › auth and revoked session UI matrix checks 390/768/1024/1440 light/dark keyboard pending error focus (9.2s)
+
+
+  1) tests\browser\r2-ui-privacy.spec.ts:66:5 › Markdown allowlist renders dangerous links as text and escapes raw HTML 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/dashboard$/
+    Received string:  "http://127.0.0.1:3217/markdown"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "http://127.0.0.1:3217/markdown"
+
+
+      80 |   await expect(external).toHaveAttribute('target', '_blank');
+      81 |   await page.getByRole('link', { name: 'safe-local' }).click();
+    > 82 |   await expect(page).toHaveURL(/\/dashboard$/);
+         |                      ^
+      83 | });
+      84 |
+      85 | test('A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transient drafts across tabs/reload/back', async ({
+        at C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:82:22
+
+    Error Context: test-results\r2-ui-privacy-Markdown-all-4ca50-s-text-and-escapes-raw-HTML\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\r2-ui-privacy-Markdown-all-4ca50-s-text-and-escapes-raw-HTML\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\r2-ui-privacy-Markdown-all-4ca50-s-text-and-escapes-raw-HTML\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\browser\r2-ui-privacy.spec.ts:85:5 › A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transient drafts across tabs/reload/back 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  getByText('R2_A_WS1_PRIVATE', { exact: true }).first()
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" getByText('R2_A_WS1_PRIVATE', { exact: true }).first() with timeout 5000ms
+      - waiting for getByText('R2_A_WS1_PRIVATE', { exact: true }).first()
+        14 × locator resolved to <span class="truncate font-medium">R2_A_WS1_PRIVATE</span>
+           - unexpected value "hidden"
+
+
+      18 |   await page.getByPlaceholder('Message CampusForge AI...').fill(marker);
+      19 |   await page.getByRole('button', { name: 'Send message', exact: true }).click();
+    > 20 |   await expect(page.getByText(marker, { exact: true }).first()).toBeVisible();
+         |                                                                 ^
+      21 | }
+      22 | async function storage(page: Page) {
+      23 |   return page.evaluate(() =>
+        at send (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:20:65)
+        at C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:101:3
+
+    Error Context: test-results\r2-ui-privacy-A-ws1-to-A-w-9b475-fts-across-tabs-reload-back\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\r2-ui-privacy-A-ws1-to-A-w-9b475-fts-across-tabs-reload-back\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\r2-ui-privacy-A-ws1-to-A-w-9b475-fts-across-tabs-reload-back\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\browser\r2-ui-privacy.spec.ts:156:5 › autosave false and blocked storage preserve operation without persisting private conversations 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  getByText('R2_AUTOSAVE_OFF_PRIVATE', { exact: true }).first()
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" getByText('R2_AUTOSAVE_OFF_PRIVATE', { exact: true }).first() with timeout 5000ms
+      - waiting for getByText('R2_AUTOSAVE_OFF_PRIVATE', { exact: true }).first()
+        14 × locator resolved to <span class="truncate font-medium">R2_AUTOSAVE_OFF_PRIVATE</span>
+           - unexpected value "hidden"
+
+
+      18 |   await page.getByPlaceholder('Message CampusForge AI...').fill(marker);
+      19 |   await page.getByRole('button', { name: 'Send message', exact: true }).click();
+    > 20 |   await expect(page.getByText(marker, { exact: true }).first()).toBeVisible();
+         |                                                                 ^
+      21 | }
+      22 | async function storage(page: Page) {
+      23 |   return page.evaluate(() =>
+        at send (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:20:65)
+        at C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:166:3
+
+    Error Context: test-results\r2-ui-privacy-autosave-fal-0848a-sting-private-conversations\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\r2-ui-privacy-autosave-fal-0848a-sting-private-conversations\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\r2-ui-privacy-autosave-fal-0848a-sting-private-conversations\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\browser\r2-ui-privacy.spec.ts:190:5 › auth and revoked session UI matrix checks 390/768/1024/1440 light/dark keyboard pending error focus 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Synthetic profile save error. Please try again."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert" class="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">Synthetic profile save error. Please try again.</div> aka getByText('Synthetic profile save error')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+        8 × locator resolved to <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div>
+          - unexpected value ""
+
+
+      250 |         animations: 'disabled',
+      251 |       });
+    > 252 |       await expect(page.getByRole('alert')).toHaveText(
+          |                                             ^
+      253 |         'Synthetic profile save error. Please try again.',
+      254 |       );
+      255 |       await page.screenshot({
+        at C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\tests\browser\r2-ui-privacy.spec.ts:252:45
+
+    Error Context: test-results\r2-ui-privacy-auth-and-rev-a0662-eyboard-pending-error-focus\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\r2-ui-privacy-auth-and-rev-a0662-eyboard-pending-error-focus\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\r2-ui-privacy-auth-and-rev-a0662-eyboard-pending-error-focus\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\browser\r2-ui-privacy.spec.ts:66:5 › Markdown allowlist renders dangerous links as text and escapes raw HTML 
+    tests\browser\r2-ui-privacy.spec.ts:85:5 › A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transient drafts across tabs/reload/back 
+    tests\browser\r2-ui-privacy.spec.ts:156:5 › autosave false and blocked storage preserve operation without persisting private conversations 
+    tests\browser\r2-ui-privacy.spec.ts:190:5 › auth and revoked session UI matrix checks 390/768/1024/1440 light/dark keyboard pending error focus 
+  1 passed (1.1m)

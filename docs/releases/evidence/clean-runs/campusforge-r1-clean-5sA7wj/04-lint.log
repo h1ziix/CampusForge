@@ -1,0 +1,15 @@
+
+> campusforge@ lint C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-5sA7wj
+> pnpm -r lint && eslint scripts tests playwright.config.ts --max-warnings 0
+
+Scope: 5 of 6 workspace projects
+packages/db lint$ eslint src tests --max-warnings 0
+packages/shared lint$ eslint src tests --max-warnings 0
+packages/db lint: Done
+packages/shared lint: Done
+apps/web lint$ eslint src scripts --max-warnings 0
+packages/ai lint$ eslint src tests --max-warnings 0
+packages/ai lint: Done
+apps/web lint: Done
+apps/worker lint$ eslint src tests scripts --max-warnings 0
+apps/worker lint: Done

@@ -1,0 +1,15 @@
+
+> campusforge@ typecheck C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> pnpm -r typecheck
+
+Scope: 5 of 6 workspace projects
+packages/db typecheck$ tsc --noEmit --incremental false
+packages/shared typecheck$ tsc --noEmit --incremental false
+packages/db typecheck: Done
+packages/shared typecheck: Done
+apps/web typecheck$ tsc --noEmit --incremental false
+packages/ai typecheck$ tsc --noEmit --incremental false
+packages/ai typecheck: Done
+apps/web typecheck: Done
+apps/worker typecheck$ tsc --noEmit --incremental false
+apps/worker typecheck: Done

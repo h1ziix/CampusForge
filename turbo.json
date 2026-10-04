@@ -1,0 +1,78 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["tsconfig.json", "tsconfig.build.json", ".nvmrc"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_APP_URL"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "DATABASE_URL",
+        "AUTH_URL",
+        "NEXTAUTH_URL",
+        "AUTH_SECRET",
+        "NEXTAUTH_SECRET",
+        "AUTH_TRUST_HOST",
+        "AUTH_RATE_LIMIT_TRUST_PROXY",
+        "AUTH_RATE_LIMIT_IP_HEADER",
+        "REDIS_URL",
+        "S3_ENDPOINT",
+        "S3_REGION",
+        "S3_BUCKET",
+        "S3_ACCESS_KEY",
+        "S3_SECRET_KEY",
+        "OPENAI_API_KEY",
+        "OPENAI_MODEL",
+        "NEXT_PUBLIC_APP_URL"
+      ]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "DATABASE_URL",
+        "AUTH_URL",
+        "NEXTAUTH_URL",
+        "AUTH_SECRET",
+        "NEXTAUTH_SECRET",
+        "AUTH_TRUST_HOST",
+        "AUTH_RATE_LIMIT_TRUST_PROXY",
+        "AUTH_RATE_LIMIT_IP_HEADER",
+        "REDIS_URL",
+        "S3_ENDPOINT",
+        "S3_REGION",
+        "S3_BUCKET",
+        "S3_ACCESS_KEY",
+        "S3_SECRET_KEY",
+        "OPENAI_API_KEY",
+        "OPENAI_MODEL",
+        "PORT",
+        "HOSTNAME"
+      ]
+    },
+    "env:probe": {
+      "cache": false,
+      "passThroughEnv": [
+        "S3_ENDPOINT",
+        "S3_REGION",
+        "S3_BUCKET",
+        "S3_ACCESS_KEY",
+        "S3_SECRET_KEY",
+        "OPENAI_MODEL"
+      ]
+    },
+    "lint": {},
+    "typecheck": { "dependsOn": ["@campusforge/db#db:generate"] },
+    "test": {},
+    "clean": { "cache": false },
+    "db:generate": { "cache": false, "passThroughEnv": ["DATABASE_URL"] },
+    "db:migrate": { "cache": false, "passThroughEnv": ["DATABASE_URL"] },
+    "db:push": { "cache": false, "passThroughEnv": ["DATABASE_URL"] },
+    "db:studio": { "cache": false, "persistent": true, "passThroughEnv": ["DATABASE_URL"] }
+  }
+}

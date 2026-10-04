@@ -1,0 +1,11 @@
+### Result
+{"during":{"version":"18.3.0-canary-178c267a4e-20241218","disabled":true,"text":"Pending"},"count":"1"}
+### Ran Playwright code
+```js
+await (async page => {await page.goto('http://127.0.0.1:3107/runtime-probe');await page.locator('[data-probe]').click();await page.waitForTimeout(250);const during={version:await page.locator('[data-version]').innerText(),disabled:await page.locator('[data-probe]').isDisabled(),text:await page.locator('[data-probe]').innerText()};await page.waitForTimeout(2200);return {during,count:await page.locator('output').innerText()}})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3107/runtime-probe
+- Page Title: CampusForge
+### Events
+- New console entries: .playwright-cli\console-2026-10-04T17-47-24-126Z.log#L108-L109

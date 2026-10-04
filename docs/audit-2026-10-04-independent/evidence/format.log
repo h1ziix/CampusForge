@@ -1,0 +1,7 @@
+
+> campusforge@ format:check C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> prettier --check "**/*.{ts,tsx,js,json,md}"
+
+Checking formatting...
+[error] Cannot find package 'prettier-plugin-tailwindcss' imported from C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\noop.js
+ ELIFECYCLE  Command failed with exit code 1.

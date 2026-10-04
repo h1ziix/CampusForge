@@ -1,0 +1,30 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - heading "CampusForge" [level=1] [ref=e4]
+      - paragraph [ref=e5]: Your AI-powered academic workspace
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "Create your account" [level=3] [ref=e9]
+        - paragraph [ref=e10]: Get started with CampusForge
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]:
+            - text: Name
+            - textbox "Name" [ref=e14]:
+              - /placeholder: Your name
+          - generic [ref=e15]:
+            - text: Email
+            - textbox "Email" [ref=e16]:
+              - /placeholder: you@university.edu
+          - generic [ref=e17]:
+            - text: Password
+            - textbox "Password" [ref=e18]:
+              - /placeholder: At least 8 characters
+        - generic [ref=e19]:
+          - button "Sign Up" [ref=e20] [cursor=pointer]
+          - paragraph [ref=e21]:
+            - text: Already have an account?
+            - link "Sign in" [ref=e22] [cursor=pointer]:
+              - /url: /sign-in
+  - alert [ref=e23]

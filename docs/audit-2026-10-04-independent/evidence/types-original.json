@@ -1,0 +1,60 @@
+{
+  "ts": "5.5.4",
+  "files": 126,
+  "diagnostics": [
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/auth/sign-in-form.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/auth/sign-out-button.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/auth/sign-up-form.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/document/document-list.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/flashcard/flashcard-set-list.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/note/note-editor.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/onboarding/onboarding-form.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/task/create-task-dialog.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/task/edit-task-dialog.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    },
+    {
+      "file": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/apps/web/src/components/workspace/create-workspace-dialog.tsx",
+      "code": 2345,
+      "text": "Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.   Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'."
+    }
+  ],
+  "reactFiles": [
+    "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/node_modules/.pnpm/@types+react@18.3.28/node_modules/@types/react/index.d.ts",
+    "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/node_modules/.pnpm/@types+react-dom@18.3.7_@types+react@18.3.28/node_modules/@types/react-dom/index.d.ts"
+  ]
+}

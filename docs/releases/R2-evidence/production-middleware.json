@@ -1,0 +1,59 @@
+{
+  "node": "v24.21.0",
+  "boundary": "Actual compiled production Next server + original middleware matcher. Signed synthetic JWT fixtures minted by test; no credentials login, DB query or real infrastructure.",
+  "results": [
+    {
+      "name": "anonymous-dashboard",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/sign-in"
+    },
+    {
+      "name": "anonymous-workspace",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/sign-in"
+    },
+    {
+      "name": "malformed-cookie",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/sign-in"
+    },
+    {
+      "name": "incomplete-dashboard",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/onboarding"
+    },
+    {
+      "name": "incomplete-workspace",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/onboarding"
+    },
+    {
+      "name": "complete-onboarding-redirect",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/dashboard"
+    },
+    {
+      "name": "signed-in-auth-page",
+      "status": "PASS",
+      "httpStatus": 307,
+      "redirectPath": "/dashboard"
+    },
+    {
+      "name": "legitimate-onboarding-render",
+      "status": "PASS",
+      "httpStatus": 200,
+      "redirectPath": null
+    },
+    {
+      "name": "Node-session-compatible-with-Edge-cookie",
+      "status": "PASS",
+      "httpStatus": 200
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "snapshot": "C:/Users/rausa/AppData/Local/Temp/campusforge-r1-clean-5sA7wj",
+  "node": "v24.21.0",
+  "initialObservations": {
+    "rootDotEnvPresent": false,
+    "webNextEnvDeclarationPresent": false,
+    "webNextBuildDirectoryPresent": false,
+    "observationPhase": "After source copy, during fresh frozen install, before Prisma generation/typecheck/build"
+  },
+  "afterFirstTypecheckObservations": {
+    "webNextEnvDeclarationPresent": false,
+    "allFivePackagesExitCode": 0,
+    "observationPhase": "After first all-package typecheck, before tests/Next generation"
+  },
+  "final": {
+    "gatesPassed": 10,
+    "gatesTotal": 10,
+    "allExitCodes": 0,
+    "testsPassed": 15,
+    "browserTestsPassed": 5,
+    "browserDurationSeconds": 25.4,
+    "installSecondsReportedByPnpm": 99.8,
+    "turboBuildSeconds": 52.554,
+    "turboBuildCachedTasks": 0,
+    "turboBuildSuccessfulTasks": 5,
+    "buildGateApproximateWallSeconds": 55.754,
+    "buildGateApproximateWallMethod": "Difference between env-probe and build log final LastWriteTimeUtc; includes command dispatch overhead"
+  },
+  "browserScreenshots": [
+    {
+      "name": "workspace-pathname-390.png",
+      "sha256": "03F44E1B6495FEE24AFCEF6F9E71CDBB47F914E645E8F0AFBAEF642310C51A4D"
+    },
+    {
+      "name": "workspace-pathname-1440.png",
+      "sha256": "A40ED48C93482BD5E5D5A840A9A635780A263C16A198D5336DBDA67762334DE8"
+    },
+    {
+      "name": "theme-prompt-390.png",
+      "sha256": "6E0CEC88EA8EDEB686EAE8FF72903813C7AB3B3EBE896896FD0A7637FA7D3F1D"
+    },
+    {
+      "name": "theme-prompt-1440.png",
+      "sha256": "4C35E2BFA01EBFA7183E16F18539EA3F6F67A4FF6BE9A05830083ED99B13A527"
+    },
+    {
+      "name": "document-hydration-390.png",
+      "sha256": "B5272093CBD3352E3E5AA43527B1EBAA75253089075108BB86FB86964E18C0D3"
+    },
+    {
+      "name": "document-hydration-1440.png",
+      "sha256": "9BDDB62AE82D21468A56C404C2297C679EEC667EAF03ADADA5A0B0F4CEA07BC6"
+    },
+    {
+      "name": "assistant-hydration-390.png",
+      "sha256": "33FB11A7B485E68BA14698808BB43B47F4C926E62C52FF1AF6E6892FC45ADD93"
+    },
+    {
+      "name": "assistant-hydration-1440.png",
+      "sha256": "D563AB150F0589BC1111FA175777B652E38675032302D89160CBE50882DE5646"
+    },
+    {
+      "name": "task-pending-390.png",
+      "sha256": "E8F5AFDFD5170B7FE23275F05F0E9B07B60015841DEA3AD322E0F48CEBA3CDDE"
+    },
+    {
+      "name": "task-error-390.png",
+      "sha256": "17DBAB03582003939B97F57A574239DD50E0E6B5AAF03559B4417801219AF1F2"
+    },
+    {
+      "name": "task-error-1440.png",
+      "sha256": "3FA7E1018054182C619972CC24A7C7D6730107B09AA738FDFD9A6E11097A62B1"
+    }
+  ],
+  "sourceEditsDuringThirdRun": false,
+  "logs": "docs/releases/evidence/clean-runs/campusforge-r1-clean-5sA7wj"
+}

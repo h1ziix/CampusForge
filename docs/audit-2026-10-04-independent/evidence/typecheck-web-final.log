@@ -1,0 +1,20 @@
+src/components/auth/sign-in-form.tsx(27,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/auth/sign-out-button.tsx(12,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/auth/sign-up-form.tsx(23,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/document/document-list.tsx(49,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/flashcard/flashcard-set-list.tsx(41,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/note/note-editor.tsx(50,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/onboarding/onboarding-form.tsx(26,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/task/create-task-dialog.tsx(52,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/task/edit-task-dialog.tsx(60,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/workspace/create-workspace-dialog.tsx(45,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.

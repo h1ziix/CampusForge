@@ -1,0 +1,189 @@
+{
+  "executedAt": "2026-10-04T17:50:52.537Z",
+  "sourceUnmodified": true,
+  "externalServices": "in-memory mocks only",
+  "paidAICalls": 0,
+  "assertions": 17,
+  "results": [
+    {
+      "name": "actual TXT processor downloads mocked stream and persists UTF-8 repeatably",
+      "defectReproduced": false,
+      "mockedBehaviorPassed": true,
+      "observations": {
+        "status": "COMPLETED",
+        "decodedText": "Синтетический учебный текст.",
+        "invocations": 2
+      }
+    },
+    {
+      "name": "actual workers provider prompt builders validators and DB transactions pass with synthetic OpenAI responses",
+      "defectReproduced": false,
+      "mockedBehaviorPassed": true,
+      "observations": {
+        "providerRequests": 2,
+        "summaryPersisted": "Real source summary",
+        "generatedFlashcardSets": 1,
+        "statuses": [
+          "COMPLETED",
+          "COMPLETED"
+        ],
+        "recordedTokens": [
+          300,
+          300
+        ],
+        "realNetworkRequests": 0
+      }
+    },
+    {
+      "name": "same-millisecond sanitized S3 key collision",
+      "defectReproduced": true,
+      "observations": {
+        "documents": 2,
+        "objects": 1,
+        "firstStoredText": "bravo",
+        "sharedKey": "documents/cm000000000000000000000000/1728000000000-a_b.txt"
+      }
+    },
+    {
+      "name": "collision plus failed DB insert cleanup destroys first document object",
+      "defectReproduced": true,
+      "observations": {
+        "existingDocumentRows": 1,
+        "survivingObjects": 0
+      }
+    },
+    {
+      "name": "enqueue rejection returns successful upload with unqueued PENDING row",
+      "defectReproduced": true,
+      "observations": {
+        "result": {
+          "ok": true,
+          "documentId": "d1"
+        },
+        "status": "PENDING",
+        "queued": 0
+      }
+    },
+    {
+      "name": "S3 delete rejection removes DB reference and returns success",
+      "defectReproduced": true,
+      "observations": {
+        "result": {
+          "ok": true,
+          "documentId": "d1"
+        },
+        "documentRows": 0,
+        "retainedObjects": 1
+      }
+    },
+    {
+      "name": "DB deletion rejection leaves row referencing deleted S3 object",
+      "defectReproduced": true,
+      "observations": {
+        "documentRows": 1,
+        "survivingObjects": 0
+      }
+    },
+    {
+      "name": "sequential action submissions before worker starts bypass in-flight guard",
+      "defectReproduced": true,
+      "observations": {
+        "successes": 4,
+        "queued": 4,
+        "persistedAIJobs": 0
+      }
+    },
+    {
+      "name": "redelivery same logical flashcard job creates second paid call and set",
+      "defectReproduced": true,
+      "observations": {
+        "providerAttempts": 2,
+        "completedAIJobs": 2,
+        "flashcardSets": 2
+      }
+    },
+    {
+      "name": "stalled-attempt replay leaves old PROCESSING row that permanently blocks new requests",
+      "defectReproduced": true,
+      "observations": {
+        "statuses": [
+          "PROCESSING",
+          "COMPLETED"
+        ],
+        "subsequentAction": {
+          "ok": false,
+          "error": "A summary is already being generated for this document."
+        }
+      }
+    },
+    {
+      "name": "paid successful completion followed by DB transaction failure loses usage metadata",
+      "defectReproduced": true,
+      "observations": {
+        "providerAttempts": 1,
+        "status": "FAILED",
+        "recordedTokens": null,
+        "recordedCost": null
+      }
+    },
+    {
+      "name": "provider parse error drops billed usage and finish_reason classification",
+      "defectReproduced": true,
+      "observations": {
+        "mockedBilledTokens": 2148,
+        "error": "AI provider returned invalid JSON: not JSON",
+        "usageOnError": null,
+        "finishReason": "length"
+      }
+    },
+    {
+      "name": "unknown configured model reports zero estimated cost",
+      "defectReproduced": true,
+      "observations": {
+        "configuredModel": "gpt-4.1",
+        "actualUsageTokens": 200,
+        "estimatedCost": 0
+      }
+    },
+    {
+      "name": "installed OpenAI SDK retries multiply two BullMQ attempts into six transport attempts",
+      "defectReproduced": true,
+      "observations": {
+        "logicalQueueAttempts": 2,
+        "SDKMaxRetries": 2,
+        "SDKTimeoutMs": 600000,
+        "mockedHTTPAttempts": 6,
+        "failedAIJobRows": 2,
+        "actualNetworkCalls": 0
+      }
+    },
+    {
+      "name": "real multipart parser accepts >11MB total body when selected file is 1 byte",
+      "defectReproduced": true,
+      "observations": {
+        "totalSerializedBytes": 11534654,
+        "selectedFileBytes": 1,
+        "status": 201
+      }
+    },
+    {
+      "name": "runtime validators accept blank study content and long documents lose tail",
+      "defectReproduced": true,
+      "observations": {
+        "acceptedBlankSections": 1,
+        "acceptedBlankCards": 1,
+        "tailContentSent": false,
+        "truncationNoteInPrompt": true
+      }
+    },
+    {
+      "name": "mock chat ignores system prompt temperature and differing attachment bytes",
+      "defectReproduced": true,
+      "observations": {
+        "textResponsesEqual": true,
+        "differingFileAnalysesEqual": true,
+        "contentRead": false
+      }
+    }
+  ]
+}

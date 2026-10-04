@@ -1,0 +1,34 @@
+✔ post-login routes accept same origin and reject ambiguous callbacks (169.5241ms)
+[CampusForge] Password limiter unavailable; password requests denied
+[CampusForge] Password limiter unavailable; password requests denied
+[CampusForge] Password limiter unavailable; password requests denied
+✔ new UTF-8 password boundary, distinct suffix and documented legacy bcrypt equivalence (3470.9532ms)
+✔ credentials provider and sign-in action share budget before DB and bcrypt (mock Redis/Prisma) (62.0068ms)
+✔ parallel instances share atomic mocked account budget; spoofed forwarding cannot split source (74.2618ms)
+✔ signup rotating emails stop at shared source budget; existing account receives same outcome (51.8139ms)
+✔ absent account and wrong password both compare once; rotating login emails consume source budget (49.0795ms)
+✔ Redis outage denies before expensive work; deadline is finite and recovery is possible (mock store) (1538.6447ms)
+✔ client JWT update cannot change identity or grow cookie claims; trusted DB refresh follows onboarding write (37.0015ms)
+✔ anonymous and foreign workspace boundaries reject before profile mutations (32.7511ms)
+✔ actual middleware redirect decisions enforce valid identity and saved onboarding claims (mock response) (29.6706ms)
+✔ actual storage isolates user + workspace; only metadata persists for attachments (96.9417ms)
+✔ autosave false removes stored history while retaining scoped preferences and in-memory state (24.4663ms)
+✔ ownerless legacy history is never loaded, corrupt data and storage failures are safe (47.0705ms)
+✔ logout revokes both tabs and pending writes; removes only documented sensitive keys (37.2588ms)
+✔ epoch fences content when removal fails, storage-only and BroadcastChannel-only logout work (64.6297ms)
+✔ BFCache restoration revokes memory and forces the trusted server boundary (15.3343ms)
+✔ Markdown URL allowlist rejects executable, opaque and ambiguous URLs (49.3158ms)
+✔ actual Markdown renders rejected links as text, escapes HTML and protects external links (121.0041ms)
+✔ upload Origin policy is exact, configured and independent of spoofed host headers (4.1995ms)
+✔ actual upload entrance rejects hostile/missing Origin before auth, DB and multipart (34.7178ms)
+✔ actual same-origin upload preserves auth, membership and multipart lifecycle (31.4981ms)
+[CampusForge] Password limiter unavailable; password requests denied
+✔ actual ioredis transport on closed synthetic localhost fails closed within deadline (72.8163ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5784.1508

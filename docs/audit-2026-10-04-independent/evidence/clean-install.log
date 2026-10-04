@@ -1,0 +1,30 @@
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +324
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 324, reused 320, downloaded 0, added 4
+Progress: resolved 324, reused 323, downloaded 0, added 56
+Progress: resolved 324, reused 324, downloaded 0, added 160
+Progress: resolved 324, reused 324, downloaded 0, added 220
+Progress: resolved 324, reused 324, downloaded 0, added 295
+Progress: resolved 324, reused 324, downloaded 0, added 318
+Progress: resolved 324, reused 324, downloaded 0, added 320
+Progress: resolved 324, reused 324, downloaded 0, added 321
+Progress: resolved 324, reused 324, downloaded 0, added 322
+Progress: resolved 324, reused 324, downloaded 0, added 323
+Progress: resolved 324, reused 324, downloaded 0, added 324, done
+
+devDependencies:
++ prettier 3.8.3
++ turbo 2.9.6
++ typescript 5.5.4
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: msgpackr-extract@3.0.3.                             │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 12.8s using pnpm v10.33.0

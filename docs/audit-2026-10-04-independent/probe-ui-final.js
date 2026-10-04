@@ -1,0 +1,18 @@
+async page=>{
+ const base='http://127.0.0.1:3107';const dir='C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/docs/audit-2026-10-04-independent/screenshots';const out={};
+ for(const [width,height] of [[390,844],[768,1024],[1024,900],[1440,900]])for(const theme of ['light','dark']){await page.setViewportSize({width,height});await page.goto(base+'/');await page.evaluate(t=>{localStorage.setItem('campusforge-theme',t);document.documentElement.classList.toggle('dark',t==='dark')},theme);await page.screenshot({path:`${dir}/landing-${width}-${theme}.png`,animations:'disabled'});}
+ await page.goto(base+'/sign-in');await page.setViewportSize({width:1440,height:900});
+ await page.evaluate(()=>{const state=JSON.parse(localStorage.getItem('campusforge:assistant:v1'));state.settings.theme='dark';localStorage.setItem('campusforge-theme','light');localStorage.setItem('campusforge:assistant:v1',JSON.stringify(state))});
+ await page.goto(base+'/audit');await page.waitForTimeout(350);
+ out.themeConflict=await page.evaluate(()=>({rootDark:document.documentElement.classList.contains('dark'),toggleLabel:document.querySelector('[title="Dark mode"],[title="Light mode"]').getAttribute('aria-label')}));
+ await page.getByRole('button',{name:'Chat options'}).last().focus();
+ out.inactiveHistoryButton=await page.getByRole('button',{name:'Chat options'}).last().evaluate(e=>({opacity:getComputedStyle(e).opacity,focused:document.activeElement===e}));
+ await page.getByRole('button',{name:'Settings',exact:true}).click();
+ out.settingsLabeling=await page.getByRole('dialog').evaluate(d=>[...d.querySelectorAll('select,input[type=range],[role=switch]')].map(e=>({tag:e.tagName,role:e.getAttribute('role'),labels:e.labels?[...e.labels].map(l=>l.textContent):[],ariaLabel:e.getAttribute('aria-label'),ariaLabelledBy:e.getAttribute('aria-labelledby')})));
+ await page.screenshot({path:dir+'/settings-accessibility-1440.png',animations:'disabled'});
+ await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'Sign Out',exact:true}).click();
+ await page.waitForTimeout(1000);
+ out.logoutMock=await page.evaluate(()=>({url:location.href,storageStillPresent:!!localStorage.getItem('campusforge:assistant:v1')}));
+ return out;
+}

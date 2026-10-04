@@ -1,0 +1,71 @@
+
+> campusforge@ test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr
+> pnpm -r --workspace-concurrency=1 test
+
+Scope: 5 of 6 workspace projects
+
+> @campusforge/db@0.0.0 test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\db
+> node --test tests/*.test.mjs
+
+✔ Prisma schema validates in isolation with a synthetic datasource (661.5518ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 749.0577
+
+> @campusforge/shared@0.0.0 test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\shared
+> node --import tsx --test tests/*.test.ts
+
+✔ build needs no runtime secrets and validates only optional public URL (1.109ms)
+✔ web and worker accept synthetic runtime configuration; web needs no AI key (0.4002ms)
+✔ runtime rejects missing storage settings and model with names-only errors (0.445ms)
+✔ invalid URL schemes and short auth secrets fail before runtime connects (0.42ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.02
+
+> @campusforge/web@0.0.0 test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\apps\web
+> playwright test --config ../../playwright.config.ts
+
+
+Running 5 tests using 1 worker
+·····
+  5 passed (34.2s)
+
+> @campusforge/ai@0.0.0 test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\packages\ai
+> node --import tsx --test tests/*.test.ts
+
+✔ structured summary parser preserves expected output without a provider request (2.5067ms)
+✔ flashcard parser rejects malformed provider output (0.48ms)
+✔ long prompt input stays bounded during dependency upgrade (0.37ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 380.772
+
+> @campusforge/worker@0.0.0 test C:\Users\rausa\AppData\Local\Temp\campusforge-r1-clean-xU6zKr\apps\worker
+> node --import tsx --test tests/*.test.ts
+
+✔ maintained PDF parser loads its worker/font assets and extracts synthetic text (2470.2999ms)
+✔ malformed PDF rejects and parser remains usable on the next document (6.9731ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2880.8548

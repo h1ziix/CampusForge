@@ -1,0 +1,99 @@
+{
+  "target": "C:\\Users\\rausa\\AppData\\Local\\Temp\\campusforge-r1-clean-xU6zKr",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "envCopied": false,
+  "oldModulesCopied": false,
+  "cachesCopied": false,
+  "dependencyStoreInitiallyEmpty": true,
+  "results": [
+    {
+      "command": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile",
+        "--store-dir",
+        "C:\\Users\\rausa\\AppData\\Local\\Temp\\campusforge-r1-clean-xU6zKr\\.pnpm-store"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/00-install.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "db:generate"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/01-db-generate.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "db:validate"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/02-db-validate.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/03-typecheck.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/04-lint.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "format:check"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/05-format-check.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "install",
+        "chromium"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/06-exec.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/07-test.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "env:probe"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/08-env-probe.log"
+    },
+    {
+      "command": [
+        "pnpm",
+        "build",
+        "--force"
+      ],
+      "exitCode": 0,
+      "logFile": "clean-runs/campusforge-r1-clean-xU6zKr/09-build.log"
+    }
+  ]
+}

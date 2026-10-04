@@ -1,0 +1,472 @@
+CampusForge — полный технический аудит
+Дата: 4 октября 2026 года. Проверена локальная рабочая копия.
+
+Вывод: проект пока не готов к production. Есть полноценная основа backend,
+но production build не проходит, несколько основных экранов показывают demo,
+выявлены проблемы приватности, безопасности, загрузок и фоновой обработки.
+Внешний production deployment в рамках этой проверки не исследовался.
+
+1. GitHub и состояние проекта
+
+Подключённый GitHub аккаунт: h1ziix, https://github.com/h1ziix.
+Проверены все 7 доступных репозиториев, принадлежащих этому аккаунту:
+Agentic-Ops, gold_palast.kz.github.io, h1ziix, jii-app, KazFoodV2,
+my_portfolio и StratWeb. Следующая страница owner-list оказалась пустой.
+
+Поиск CampusForge в аккаунте не нашёл отдельного репозитория; точный запрос
+h1ziix/CampusForge вернул 404. Дополнительно проверены полные деревья файлов
+default branch всех семи репозиториев; все ответы имели truncated=false.
+Исходная структура CampusForge и соответствующий package.json не обнаружены.
+Непросмотренные другие ветки, недоступные private repositories и другие
+аккаунты этим выводом не охвачены.
+
+В my_portfolio есть описание проекта и видео-превью:
+https://github.com/h1ziix/my_portfolio/blob/main/data/portfolio.ts
+https://github.com/h1ziix/my_portfolio/blob/main/public/projects/campusforge-preview.mp4
+Описание ведёт на #contact («Request project access»), ссылки на исходники нет.
+Это подтверждает наличие материалов проекта в GitHub, но не его исходников.
+
+Локально: ветка master, remote отсутствует, HEAD/первого коммита нет,
+git ls-files возвращает 0 файлов. Все исходники пока untracked.
+Следовательно, эта рабочая копия не имеет сохранённой Git-истории и привязки
+к удалённому репозиторию. Репозиторий не создавался, push не выполнялся.
+
+2. Область и метод проверки
+
+Монорепозиторий pnpm/Turborepo: Next.js web, отдельный BullMQ worker,
+packages/db с Prisma/PostgreSQL, packages/shared с Zod, packages/ai с OpenAI.
+Просмотрены web routes, actions, services, queries, auth/middleware,
+130 исходных TS/TSX файлов в инвентаризации, UI, schema/migrations,
+S3/Redis, worker jobs, AI provider/prompts, package scripts и инфраструктура.
+Backend/security, worker/DB/AI и frontend проверялись параллельно.
+
+Использованы frontend-senior, 21st-ui-review и Playwright для browser QA.
+Автоматические предупреждения проверялись по исходникам; они не выдаются
+за самостоятельные доказанные уязвимости.
+
+Исходники приложения намеренно не редактировались. Восстановлены зависимости
+через pnpm install --frozen-lockfile и затем --force, без обновления lockfile.
+Созданы только отчёт, промпт и артефакты аудита. Реальные AI API calls,
+регистрация аккаунтов, DB writes и мутации GitHub не выполнялись.
+
+Проверки бизнес-логики использовали реальные функции с in-memory mocks.
+Они доказывают конкретные ветки кода, но не заменяют интеграционный тест.
+
+3. Выполненные проверки
+
+• pnpm build — FAIL. JS compilation прошла; проверка типов остановила сборку
+  на sign-in-form.tsx:27 с TS2345: async callback несовместим с React 18
+  TransitionFunction.
+• pnpm -r exec tsc --noEmit --incremental false — FAIL в web: 10 TS2345.
+  Отдельные typecheck worker, ai, db и shared — PASS.
+• pnpm lint — FAIL: next lint запускает первоначальную настройку ESLint;
+  конфигурация и необходимые lint dependencies не подготовлены.
+• pnpm format:check — FAIL: Cannot find package prettier-plugin-tailwindcss.
+• Prisma validate с загрузкой root .env — PASS. Первоначальный запуск без
+  dotenv не имел DATABASE_URL; это отличие команды, не дефект schema.
+• pnpm audit — 59 срабатываний: 7 critical, 23 high, 23 moderate, 6 low.
+• pnpm audit --prod — 48 срабатываний: 7 critical, 18 high, 20 moderate, 3 low.
+  Эти числа включают повторения advisory по разным пакетам/путям зависимостей
+  и не означают такое же число достижимых exploit в приложении.
+• 21st review apps/web/src --json — 105 файлов, 8 errors, 44 warnings.
+  Часть focus warnings — false positives; автоисправления не применялись.
+• Поиск очевидных форматов API tokens/private keys в исходниках вне .env,
+  зависимостей и build output не дал совпадений. Это не полная сертификация
+  отсутствия секретов. .env существует и исключён из Git.
+• Тестов *.test.*/*.spec.*, test script и CI workflow в проекте не найдено.
+• Docker daemon не запущен; PostgreSQL/Redis/MinIO недоступны локально.
+
+Browser QA:
+• Реальное Next приложение: home, sign-in, sign-up; mobile 390 px,
+  desktop 1440 px; sign-in дополнительно 1024/768 px и dark theme.
+  На измеренных публичных экранах горизонтального overflow нет.
+  Tab на регистрации переводит фокус в Name; формы имеют связанные labels.
+  Анонимный /dashboard перенаправляет на sign-in с callbackUrl.
+  Favicon возвращает 404 — небольшой дефект оформления.
+• Закрытый UI: реальные AppShell/AssistantApp и их TSX с реальным Tailwind
+  отрендерены в изолированном временном стенде на 1440/1024/768/390 px.
+  Mocked только user/workspaces, Next navigation, auth и workspace action.
+  Runtime page errors отсутствовали. DB-backed workflows этим не проверены.
+• Отдельные browser probes подтвердили React 18 pending, остановку streaming,
+  flashcard keyboard bug и попадание unsafe URL в markdown DOM.
+
+4. Наиболее важные проблемы
+
+Приоритеты: P1 — блокирует выпуск/основной сценарий либо существенно влияет
+на безопасность/приватность; P2 — значимый дефект, исправить перед production;
+P3 — меньший риск или дефект качества. Срочная задача выпуска не означает,
+что для всех security findings выполнен реальный exploit.
+
+A01 [P1] Production build не проходит; pending мутаций неверно работает.
+Файлы: apps/web/src/components/auth/sign-in-form.tsx:27;
+sign-out-button.tsx:12; sign-up-form.tsx:23;
+components/document/document-list.tsx:49;
+components/flashcard/flashcard-set-list.tsx:41;
+components/note/note-editor.tsx:50;
+components/onboarding/onboarding-form.tsx:26;
+components/task/create-task-dialog.tsx:52, edit-task-dialog.tsx:60;
+components/workspace/create-workspace-dialog.tsx:45.
+Причина: startTransition(async () => ...) при React/ReactDOM 18.3.1.
+Сборка и tsc подтверждают 10 ошибок типов. Изолированный ReactDOM probe
+также показал isPending=false и disabled=false при незавершённой операции;
+повторный клик запустил вторую операцию. Это риск дубликатов/конкурирующих
+изменений, даже если обойти проверку типов.
+Исправление: явный pending state и обработка ошибок для async operations,
+либо согласованная миграция React/Next. Не подавлять ошибки TypeScript.
+Критерий: build/typecheck проходят, повторная отправка блокируется до ответа.
+
+A02 [P1] Устаревшие runtime зависимости имеют актуальные security advisories.
+Файл: apps/web/package.json:29–32; точные версии — pnpm-lock.yaml.
+Установлены Next 14.2.35, next-auth 5.0.0-beta.25 и несколько @auth/core.
+Next 14.2.35 входит в диапазон Windows-hosted RCE GHSA-p293-qw3h-jr36.
+Primary advisory указывает исправления 15.5.24/16.3.3. Применимость именно
+production зависит от ОС и режима сервера; текущая машина — Windows.
+Также advisory GHSA-2xp9-vwfh-vxw4 относится к AVIF image optimization;
+достижимость этой ветки и наличие необходимого sharp/libheif не доказаны.
+Не все npm critical применимы: Auth.js fail-open GHSA-8fpg-xm3f-6cx3
+описывает truthy auth object, но middleware здесь проверяет req.auth?.user,
+а requireAuth — конкретный user.id. Email/OAuth advisories требуют providers,
+которые сейчас не настроены. У primary Auth.js advisory severity low,
+хотя npm audit помечает соответствующее срабатывание critical.
+Исправление: перейти на поддерживаемую исправленную линию Next/Auth,
+согласовать adapter/@auth/core, проверить миграцию и повторить audit.
+Не использовать автоматический audit --fix --force без оценки совместимости.
+Источники:
+https://github.com/vercel/next.js/security/advisories/GHSA-p293-qw3h-jr36
+https://github.com/vercel/next.js/security/advisories/GHSA-2xp9-vwfh-vxw4
+https://github.com/nextauthjs/next-auth/security/advisories/GHSA-8fpg-xm3f-6cx3
+
+A03 [P1] callbackUrl из query допускает выполнение JavaScript после входа.
+Файлы: apps/web/src/components/auth/sign-in-form.tsx:19,35;
+apps/web/src/server/actions/auth.ts:73–79.
+Сценарий: внешняя ссылка sign-in с javascript: callbackUrl, затем успешный
+вход. router.push получает query напрямую; redirect:false в signInAction
+не защищает последующий клиентский переход. Поток до external navigation
+проверен в установленном Next 14; официальная документация подтверждает
+выполнение javascript: URL в контексте страницы. E2E с реальной сессией
+не выполнялся. Возможны действия с правами вошедшего пользователя.
+Исправление: allowlist внутренних маршрутов того же origin; отклонять
+опасные protocol, // URL и backslash tricks. Для невалидного ввода /dashboard.
+Источник: https://nextjs.org/docs/app/api-reference/functions/use-router
+
+A04 [P1] История AI Assistant не изолирована по пользователю/workspace.
+Файлы: apps/web/src/lib/assistant/storage.ts:11,44,73;
+apps/web/src/components/assistant/assistant-app.tsx:58;
+apps/web/src/components/auth/sign-out-button.tsx:12.
+Один localStorage key campusforge:assistant:v1 используется всеми аккаунтами
+на одном origin. Logout не очищает историю. Пользователь B на общем браузере
+может увидеть чаты пользователя A; смена workspace также сохраняет историю.
+Исправление: user/workspace scope хранения, политика logout и серверная
+авторизация для синхронизации. Не переносить старый общий key всем пользователям.
+
+A05 [P1] Основные AI сценарии в интерфейсе являются симуляцией.
+Файлы: apps/web/src/components/document/document-detail-view.tsx:103–110,
+160–178; apps/web/src/lib/assistant/engine.ts:1,517,527;
+apps/web/src/components/assistant/assistant-app.tsx:186.
+DocumentDetailView игнорирует переданные summary/jobs/flashcardSets.
+Generate Summary строит текст по имени файла; Generate Flashcards выдаёт
+постоянный массив после таймера. Реальные server actions не вызываются,
+готовые результаты backend не отображаются, набор не появляется в DB list.
+Assistant использует локальную библиотеку ответов по ключевым словам;
+анализ вложения учитывает имя/размер/расширение без чтения содержимого.
+Language/Temperature/System prompt/Memory/Notifications сохраняются,
+но не определяют работу engine (settings-dialog.tsx:157,190,219,222,250).
+Исправление: связать UI с реальными jobs/results/provider и error states,
+либо явно маркировать весь этот режим как demo и отключить фиктивные настройки.
+Критерий: изменение содержимого документа меняет результат; вывод переживает
+перезагрузку и виден в других соответствующих разделах через DB.
+
+A06 [P1] В новом AI чате поле ввода недоступно на части размеров экрана.
+Файлы: apps/web/src/components/assistant/assistant-app.tsx:387;
+welcome-screen.tsx:46; chat-view.tsx:45,85.
+Fixed viewport height + overflow-hidden и высокий welcome content без
+внутренней прокрутки вытесняют composer. В стенде при высоте 900 px textarea
+находилась y=871/bottom=915 при ширине 1440; y=945 при1024; y=928 при768;
+y=1335 при390. body.scrollHeight оставался900; обычный скролл не помогает.
+Это блокирует ввод произвольного первого сообщения, особенно на mobile.
+Исправление: min-h-0 на flex children, отдельный scrollable body,
+composer shrink-0, более компактный mobile welcome.
+
+5. Продукт и интерфейс
+
+A07 [P2] Mobile не имеет навигации по разделам и переключения workspace.
+Файл: apps/web/src/components/layout/app-shell.tsx:27,43.
+SidebarWorkspaceNav скрывается ниже md; вместо него остаётся бренд.
+Runtime на390 подтвердил отсутствие видимых nav links. Chat drawer содержит
+историю, но не Tasks/Notes/Documents/Flashcards. Нужен mobile navigation.
+
+A08 [P2] Dashboard показывает статические показатели и записи.
+Файл: apps/web/src/app/(dashboard)/w/[workspaceId]/dashboard/page.tsx:36,
+67,106,139,184,228,236,244. Живые только auth/workspace. В пустом workspace
+можно увидеть 28 tasks,47 documents,143 AI conversations. Создание сущностей
+не изменяет эти показатели. Подключить scoped queries либо обозначить demo.
+
+A09 [P2] New chat/переключение истории оставляет прерванный ответ streaming.
+Файлы: components/assistant/assistant-app.tsx:302,311;
+components/assistant/message-bubble.tsx:170; lib/assistant/storage.ts:26.
+Timers очищаются, общий isStreaming сбрасывается, status сообщения — нет.
+Browser probe: после возвращения к чату status=streaming при isStreaming=false.
+Caret остаётся, copy/regenerate/feedback скрыты; status может сохраниться.
+Исправить единый cancel path, завершать status и нормализовать hydration.
+
+A10 [P2] Flashcards keyboard handler перехватывает Enter/Space у кнопок.
+Файл: components/flashcard/flashcard-viewer.tsx:68–85.
+Глобальный window listener делает preventDefault и flip без проверки target.
+Probe: focus Next card + Enter оставляет1/2 и переворачивает карточку;
+mouse click переходит к2/2. Ограничить shortcuts областью карточки/неинтерактивным
+focus, сохранить нативную клавиатурную активацию кнопок.
+
+A11 [P2] Несколько controls недоступны для screen reader.
+Файл: components/assistant/settings-dialog.tsx:27,98,158,178,194;
+message-bubble.tsx:142. Названия в <p> не связаны с selects/range/switches.
+Пять switches в DOM не имеют accessible name. Edit textarea без label;
+mobile model selector скрывает текстовое имя. Связать label/id/aria-labelledby,
+добавить явные names и видимый focus. Это дефект доступности, не вопрос вкуса.
+
+A12 [P2] Смена workspace на detail page сохраняет ID прежнего ресурса.
+Файл: components/workspace/workspace-switcher.tsx:60.
+Меняется только /w/<workspaceId>; /notes/<noteId> или /documents/<documentId>
+сохраняется. Queries правильно отклоняют ресурс другого workspace, результат
+— 404. На смене workspace переводить на аналогичный list route/dashboard.
+
+A13 [P2] Regenerate у старого ответа регенерирует последнюю пару сообщений.
+Файлы: components/assistant/message-bubble.tsx:191;
+components/assistant/assistant-app.tsx:266.
+Один callback без messageId подключён всем ответам; поиск всегда последнего
+user message. Привязать regeneration к выбранному сообщению либо показывать
+эту кнопку только у последнего ответа.
+
+A14 [P2] Custom chat drawer не реализует modal keyboard behavior.
+Файл: components/assistant/assistant-app.tsx:405.
+Нет dialog semantics, focus trap, Escape handler и focus restore.
+Проверено кодом; отдельный полный keyboard walkthrough drawer не выполнен.
+Использовать имеющийся Radix Dialog/Sheet pattern с корректной семантикой.
+
+Субъективный polish отдельно: две постоянные desktop sidebar занимают544px,
+что оставляет мало места рабочему содержимому при1024px. Восемь крупных
+suggestion cards перегружают первый экран. После устранения clipping стоит
+сократить suggestions и адаптировать число постоянно открытых панелей.
+Это рекомендация композиции, не дополнительная security finding.
+
+6. Backend, безопасность и сохранность данных
+
+A15 [P2] AI deduplication не действует до запуска worker.
+Файлы: server/actions/summary.ts:58–75; flashcard.ts:57–74;
+lib/queue.ts:74–80,96–102; apps/worker/src/jobs/generate-summary.ts:36–44,
+generate-flashcards.ts:43–51.
+AIJob появляется при старте worker, а actions проверяют только DB AIJob.
+Пока worker выключен/занят, повторные запросы ставят одинаковые задания.
+BullMQ jobId не указан. Mock probe: два вызова реальной action → два success,
+два queued jobs. Атомарно резервировать DB job до enqueue, использовать
+стабильный jobId и transactional outbox. Это также уменьшит повторные расходы.
+
+A16 [P2] Повторная доставка задания повторно вызывает AI и создаёт результаты.
+Файл: apps/worker/src/jobs/generate-flashcards.ts:43–51,102–124;
+generate-summary.ts:36–44. После DB commit и до BullMQ ack возможен crash.
+Повтор выполняет pipeline заново. Probe одного payload дважды: aiCalls=2,
+AIJob=2, FlashcardSet=2. Processor должен продолжать один durable job,
+проверять completion и связывать результат уникально с job ID.
+
+A17 [P2] Crash оставляет блокирующий AIJob PROCESSING без recovery.
+Файлы: worker jobs generate-summary.ts:48–50;
+generate-flashcards.ts:55–57; actions summary.ts:58.
+Retry создаёт новую AIJob, старая PROCESSING остаётся. Проверка любой активной
+записи блокирует будущую генерацию даже после успешного retry. Нужны один job
+на delivery, lease/heartbeat и reconciliation зависших attempts.
+
+A18 [P2] HTTP producers ждут Redis без конечного лимита.
+Файл: apps/web/src/lib/queue.ts:17–18.
+maxRetriesPerRequest:null вместе с offline queue подвешивает await queue.add.
+Probe реального ioredis на закрытом localhost порту продолжал ожидание после
+ошибок подключения; никаких Redis writes не выполнялось.
+Отделить worker connections от HTTP producer; bounded retry/timeout и outbox.
+Источник: https://docs.bullmq.io/guide/connections
+
+A19 [P2] Ошибка enqueue парсинга скрывается как успешная загрузка.
+Файл: apps/web/src/server/services/document.ts:65–72.
+Документ уже сохранён, enqueue error только логируется, возвращается success.
+Mock probe: ok=true, DB PENDING, задачи нет. Обещанного manual/cron retry
+в проекте не найдено. Нужен outbox/reconciler или явная ошибка с работающим retry.
+
+A20 [P2] S3 storageKey допускает перезапись разных документов.
+Файлы: server/services/document.ts:30–32;
+packages/db/prisma/schema.prisma:197.
+Date.now + нормализованное имя совпадают для concurrent uploads в workspace.
+Разные Unicode имена могут стать одинаковыми после очистки. Probe с fixed
+clock: лекция.pdf и доклад.pdf → две DB rows, один S3 object, первый перезаписан.
+Удаление первой записи удаляет объект второй. Использовать UUID/document ID
+в key и unique storageKey constraint; filename оставить декоративным suffix.
+
+A21 [P2] Ограничение10MiB применяется к файлу после чтения всего multipart.
+Файл: app/api/workspaces/[workspaceId]/documents/upload/route.ts:54,62,71–76.
+request.formData потребляет все части; дополнительные части игнорируются.
+Probe реального route с mocked IO: file1byte + ignored11MiB → HTTP201,
+body11,534,591bytes. Возможен memory exhaustion от больших/параллельных тел
+запроса. Внешний production proxy/body limit неизвестен.
+Нужен лимит общего тела, streaming parser с ограничением bytes/parts/files,
+ранняя остановка; одной Content-Length проверки недостаточно.
+
+A22 [P2] В приложении нет rate limits для входа и регистрации.
+Файлы: lib/auth.ts:33–54; server/actions/auth.ts:21–47,58–88;
+server/services/auth.ts:23–33.
+Вход запускает bcrypt для существующих accounts; signup — bcrypt factor12
+и DB transaction. Приложение не ограничивает частоту/квоты. Точная ошибка
+existing email облегчает enumeration. Добавить IP/account limits, backoff,
+signup abuse protection и нейтральные ответы. Наличие внешнего WAF неизвестно.
+
+A23 [P2] Разрешённые длинные пароли bcrypt считает эквивалентными.
+Файлы: packages/shared/src/schemas/auth.ts:8–9;
+apps/web/src/server/services/auth.ts:33; lib/auth.ts:53.
+Schema разрешает128characters, bcrypt использует72UTF-8bytes. Реальный probe:
+hash72×a+A принимает72×a+B и один prefix. Unicode достигает лимита раньше.
+Исправление: Argon2id или явно проверять UTF-8 byte limit; предусмотреть
+миграцию существующих hashes. Источник: https://github.com/dcodeIO/bcrypt.js
+
+A24 [P2] Удаление S3 и DB не имеет durable cleanup.
+Файл: server/services/document.ts:92–99.
+S3 error → DB row всё равно удаляется, объект остаётся без cleanup retry.
+DB error после S3 delete → row ссылается на отсутствующий исходник.
+Это source-level failure-path finding, реальные S3 сбои не имитировались.
+Нужен tombstone/delete job/outbox и повторяемая cleanup операция.
+
+7. AI и фоновые задачи
+
+A25 [P2] Usage теряется на невалидном платном ответе; неизвестная цена равна0.
+Файл: packages/ai/src/provider.ts:28–40,103–126,152;
+worker generate-summary.ts:114–120, generate-flashcards.ts:140–146.
+Validation выполняется до построения metadata. Parse/validation failure
+теряет usage выполненного запроса; worker сохраняет только error, retry
+порождает ещё один вызов. Для модели вне трёх exact names estimateCost=0;
+snapshot alias probe также дал0 при ненулевых tokens.
+Сохранять metadata каждой попытки до validation; неизвестную цену отображать
+unknown/null, поддерживать модельные aliases и актуальный ценовой конфиг.
+Реальные счета и актуальность численных тарифов таблицы не проверялись.
+
+A26 [P2] AI output validation принимает бессодержательные результаты.
+Файлы: packages/ai/src/prompts/summary.ts:91–122;
+flashcard.ts:114–134. Приняты пробельные title/tldr/question/answer;
+summary допускает пустые sections, а flashcards одну карточку вместо
+обещанного количества. Неверные keyTerms silently фильтруются.
+Нужны trim/min/max, строгие schemas и явный отказ от невалидного результата.
+
+A27 [P3] BullMQ задания сохраняются бессрочно.
+Файл: apps/web/src/lib/queue.ts:55–58,77–80,99–102.
+removeOnComplete/removeOnFail не заданы; Redis хранит history без лимита.
+Это постепенно расходует память. Задать retention age/count и наблюдать backlog.
+
+8. Запуск, tooling и качество
+
+A28 [P2] Чистая MinIO инфраструктура не создаёт bucket приложения.
+Файл: infra/docker-compose.yml:37–49; .env.example:22;
+apps/web/src/lib/s3.ts:47–53. Есть MinIO server, но нет bucket init service.
+PutObject ожидает campusforge bucket. На свежем volume требуется ручное
+создание, которое не документировано. Добавить идемпотентный init/healthcheck.
+Это вывод из конфигурации; runtime MinIO был недоступен.
+
+A29 [P2] Не определён production artifact/start для worker.
+Файл: apps/worker/package.json:7,21–22.
+start требует tsx/dotenv-cli, находящиеся в devDependencies.
+Production-only installation их не установит; worker build script отсутствует.
+turbo build dry-run показывает worker/ai/db/shared build как NONEXISTENT.
+Нужны явные typecheck/build, compiled entry или обоснованные runtime deps,
+deployment pipeline для web и worker, prisma migrate deploy, healthchecks.
+
+A30 [P2] Lint, автоматические тесты и CI не обеспечивают выпуск.
+Файлы: apps/web/package.json:9; root package.json; turbo.json.
+lint интерактивно просит настройку ESLint и завершается неуспешно.
+Tests/test command/CI workflows отсутствуют. Это позволяет незаметно
+возвращать A01 и ошибки tenant isolation, retries, uploads и состояния UI.
+Настроить noninteractive lint/typecheck/build в CI; добавить целевые тесты
+для найденных security/data-loss багов и критических E2E сценариев.
+
+A31 [P3] Format check ссылается на отсутствующий plugin.
+Файл: .prettierrc:9; root package.json.
+prettier-plugin-tailwindcss указан, но не объявлен в dependencies.
+Добавить совместимый plugin или убрать конфигурацию; format:check должен
+завершаться нормально и проверять formatting, а не падать при загрузке.
+
+A32 [P3] JWT onboarding flag доверяет клиентскому update payload.
+Файл: apps/web/src/lib/auth.config.ts:30–33; middleware.ts:22,46–51.
+Probe callback: onboardingCompleted=false →true исключительно client payload.
+Это позволяет обходить заполнение профиля, но не эскалировать роль.
+Reload flag из DB после успешно выполненного onboarding action.
+
+A33 [P3] Некоторые обязательные поля допускают одни пробелы.
+Файлы: packages/shared/src/schemas/auth.ts:4,18–20;
+schemas/task.ts:7,18; schemas/note.ts:13;
+services/task.ts:34,88; services/note.ts:51; services/auth.ts:40.
+Реальные schema probes приняли whitespace-only values; после trim они пусты.
+CreateWorkspace/CreateNote имеют дополнительную проверку, остальные пути
+не согласованы. Использовать .trim().min(1) до сохранения и общие validators.
+
+9. Риски, требующие отдельного подтверждения
+
+• Markdown URL protocols не ограничены: components/assistant/markdown.tsx:61.
+  engine.generateFileAnalysis интерполирует filename без escaping.
+  Probe реального engine+renderer доказал javascript: href из crafted filename.
+  XSS execution и доставка от внешнего атакующего не доказаны: attachment
+  локален, link имеет target=_blank/noopener. Не приравнивать к A03.
+  Экранировать filename, разрешать только безопасные URL schemes.
+• Query helpers сами не требуют auth, но нынешние callers защищены.
+  Это риск при расширении API, не доказанный текущий IDOR.
+• Membership check и mutation разделены. При будущих move-resource/removal
+  membership нужны атомарные predicates; соответствующих маршрутов сейчас нет.
+• Реальные migrations на PostgreSQL, S3 permissions, Redis persistence,
+  AI provider quality/latency, production proxy/TLS/headers/backups/monitoring
+  и нагрузка не проверены. Нужен отдельный интеграционный прогон.
+• Файлы .env.example и compose имеют dev credentials и явно описаны как
+  local development. Это не доказательство использования этих секретов в prod.
+
+10. Что уже сделано хорошо
+
+• Разделены web/worker, DB, общие schemas и AI provider.
+• Auth middleware использует Edge-safe config; Prisma/bcrypt находятся в Node.
+• Текущие actions/pages проверяют membership и принадлежность сущностей
+  workspace; прямой текущий IDOR не обнаружен. Assignee также проверяется.
+• Workspace + owner membership создаются атомарно.
+• AI result + COMPLETED сохраняются в одной Prisma transaction.
+• Prisma schema валидна; две migration статически соответствуют schema.
+• Публичные формы читаемы на mobile/desktop, labels связаны с inputs,
+  light/dark базовые tokens и примитивы выдержаны последовательно.
+
+11. Рекомендуемая последовательность исправлений
+
+Шаг1 — вернуть возможность безопасного выпуска:
+исправить React18 async pending и build; обновить runtime dependencies;
+закрыть callbackUrl; изолировать историю; восстановить composer/mobile nav.
+
+Шаг2 — сделать заявленные функции настоящими:
+подключить document summary/flashcards и assistant к backend; dashboard к
+queries; реализовать job polling/error/retry; убрать немаркированные demo.
+
+Шаг3 — обеспечить сохранность и повторяемость обработки:
+UUID S3 keys, upload body limits, durable enqueue/outbox, idempotent jobs,
+recovery PROCESSING, bounded producer retries, cleanup и cost accounting.
+
+Шаг4 — воспроизводимый запуск и контроль регрессий:
+bucket init, production worker artifact, migrate deploy, README,
+noninteractive lint/format/typecheck/build, targeted tests и CI.
+
+До выпуска проверить изолированно:
+1) Пользователь A не читает/меняет ресурсы B, включая workspace и local history.
+2) Повторный submit/concurrent enqueue создаёт ровно одну нужную операцию.
+3) Crash после DB commit не создаёт вторые cards/AI calls при redelivery.
+4) Redis outage не оставляет успешную загрузку без восстанавливаемой задачи.
+5) Одновременные Unicode uploads сохраняют два независимых исходника.
+6) Oversized/chunked multipart отклоняется до полной загрузки в память.
+7) Logout/new account, interrupted stream, keyboard flashcards работают.
+8) 390/768/1024/1440: input/nav/dialog доступны, body не обрезает controls.
+9) Real document content влияет на AI output и сохраняется в DB.
+
+12. Артефакты
+
+Промпт повторного аудита: docs/AUDIT-PROMPT.txt.
+Сырой production dependency audit: output/audit/pnpm-audit-prod.json.
+Playwright snapshots/logs: output/playwright/cli-session/.
+Browser screenshots: output/playwright/home-desktop.png, home-mobile.png,
+sign-in-mobile.png, sign-up-mobile.png, sign-in-desktop.png, sign-in-dark.png.
+Изолированный UI стенд: output/playwright/audit-mocked-assistant-1440.png,
+audit-mocked-assistant-1024.png, audit-mocked-assistant-768.png,
+audit-mocked-assistant-390.png, audit-mocked-assistant-settings-390.png.
+Стенд проверяет реальные компоненты с test data; эти изображения не являются
+доказательством успешной работы backend или авторизации.

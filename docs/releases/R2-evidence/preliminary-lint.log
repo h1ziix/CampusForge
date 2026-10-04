@@ -1,0 +1,27 @@
+
+> campusforge@ lint C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> pnpm -r lint && eslint scripts tests playwright.config.ts --max-warnings 0
+
+Scope: 5 of 6 workspace projects
+packages/db lint$ eslint src tests --max-warnings 0
+packages/shared lint$ eslint src tests --max-warnings 0
+packages/db lint: Done
+packages/shared lint: Done
+packages/ai lint$ eslint src tests --max-warnings 0
+apps/web lint$ eslint src scripts tests --max-warnings 0
+packages/ai lint: Done
+apps/web lint: C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web\tests\auth-security.test.cjs
+apps/web lint:     1:16  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     2:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     3:30  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     4:25  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     5:18  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     6:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:     7:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint:   158:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+apps/web lint: ✖ 8 problems (8 errors, 0 warnings)
+apps/web lint: Failed
+C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @campusforge/web@0.0.0 lint: `eslint src scripts tests --max-warnings 0`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.

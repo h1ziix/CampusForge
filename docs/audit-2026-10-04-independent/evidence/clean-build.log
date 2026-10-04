@@ -1,0 +1,46 @@
+
+> campusforge@ build C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn
+> turbo build "--force"
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running build in 5 packages
+   • Remote caching disabled
+
+@campusforge/web:build: cache bypass, force executing c0922268a86567ba
+@campusforge/web:build: 
+@campusforge/web:build: > @campusforge/web@0.0.0 build C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn\apps\web
+@campusforge/web:build: > dotenv -e ../../.env -- next build
+@campusforge/web:build: 
+@campusforge/web:build: ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+@campusforge/web:build:   ▲ Next.js 14.2.35
+@campusforge/web:build: 
+@campusforge/web:build:    Creating an optimized production build ...
+@campusforge/web:build: Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+@campusforge/web:build:   npx update-browserslist-db@latest
+@campusforge/web:build:   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+@campusforge/web:build:  ✓ Compiled successfully
+@campusforge/web:build:    Linting and checking validity of types ...
+@campusforge/web:build: Failed to compile.
+@campusforge/web:build: 
+@campusforge/web:build: ./src/app/(dashboard)/layout.tsx:34:42
+@campusforge/web:build: Type error: Parameter 'ws' implicitly has an 'any' type.
+@campusforge/web:build: 
+@campusforge/web:build: [0m [90m 32 |[39m[0m
+@campusforge/web:build: [0m [90m 33 |[39m   [90m// Serialize workspace list for the client-side switcher[39m[0m
+@campusforge/web:build: [0m[31m[1m>[22m[39m[90m 34 |[39m   [36mconst[39m workspaceItems [33m=[39m workspaces[33m.[39mmap((ws) [33m=>[39m ({[0m
+@campusforge/web:build: [0m [90m    |[39m                                          [31m[1m^[22m[39m[0m
+@campusforge/web:build: [0m [90m 35 |[39m     id[33m:[39m ws[33m.[39mid[33m,[39m[0m
+@campusforge/web:build: [0m [90m 36 |[39m     name[33m:[39m ws[33m.[39mname[33m,[39m[0m
+@campusforge/web:build: [0m [90m 37 |[39m     type[33m:[39m ws[33m.[39mtype[33m,[39m[0m
+@campusforge/web:build: Next.js build worker exited with code: 1 and signal: null
+@campusforge/web:build:  ELIFECYCLE  Command failed with exit code 1.
+
+ Tasks:    0 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    28.072s 
+Failed:    @campusforge/web#build
+
+ ERROR  @campusforge/web#build: command (C:\Users\rausa\AppData\Local\Temp\campusforge-clean-audit-A6izCn\apps\web) C:\Users\rausa\AppData\Roaming\npm\pnpm.cmd run build exited (1)
+ ERROR  run failed: command  exited (1)
+ ELIFECYCLE  Command failed with exit code 1.

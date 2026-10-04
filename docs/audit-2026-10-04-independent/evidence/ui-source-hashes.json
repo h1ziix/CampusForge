@@ -1,0 +1,344 @@
+[
+  {
+    "file": "src\\components\\assistant\\assistant-app.tsx",
+    "originalSha256": "FDD9E768521E9F897F1C13EEB19A384F6D1875FFCA25F5513385274D3603C94F",
+    "temporaryCopySha256": "FDD9E768521E9F897F1C13EEB19A384F6D1875FFCA25F5513385274D3603C94F",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\assistant-sidebar.tsx",
+    "originalSha256": "0EADE98AD61F9499AA16BD67E9AB38ACA3CFD56C77887F4883BDC8E6446A13B4",
+    "temporaryCopySha256": "0EADE98AD61F9499AA16BD67E9AB38ACA3CFD56C77887F4883BDC8E6446A13B4",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\chat-input.tsx",
+    "originalSha256": "BC42CA0EEAB7E664314EC606EC08636464D3EF9C981D31D75D5BBB816FD9BE89",
+    "temporaryCopySha256": "BC42CA0EEAB7E664314EC606EC08636464D3EF9C981D31D75D5BBB816FD9BE89",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\chat-view.tsx",
+    "originalSha256": "B08FBDA8AA138B706678C5EC567434B0CB6A494CB7F00E26B96774CB6217F02E",
+    "temporaryCopySha256": "B08FBDA8AA138B706678C5EC567434B0CB6A494CB7F00E26B96774CB6217F02E",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\markdown.tsx",
+    "originalSha256": "B73E39A5A6B6A7F5876A51125D1F5F5561181893A0F9533D5095B96BC26E9591",
+    "temporaryCopySha256": "B73E39A5A6B6A7F5876A51125D1F5F5561181893A0F9533D5095B96BC26E9591",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\message-bubble.tsx",
+    "originalSha256": "19627E7C88CB8115C73D4937D66CEC678CF4A6ED18E173E267F40EDA35F6421C",
+    "temporaryCopySha256": "19627E7C88CB8115C73D4937D66CEC678CF4A6ED18E173E267F40EDA35F6421C",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\message-list.tsx",
+    "originalSha256": "6E9E1FFF9F700C40AF2312C5100C67F3B80E845E87FB78D6391FED82264BE36A",
+    "temporaryCopySha256": "6E9E1FFF9F700C40AF2312C5100C67F3B80E845E87FB78D6391FED82264BE36A",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\model-selector.tsx",
+    "originalSha256": "2396CCF4CEA96CA1DA5E9E25672ED80BA998FCA82DA1AD536126492E80244020",
+    "temporaryCopySha256": "2396CCF4CEA96CA1DA5E9E25672ED80BA998FCA82DA1AD536126492E80244020",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\settings-dialog.tsx",
+    "originalSha256": "D2FB2B68645F685E4A8196D112089560F092227F968CF0204FC92EAD583DCED6",
+    "temporaryCopySha256": "D2FB2B68645F685E4A8196D112089560F092227F968CF0204FC92EAD583DCED6",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\typing-indicator.tsx",
+    "originalSha256": "5DB3E0E333C8AE7F58317F8DCA7B02B16D5126CF271E944BB1832B5D42AA5329",
+    "temporaryCopySha256": "5DB3E0E333C8AE7F58317F8DCA7B02B16D5126CF271E944BB1832B5D42AA5329",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\assistant\\welcome-screen.tsx",
+    "originalSha256": "05B6910A1D5A986BEB50C9710BF19E1767DC27A849ACF6D5806E9FEDE52A89C0",
+    "temporaryCopySha256": "05B6910A1D5A986BEB50C9710BF19E1767DC27A849ACF6D5806E9FEDE52A89C0",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\auth\\sign-in-form.tsx",
+    "originalSha256": "19A2816DBAF0149DEC49BEA030700F1A502D7746AB52FFBA4134B0B37A868B34",
+    "temporaryCopySha256": "19A2816DBAF0149DEC49BEA030700F1A502D7746AB52FFBA4134B0B37A868B34",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\auth\\sign-out-button.tsx",
+    "originalSha256": "F498CA0041FFEF5BD25EF2E66D991B0FA20A2A7A2E2BD3A8F537E06643E4FC97",
+    "temporaryCopySha256": "F498CA0041FFEF5BD25EF2E66D991B0FA20A2A7A2E2BD3A8F537E06643E4FC97",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\auth\\sign-up-form.tsx",
+    "originalSha256": "52D72732A50D36A28338FCA4C6A7049DD5C9C9914DE4F04C57BE5D186D667D54",
+    "temporaryCopySha256": "52D72732A50D36A28338FCA4C6A7049DD5C9C9914DE4F04C57BE5D186D667D54",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\document\\document-detail-view.tsx",
+    "originalSha256": "0FAE2C85B8448E7021348AC9DC6E06668EC3EB7687A5BCA97B2780C4C8145558",
+    "temporaryCopySha256": "0FAE2C85B8448E7021348AC9DC6E06668EC3EB7687A5BCA97B2780C4C8145558",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\document\\document-list.tsx",
+    "originalSha256": "63A3707CBEA7D6FEFA7A68FB7EF16FEA75E46B3FC780E1DCD3500848769EB63D",
+    "temporaryCopySha256": "63A3707CBEA7D6FEFA7A68FB7EF16FEA75E46B3FC780E1DCD3500848769EB63D",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\document\\document-status-badge.tsx",
+    "originalSha256": "83475DE853802409D7127752A00AD2443B6BA8F579FC60B8701AE9B5E2627FBD",
+    "temporaryCopySha256": "83475DE853802409D7127752A00AD2443B6BA8F579FC60B8701AE9B5E2627FBD",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\document\\upload-document-dialog.tsx",
+    "originalSha256": "ECC1FE12FAA63255277F0BD61DBB5CF3CE4520E7F393227B2EBB0CD97E851EB0",
+    "temporaryCopySha256": "ECC1FE12FAA63255277F0BD61DBB5CF3CE4520E7F393227B2EBB0CD97E851EB0",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\flashcard\\flashcard-set-detail-view.tsx",
+    "originalSha256": "781795924BB84978247F25D0746C1FAE12CFA9F2ED6E79CBF2491D0A16C1A1B6",
+    "temporaryCopySha256": "781795924BB84978247F25D0746C1FAE12CFA9F2ED6E79CBF2491D0A16C1A1B6",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\flashcard\\flashcard-set-list.tsx",
+    "originalSha256": "93243231819EC49DC695412EB8E0E1E228BB2C38D396616CFF05DBD2E53E61E9",
+    "temporaryCopySha256": "93243231819EC49DC695412EB8E0E1E228BB2C38D396616CFF05DBD2E53E61E9",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\flashcard\\flashcard-viewer.tsx",
+    "originalSha256": "AD5073BBF296EC480F7683B16EFA77B1E107E54EA37AF33B96CBD336D7679ACF",
+    "temporaryCopySha256": "AD5073BBF296EC480F7683B16EFA77B1E107E54EA37AF33B96CBD336D7679ACF",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\layout\\app-shell.tsx",
+    "originalSha256": "164D73EA99845B2B7FA1F1C73F996A8707006401725E13E31A9B2F0983D19AD0",
+    "temporaryCopySha256": "164D73EA99845B2B7FA1F1C73F996A8707006401725E13E31A9B2F0983D19AD0",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\layout\\theme-toggle.tsx",
+    "originalSha256": "6B6B968B45FE33398EAE05E0F358341A8E89D5CEC306975F23D50C9E41F0BF1C",
+    "temporaryCopySha256": "6B6B968B45FE33398EAE05E0F358341A8E89D5CEC306975F23D50C9E41F0BF1C",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\note\\note-card.tsx",
+    "originalSha256": "4B5C9D21190202E191FD98CA92462585FDD02D85094F030A9EA337C5E38E0E28",
+    "temporaryCopySha256": "4B5C9D21190202E191FD98CA92462585FDD02D85094F030A9EA337C5E38E0E28",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\note\\note-detail.tsx",
+    "originalSha256": "ECD1912E317D0B2FE810A76E32CB1458E51EDFFBAAEEE1FA6008D10063F1E54F",
+    "temporaryCopySha256": "ECD1912E317D0B2FE810A76E32CB1458E51EDFFBAAEEE1FA6008D10063F1E54F",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\note\\note-editor.tsx",
+    "originalSha256": "EF94DE608B94D9174273D42BC69F6531DBF8F26D38A0E94EAD18FC6BFB619811",
+    "temporaryCopySha256": "EF94DE608B94D9174273D42BC69F6531DBF8F26D38A0E94EAD18FC6BFB619811",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\note\\note-list.tsx",
+    "originalSha256": "4E09EFDE974652A6DA2B2A5EC366CC0555111C4803035C5D1B76745A3FBA745C",
+    "temporaryCopySha256": "4E09EFDE974652A6DA2B2A5EC366CC0555111C4803035C5D1B76745A3FBA745C",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\onboarding\\onboarding-form.tsx",
+    "originalSha256": "265E78E3498E218DEC82E86166945F99C63323CD4196EA3331AF6434CB52CA7F",
+    "temporaryCopySha256": "265E78E3498E218DEC82E86166945F99C63323CD4196EA3331AF6434CB52CA7F",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\create-task-dialog.tsx",
+    "originalSha256": "57B69E219F8943CA75EEA82EFA614815C0A457F37092DE315059F70147227742",
+    "temporaryCopySha256": "57B69E219F8943CA75EEA82EFA614815C0A457F37092DE315059F70147227742",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\edit-task-dialog.tsx",
+    "originalSha256": "8485C7EC4029B4293D2FAA1E3E22E9B88FC61738F5F86A898BF602780033CF9C",
+    "temporaryCopySha256": "8485C7EC4029B4293D2FAA1E3E22E9B88FC61738F5F86A898BF602780033CF9C",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\task-form.tsx",
+    "originalSha256": "290966792A6C85B3876AAECA34736F489B24AC39576E961D3791774BCF673B56",
+    "temporaryCopySha256": "290966792A6C85B3876AAECA34736F489B24AC39576E961D3791774BCF673B56",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\task-list.tsx",
+    "originalSha256": "EC7038A8297103F05AFBB247BB79A2FFD1C3E1FBE0CA04552C27D2ACE1308B21",
+    "temporaryCopySha256": "EC7038A8297103F05AFBB247BB79A2FFD1C3E1FBE0CA04552C27D2ACE1308B21",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\task-priority-badge.tsx",
+    "originalSha256": "7370566552D3BB5C2B01B544B5C4DFBA93AB4B9C44290796EEFD798DCC19A516",
+    "temporaryCopySha256": "7370566552D3BB5C2B01B544B5C4DFBA93AB4B9C44290796EEFD798DCC19A516",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\task\\task-status-badge.tsx",
+    "originalSha256": "976D8AEAAE3B5426633F9E4F9873EE775DD6D2E8DE5C5EE5C175B4EA052645C1",
+    "temporaryCopySha256": "976D8AEAAE3B5426633F9E4F9873EE775DD6D2E8DE5C5EE5C175B4EA052645C1",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\badge.tsx",
+    "originalSha256": "D900FA480EB84E33EEE47B1825B52202364CF61F6B2DDA34A4322837E0AA46B7",
+    "temporaryCopySha256": "D900FA480EB84E33EEE47B1825B52202364CF61F6B2DDA34A4322837E0AA46B7",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\button.tsx",
+    "originalSha256": "983A58D6D56C5CE8E2A898E7CDC15BFDC3EEA7C117B5AF01AF8817D8F07400DB",
+    "temporaryCopySha256": "983A58D6D56C5CE8E2A898E7CDC15BFDC3EEA7C117B5AF01AF8817D8F07400DB",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\card.tsx",
+    "originalSha256": "282F51EF8FDE2D477B604ED942FC58E1C639A1AE1DFEED85A155BBFA99E72A5E",
+    "temporaryCopySha256": "282F51EF8FDE2D477B604ED942FC58E1C639A1AE1DFEED85A155BBFA99E72A5E",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\dialog.tsx",
+    "originalSha256": "2E47994CA62574FD2D5B8F2D2C5EDE7A4C83A36145896CB01F33815F5684FD01",
+    "temporaryCopySha256": "2E47994CA62574FD2D5B8F2D2C5EDE7A4C83A36145896CB01F33815F5684FD01",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\dropdown-menu.tsx",
+    "originalSha256": "4515E755845E4FE99102AC31915D999E16B283BBABEAFE1D8B21EDCAC10E75F7",
+    "temporaryCopySha256": "4515E755845E4FE99102AC31915D999E16B283BBABEAFE1D8B21EDCAC10E75F7",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\input.tsx",
+    "originalSha256": "99DBC57034F3F43CD9C67032720701FF4B1F61C84782925F7559190F4680D9AC",
+    "temporaryCopySha256": "99DBC57034F3F43CD9C67032720701FF4B1F61C84782925F7559190F4680D9AC",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\label.tsx",
+    "originalSha256": "6B5A9128746C931EDF8B93274EE5F0A501AEC8243F6BCBCE1AB0A4F877AC26B7",
+    "temporaryCopySha256": "6B5A9128746C931EDF8B93274EE5F0A501AEC8243F6BCBCE1AB0A4F877AC26B7",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\separator.tsx",
+    "originalSha256": "E7F64F97E6E1B3327A81F34896AF6DE0F4FE1A15B2C24790BC88723108E170F8",
+    "temporaryCopySha256": "E7F64F97E6E1B3327A81F34896AF6DE0F4FE1A15B2C24790BC88723108E170F8",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\ui\\skeleton.tsx",
+    "originalSha256": "D4FF96B5804C5BF57AA88C05E4BB4E7BA773139D9DD478C7DAA2DDF79B3499FF",
+    "temporaryCopySha256": "D4FF96B5804C5BF57AA88C05E4BB4E7BA773139D9DD478C7DAA2DDF79B3499FF",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\workspace\\create-workspace-dialog.tsx",
+    "originalSha256": "2DA67F43B66DA4FB5C452236C293D172E76B456927BC070E624A57054C01E4F4",
+    "temporaryCopySha256": "2DA67F43B66DA4FB5C452236C293D172E76B456927BC070E624A57054C01E4F4",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\workspace\\sidebar-workspace-nav.tsx",
+    "originalSha256": "766255697DA8B2C97812C4FE7E649D3C3FB0261EF9082782FD4A03BCDB2B025C",
+    "temporaryCopySha256": "766255697DA8B2C97812C4FE7E649D3C3FB0261EF9082782FD4A03BCDB2B025C",
+    "identical": true
+  },
+  {
+    "file": "src\\components\\workspace\\workspace-switcher.tsx",
+    "originalSha256": "DE70AF5EC1FA01CC60D54FB76D40834799A33E1E0CA9B9C4C0D571FC949EB23E",
+    "temporaryCopySha256": "DE70AF5EC1FA01CC60D54FB76D40834799A33E1E0CA9B9C4C0D571FC949EB23E",
+    "identical": true
+  },
+  {
+    "file": "src\\styles\\globals.css",
+    "originalSha256": "EBF361403E78D633E8A0B91185AFEAFA8175CE7548B61E149D046C1E8ADC3CA3",
+    "temporaryCopySha256": "EBF361403E78D633E8A0B91185AFEAFA8175CE7548B61E149D046C1E8ADC3CA3",
+    "identical": true
+  },
+  {
+    "file": "src\\lib\\assistant\\engine.ts",
+    "originalSha256": "6841C1F8818E1F6A4812F59621C85A749946E5CDFC2A6DDD489ED6707A82CAF8",
+    "temporaryCopySha256": "6841C1F8818E1F6A4812F59621C85A749946E5CDFC2A6DDD489ED6707A82CAF8",
+    "identical": true
+  },
+  {
+    "file": "src\\lib\\assistant\\models.ts",
+    "originalSha256": "37410E68C5E46DB271F2C8F2DCF9F163FCE8CD528BA6B725E028092D073D5180",
+    "temporaryCopySha256": "37410E68C5E46DB271F2C8F2DCF9F163FCE8CD528BA6B725E028092D073D5180",
+    "identical": true
+  },
+  {
+    "file": "src\\lib\\assistant\\seed.ts",
+    "originalSha256": "E36DDD4AE42BD41CCE190BF62BBD9F2BC365E954D27B89EF36778DA65FDB4577",
+    "temporaryCopySha256": "E36DDD4AE42BD41CCE190BF62BBD9F2BC365E954D27B89EF36778DA65FDB4577",
+    "identical": true
+  },
+  {
+    "file": "src\\lib\\assistant\\storage.ts",
+    "originalSha256": "AC75214927CA9761819089389DB2467F9056AF4C2525CC5CEDF1CAC7EA1209D9",
+    "temporaryCopySha256": "AC75214927CA9761819089389DB2467F9056AF4C2525CC5CEDF1CAC7EA1209D9",
+    "identical": true
+  },
+  {
+    "file": "src\\lib\\assistant\\types.ts",
+    "originalSha256": "E68C5D11DDA52DEDCBBFC9B16811F6AB73F8E4210C7EFC1E9519FD4F79543560",
+    "temporaryCopySha256": "E68C5D11DDA52DEDCBBFC9B16811F6AB73F8E4210C7EFC1E9519FD4F79543560",
+    "identical": true
+  },
+  {
+    "file": "src\\app\\page.tsx",
+    "originalSha256": "9D97BB8B08C2AF394B99CA2CC724E127C9E35C1706C9FD6762CB810202833DEC",
+    "temporaryCopySha256": "9D97BB8B08C2AF394B99CA2CC724E127C9E35C1706C9FD6762CB810202833DEC",
+    "identical": true
+  },
+  {
+    "file": "src\\app\\(auth)\\layout.tsx",
+    "originalSha256": "01E0EB128B2331C257E6BA00ABEE9009205FF0D8DE0A70B5B706B67B63ED47FE",
+    "temporaryCopySha256": "01E0EB128B2331C257E6BA00ABEE9009205FF0D8DE0A70B5B706B67B63ED47FE",
+    "identical": true
+  },
+  {
+    "file": "src\\app\\(auth)\\sign-in\\page.tsx",
+    "originalSha256": "F4FC78B8F5869BEE86A91E2134B020DD088700DEBDA00704894FC1C1B0AB59A3",
+    "temporaryCopySha256": "F4FC78B8F5869BEE86A91E2134B020DD088700DEBDA00704894FC1C1B0AB59A3",
+    "identical": true
+  },
+  {
+    "file": "src\\app\\(auth)\\sign-up\\page.tsx",
+    "originalSha256": "FD602EE072E18D89AA5FB67C4D2D76689F8129B5E6A6BAA900AB84B6B75CA3B8",
+    "temporaryCopySha256": "FD602EE072E18D89AA5FB67C4D2D76689F8129B5E6A6BAA900AB84B6B75CA3B8",
+    "identical": true
+  },
+  {
+    "file": "src\\app\\(dashboard)\\w\\[workspaceId]\\dashboard\\page.tsx",
+    "originalSha256": "FD9452EFCB8C13B3F90DA0290A8C8974655943C9B100778A1D3466128FD74ECB",
+    "temporaryCopySha256": "FD9452EFCB8C13B3F90DA0290A8C8974655943C9B100778A1D3466128FD74ECB",
+    "identical": true
+  }
+]

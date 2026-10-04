@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@campusforge/db": ["../../packages/db/dist/index.d.ts"],
+      "@campusforge/ai": ["../../packages/ai/dist/index.d.ts"],
+      "@campusforge/shared": ["../../packages/shared/dist/index.d.ts"],
+      "@campusforge/shared/env": ["../../packages/shared/dist/env.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
+}

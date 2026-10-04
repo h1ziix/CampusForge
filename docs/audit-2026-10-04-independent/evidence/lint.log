@@ -1,0 +1,28 @@
+
+> campusforge@ lint C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> turbo lint
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running lint in 5 packages
+   • Remote caching disabled
+
+@campusforge/web:lint: cache miss, executing d3d887422ad750d8
+@campusforge/web:lint: 
+@campusforge/web:lint: > @campusforge/web@0.0.0 lint C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web
+@campusforge/web:lint: > next lint
+@campusforge/web:lint: 
+@campusforge/web:lint: ? How would you like to configure ESLint? https://nextjs.org/docs/basic-features/eslint
+@campusforge/web:lint: [?25l❯  Strict (recommended)
+@campusforge/web:lint:    Base
+@campusforge/web:lint:  ⚠ If you set up ESLint yourself, we recommend adding the Next.js ESLint plugin. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
+@campusforge/web:lint:    Cancel ELIFECYCLE  Command failed with exit code 1.
+
+ Tasks:    0 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    1.595s 
+Failed:    @campusforge/web#lint
+
+ ERROR  @campusforge/web#lint: command (C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web) C:\Users\rausa\AppData\Roaming\npm\pnpm.cmd run lint exited (1)
+ ERROR  run failed: command  exited (1)
+ ELIFECYCLE  Command failed with exit code 1.
