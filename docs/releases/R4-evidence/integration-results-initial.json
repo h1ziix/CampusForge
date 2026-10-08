@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "boundary": "Fresh run-labelled tmpfs PG16/Redis7/MinIO; actual Prisma transactions, BullMQ, application actions/lifecycle/worker; auth session and AI transport synthetic; paid calls 0",
+  "runId": "95e4d08d-68f2-4ef8-935d-a80ef960175c",
+  "containers": [
+    "campusforge-r4-95e4d08d-68f2-4ef8-935d-a80ef960175c-postgres",
+    "campusforge-r4-95e4d08d-68f2-4ef8-935d-a80ef960175c-redis",
+    "campusforge-r4-95e4d08d-68f2-4ef8-935d-a80ef960175c-minio"
+  ],
+  "results": [
+    {
+      "name": "fresh disposable migration; repository .env never loaded",
+      "passed": true,
+      "elapsedMs": 4684,
+      "boundary": "Fresh PostgreSQL database; full immutable old migration chain plus R4"
+    },
+    {
+      "name": "actual action: 20 parallel identical requests -> one operation/outbox/reservation",
+      "passed": false,
+      "elapsedMs": 266,
+      "error": "[{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":true,\"data\":{\"documentId\":\"cmuzp3pf1000bqvvmu6x6vafe\",\"operationId\":\"cmuzp3pk0000xqvvm4av791yo\",\"status\":\"PENDING\"}},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"},{\"success\":false,\"error\":\"Could not confirm AI operation. Retry with the same idempotency key.\"}]"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ const { Queue } = require('bullmq');
 
 for (const mode of ['close', 'silent']) {
   test(
-    `actual HTTP producer has finite ${mode} TCP failure and no offline/reconnecting commands`,
+    `actual parse/AI durable dispatcher producer has finite ${mode} TCP failure and no offline/reconnecting commands`,
     { timeout: 10_000 },
     async () => {
       const clients = [],
@@ -43,20 +43,18 @@ for (const mode of ['close', 'silent']) {
         { ioredis: TrackedRedis, bullmq: { Queue: TrackedQueue } },
         { REDIS_URL: `redis://127.0.0.1:${endpoint.address().port}/15` },
       );
-      const source = load('apps/web/src/lib/queue.ts');
+      const source = load('apps/worker/src/lib/dispatch-queue.ts');
       try {
         const started = performance.now();
         const outcomes = await Promise.allSettled(
-          Array.from({ length: 4 }, () =>
-            source.enqueueSummaryGeneration({
-              documentId: 'synthetic',
-              workspaceId: 'synthetic',
-              userId: 'synthetic',
-            }),
+          Array.from({ length: 4 }, (_, index) =>
+            index % 2
+              ? source.dispatchAIOperation('synthetic', `ai-synthetic-${index}`)
+              : source.dispatchDocumentParse('synthetic', `parse-synthetic-${index}`),
           ),
         );
         assert.equal(outcomes.filter((outcome) => outcome.status === 'rejected').length, 4);
-        assert.ok(performance.now() - started < source.HTTP_QUEUE_DEADLINE_MS + 1000);
+        assert.ok(performance.now() - started < 4000);
         assert.equal(clients.length, 4);
         for (const client of clients) {
           assert.equal(client.options.enableOfflineQueue, false);

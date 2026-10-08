@@ -1,0 +1,6 @@
+
+> campusforge@ release:pack C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> node scripts/package-release.mjs "C:\\Users\\rausa\\AppData\\Local\\Temp\\campusforge-r4-release-cb68687b-cb07-42ab-99c5-71590ac15610"
+
+Release artifact created at C:\Users\rausa\AppData\Local\Temp\campusforge-r4-release-cb68687b-cb07-42ab-99c5-71590ac15610.
+Install production dependencies with the manifest command on the same Node major, OS, and architecture.

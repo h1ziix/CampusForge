@@ -3,15 +3,17 @@ import {
   newDocumentLeaseToken,
   parseTaskId,
   PARSE_MAX_ATTEMPTS,
+  createAIOperationLifecycle,
   type PrismaClient,
   type Prisma,
 } from '@campusforge/db';
-import { dispatchDocumentParse } from '../lib/dispatch-queue';
+import { dispatchDocumentParse, dispatchAIOperation } from '../lib/dispatch-queue';
 import { deleteFromS3, deleteUploadFromS3 } from '../lib/s3';
 
 export interface DocumentDispatcherOptions {
   db: PrismaClient;
   enqueueParse: (documentId: string, jobId: string) => Promise<void>;
+  enqueueAI?: (operationId: string, jobId: string) => Promise<void>;
   deleteObject: (key: string) => Promise<void>;
   deleteUploadObject: (key: string, uploadId: string) => Promise<void>;
   now?: () => Date;
@@ -27,6 +29,7 @@ export function createDocumentDispatcher(options: DocumentDispatcherOptions) {
   const batchSize = options.batchSize ?? 10;
   const leaseMs = options.leaseMs ?? 60_000;
   const visibilityMs = options.visibilityMs ?? 60_000;
+  const aiLifecycle = options.enqueueAI ? createAIOperationLifecycle(db, { now, leaseMs }) : null;
   let running = false;
   let parseCursor: string | undefined;
 
@@ -117,7 +120,37 @@ export function createDocumentDispatcher(options: DocumentDispatcherOptions) {
     const owned = { id: task.id, status: 'CLAIMED' as const, leaseToken: token };
     try {
       const doc = await db.document.findUnique({ where: { id: task.documentId } });
-      if (task.kind === 'PARSE') {
+      if (task.kind === 'AI') {
+        const operation = task.operationId
+          ? await db.aIJob.findUnique({
+              where: { id: task.operationId },
+            })
+          : null;
+        if (
+          !operation ||
+          aiLifecycle?.isTerminal(operation.status) ||
+          operation.workspaceId !== task.workspaceId ||
+          (operation.documentId !== null && operation.documentId !== task.documentId)
+        ) {
+          await db.documentTask.updateMany({
+            where: owned,
+            data: { status: 'DONE', leaseToken: null, leaseUntil: null },
+          });
+          return true;
+        }
+        if (!options.enqueueAI) throw new Error('AI dispatcher is unavailable');
+        await options.enqueueAI(operation.id, task.id);
+        await db.documentTask.updateMany({
+          where: owned,
+          data: {
+            status: 'PENDING',
+            availableAt: new Date(now().getTime() + visibilityMs),
+            leaseToken: null,
+            leaseUntil: null,
+            lastError: null,
+          },
+        });
+      } else if (task.kind === 'PARSE') {
         if (
           !doc ||
           doc.lifecycle !== 'ACTIVE' ||
@@ -159,6 +192,12 @@ export function createDocumentDispatcher(options: DocumentDispatcherOptions) {
             data: { status: 'DONE', leaseToken: null, leaseUntil: null, lastError: null },
           });
           if (finished.count !== 1) return;
+          // PostgreSQL's Document -> AIJob SetNull FK also takes operation row
+          // locks. Acquire them before the document lock, matching completion.
+          await tx.aIJob.updateMany({
+            where: { documentId: task.documentId, workspaceId: task.workspaceId },
+            data: { updatedAt: now() },
+          });
           // Existing AI artifacts retain their prior SetNull policy.
           await tx.document.deleteMany({
             where: {
@@ -249,6 +288,7 @@ export function createDocumentDispatcher(options: DocumentDispatcherOptions) {
     running = true;
     try {
       await reconcileParsing();
+      await aiLifecycle?.recoverOperations(batchSize);
       for (let i = 0; i < batchSize; i++) if (!(await dispatchTask())) break;
       for (let i = 0; i < batchSize; i++) if (!(await cleanupUpload())) break;
     } finally {
@@ -261,6 +301,7 @@ export function createDocumentDispatcher(options: DocumentDispatcherOptions) {
 export const documentDispatcher = createDocumentDispatcher({
   db: prisma,
   enqueueParse: dispatchDocumentParse,
+  enqueueAI: dispatchAIOperation,
   deleteObject: deleteFromS3,
   deleteUploadObject: deleteUploadFromS3,
 });

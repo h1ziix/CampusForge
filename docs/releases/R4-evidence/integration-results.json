@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "boundary": "Fresh run-labelled tmpfs PG16/Redis7/MinIO; actual Prisma transactions, BullMQ, application actions/lifecycle/worker; auth session and AI transport synthetic; paid calls 0",
+  "runId": "90e6fcae-6a12-4434-aa47-da1c62675ffe",
+  "containers": [
+    "campusforge-r4-90e6fcae-6a12-4434-aa47-da1c62675ffe-postgres",
+    "campusforge-r4-90e6fcae-6a12-4434-aa47-da1c62675ffe-redis",
+    "campusforge-r4-90e6fcae-6a12-4434-aa47-da1c62675ffe-minio"
+  ],
+  "results": [
+    {
+      "name": "fresh disposable migration; repository .env never loaded",
+      "passed": true,
+      "elapsedMs": 895,
+      "boundary": "Fresh PostgreSQL database; full immutable old migration chain plus R4"
+    },
+    {
+      "name": "actual action: 20 parallel identical requests -> one operation/outbox/reservation",
+      "passed": true,
+      "elapsedMs": 336,
+      "requests": 20,
+      "operations": 1,
+      "durableTasks": 1,
+      "operationId": "cmuzpci1d000xse96bk6irajj",
+      "boundary": "Actual server action; real PostgreSQL constraints and transactions; session synthetic"
+    },
+    {
+      "name": "foreign workspace/document and nonmember create no operation or queue work",
+      "passed": true,
+      "elapsedMs": 24,
+      "boundary": "Actual entrance and real membership; no provider or Redis producer call"
+    },
+    {
+      "name": "same key with changed input rejected; new key explicitly regenerates",
+      "passed": true,
+      "elapsedMs": 62,
+      "sameKeyOperationId": "cmuzpcia20015se96v2vlvi0x",
+      "newKeyOperationId": "cmuzpcib9001ase962qiufl5e"
+    },
+    {
+      "name": "actual admission rejects unknown model and prompt overhead before reservation",
+      "passed": true,
+      "elapsedMs": 78,
+      "unknownModelOperations": 0,
+      "belowRawByteLimitButOverPromptBudgetRejected": true,
+      "newReservations": 0
+    },
+    {
+      "name": "expired pending operation reaches terminal state without provider calls",
+      "passed": true,
+      "elapsedMs": 88,
+      "providerCalls": 0,
+      "operationStatus": "FAILED",
+      "durableTaskStatus": "DONE",
+      "reservationReleased": true
+    },
+    {
+      "name": "physical delete and completion share lock order and never publish after tombstone",
+      "passed": true,
+      "elapsedMs": 164,
+      "physicalSourceDeleted": true,
+      "committedArtifacts": 0,
+      "usageRetained": true,
+      "operationStatus": "CANCELLED",
+      "boundary": "Concurrent actual dispatcher delete and actual completion Prisma transactions"
+    },
+    {
+      "name": "two workers claim one durable operation; completed redelivery reuses artifact",
+      "passed": true,
+      "elapsedMs": 418,
+      "providerCalls": 1,
+      "committedArtifacts": 1
+    },
+    {
+      "name": "expired lease recovery fences stale publication and unknown provider outcome",
+      "passed": true,
+      "elapsedMs": 101,
+      "operationStatus": "UNCERTAIN",
+      "automaticProviderReplay": false
+    },
+    {
+      "name": "expired pre-call claim recovers to pending and accepts a fresh fenced worker",
+      "passed": true,
+      "elapsedMs": 109,
+      "oldWorkerRenewed": false,
+      "stalePublication": false,
+      "freshWorkerPublished": true
+    },
+    {
+      "name": "long provider work renews lease and remains exclusively owned",
+      "passed": true,
+      "elapsedMs": 462,
+      "elapsedProviderWorkMs": 350,
+      "initialLeaseMs": 150,
+      "heartbeatMs": 30,
+      "providerCalls": 1
+    },
+    {
+      "name": "document deletion during provider response does not publish an accessible artifact",
+      "passed": true,
+      "elapsedMs": 161,
+      "providerCalls": 1,
+      "committedArtifacts": 0,
+      "operationStatus": "CANCELLED",
+      "usageRetained": true
+    },
+    {
+      "name": "invalid JSON, schema rejection and partial response retain paid usage",
+      "passed": true,
+      "elapsedMs": 751,
+      "cases": 6,
+      "committedArtifacts": 0,
+      "ledgerRowsWithReceivedUsage": 6,
+      "boundary": "Real SDK, actual provider/validators and PostgreSQL; mock HTTP responses"
+    },
+    {
+      "name": "result transaction failure rolls back artifact but retains prior received usage",
+      "passed": true,
+      "elapsedMs": 135,
+      "artifactTransactionRolledBack": true,
+      "receivedLedgerCommitted": true,
+      "providerCalls": 1
+    },
+    {
+      "name": "accounting persistence failure becomes explicit uncertain and cannot replay provider",
+      "passed": true,
+      "elapsedMs": 197,
+      "providerCalls": 1,
+      "operationStatus": "UNCERTAIN",
+      "exactUsageLost": true,
+      "reservationHeld": true
+    },
+    {
+      "name": "missing usage and unknown actual model never masquerade as free",
+      "passed": true,
+      "elapsedMs": 335,
+      "completedValidArtifacts": 1,
+      "rejectedUnknownActualModel": 1,
+      "uncertainAccounting": 2,
+      "unknownCostIsNull": true
+    },
+    {
+      "name": "20 concurrent reservations respect workspace cost and concurrency limits",
+      "passed": true,
+      "elapsedMs": 721,
+      "budgetRequests": 20,
+      "acceptedCostReservations": 2,
+      "reservedMicros": 8000,
+      "concurrencyRequests": 20,
+      "acceptedSlots": 2,
+      "boundary": "Real concurrent PostgreSQL admission transactions"
+    },
+    {
+      "name": "429/5xx retry budget is exact; 401/network/timeout stop safely",
+      "passed": true,
+      "elapsedMs": 986,
+      "retryResults": [
+        {
+          "status": 429,
+          "calls": 3,
+          "accountingStatus": "SETTLED"
+        },
+        {
+          "status": 500,
+          "calls": 3,
+          "accountingStatus": "UNCERTAIN"
+        }
+      ],
+      "nonretryableCallsEach": 1,
+      "hiddenSDKRetries": 0,
+      "successfulRetryAfter5xxAccounting": "UNCERTAIN",
+      "boundary": "Actual OpenAI SDK mocked fetch; real persisted attempt identities"
+    },
+    {
+      "name": "two actual dispatchers share R3 outbox and stable AI queue identity",
+      "passed": true,
+      "elapsedMs": 286,
+      "operationsDispatched": 7,
+      "independentQueuesPerOperation": 1,
+      "boundary": "Actual R3 dispatcher extension; real PostgreSQL CAS and BullMQ"
+    },
+    {
+      "name": "real worker process crash after DB commit before BullMQ ack; restart/replay/cleanup",
+      "passed": true,
+      "elapsedMs": 1114,
+      "childExitAfterCommit": 19,
+      "processIncarnations": 2,
+      "committedArtifacts": 1,
+      "totalProviderAttempts": 1,
+      "providerCallsAfterRestartAndCleanup": 0,
+      "boundary": "Actual OS process exit before BullMQ callback returns; real stalled redelivery and Redis cleanup"
+    },
+    {
+      "name": "bounded metadata cleanup retains active/pending/uncertain work and tenant ledger",
+      "passed": true,
+      "elapsedMs": 51,
+      "firstBatchCompacted": 2,
+      "repeatedRunCompacted": 0,
+      "pendingRetained": 11,
+      "numericLedgerAndArtifactsRetained": true
+    }
+  ]
+}

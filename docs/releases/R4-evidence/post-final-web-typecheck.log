@@ -1,0 +1,4 @@
+
+> @campusforge/web@0.0.0 typecheck C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web
+> tsc --noEmit --incremental false
+

@@ -3,19 +3,20 @@
  *
  * Modular prompt definition for generating structured flashcard sets.
  * The system prompt defines the AI's role and output schema.
- * The user prompt builder handles text truncation and formatting.
+ * The user prompt builder formats immutable input; token admission rejects oversized input.
  * Supports generation from either raw document text or an existing summary.
  *
  * Output schema (enforced via JSON mode + validation):
  * {
  *   title: string              — A concise title for the flashcard set
- *   cards: [                   — 10-30 flashcards
+ *   cards: [                   — 1-30 substantive flashcards
  *     { front: string, back: string }
  *   ]
  * }
  */
 
 import type { Flashcard, FlashcardSetOutput } from '../types';
+import { boundOutput, outputArray, outputObject, outputString } from '../validation';
 
 // ─── System Prompt ──────────────────────────────────────────
 
@@ -34,7 +35,7 @@ Given a document's text (or a summary of a document), produce a structured JSON 
 }
 
 Rules:
-- Generate between 10 and 30 flashcards depending on the document's density.
+- Generate 1-30 substantive flashcards. Aim for 10-30 when the document's density supports them; never invent filler to reach a count.
 - "title" should reflect the document's subject matter, not just the filename.
 - Each "front" should be a clear, self-contained question or term that tests one concept.
 - Each "back" should be a concise but complete answer (1-3 sentences).
@@ -47,26 +48,13 @@ Rules:
 
 // ─── User Prompt Builder ────────────────────────────────────
 
-/** Max characters of document text to send. ~12k tokens at ~4 chars/token. */
-const MAX_TEXT_LENGTH = 48_000;
-
 /**
  * Build the user message for the flashcard prompt from raw document text.
- * Truncates long documents with a note so the AI knows it's partial.
+ * Preserve complete versioned input. The caller enforces the finite token ceiling.
  */
 export function buildFlashcardUserPrompt(text: string, filename?: string): string {
-  let documentText = text;
-  let truncationNote = '';
-
-  if (text.length > MAX_TEXT_LENGTH) {
-    documentText = text.slice(0, MAX_TEXT_LENGTH);
-    truncationNote =
-      '\n\n[NOTE: This document was truncated. Create flashcards only from the content provided above.]';
-  }
-
   const filenameHint = filename ? `Document filename: ${filename}\n\n` : '';
-
-  return `${filenameHint}--- DOCUMENT TEXT ---\n${documentText}${truncationNote}`;
+  return `${filenameHint}--- DOCUMENT TEXT ---\n${text}`;
 }
 
 /**
@@ -103,36 +91,17 @@ export function buildFlashcardFromSummaryPrompt(
  * pipeline's approach.
  */
 export function parseFlashcardOutput(raw: unknown): FlashcardSetOutput {
-  if (!raw || typeof raw !== 'object') {
-    throw new Error('Flashcard output is not an object');
-  }
-
-  const obj = raw as Record<string, unknown>;
-
-  if (typeof obj.title !== 'string' || obj.title.length === 0) {
-    throw new Error('Flashcard output missing or empty "title"');
-  }
-
-  if (!Array.isArray(obj.cards) || obj.cards.length === 0) {
-    throw new Error('Flashcard output missing or empty "cards" array');
-  }
-
-  const cards: Flashcard[] = obj.cards.map((c: unknown, i: number) => {
-    if (!c || typeof c !== 'object') {
-      throw new Error(`Card ${i} is not an object`);
-    }
-    const card = c as Record<string, unknown>;
-    if (typeof card.front !== 'string' || card.front.length === 0) {
-      throw new Error(`Card ${i} missing or empty "front"`);
-    }
-    if (typeof card.back !== 'string' || card.back.length === 0) {
-      throw new Error(`Card ${i} missing or empty "back"`);
-    }
-    return { front: card.front, back: card.back };
+  boundOutput(raw);
+  const obj = outputObject(raw, ['title', 'cards'], 'Flashcard output');
+  const cards: Flashcard[] = outputArray(obj.cards, 1, 30, 'Flashcard cards').map((value, i) => {
+    const card = outputObject(value, ['front', 'back'], `Card ${i}`);
+    return {
+      front: outputString(card.front, 2000, `Card ${i} front`),
+      back: outputString(card.back, 4000, `Card ${i} back`),
+    };
   });
-
   return {
-    title: obj.title,
+    title: outputString(obj.title, 240, 'Flashcard title'),
     cards,
   };
 }

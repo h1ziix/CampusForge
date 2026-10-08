@@ -28,8 +28,69 @@ test('flashcard parser rejects malformed provider output', () => {
   );
 });
 
-test('long prompt input stays bounded during dependency upgrade', () => {
+test('prompt preserves complete input and relies on explicit token admission', () => {
   const prompt = buildSummaryUserPrompt('x'.repeat(60_000), 'synthetic.txt');
-  assert.ok(prompt.length < 49_000);
-  assert.match(prompt, /was truncated/);
+  assert.ok(prompt.includes('x'.repeat(60_000)));
+  assert.doesNotMatch(prompt, /was truncated/);
+});
+
+test('summary validation trims strings, rejects empty sections and unsupported fields', () => {
+  const valid = {
+    title: ' Title ',
+    tldr: ' Summary ',
+    sections: [{ heading: ' Heading ', content: ' Content ' }],
+    keyTerms: [' Term '],
+  };
+  assert.deepEqual(parseSummaryOutput(valid), {
+    title: 'Title',
+    tldr: 'Summary',
+    sections: [{ heading: 'Heading', content: 'Content' }],
+    keyTerms: ['Term'],
+  });
+  for (const invalid of [
+    { ...valid, title: ' \n ' },
+    { ...valid, tldr: '' },
+    { ...valid, sections: [] },
+    { ...valid, sections: [{ heading: 'A', content: '   ' }] },
+    { ...valid, sections: Array.from({ length: 7 }, () => valid.sections[0]) },
+    { ...valid, keyTerms: [] },
+    { ...valid, keyTerms: [' '] },
+    { ...valid, keyTerms: Array.from({ length: 11 }, () => 'Term') },
+    { ...valid, title: 'x'.repeat(241) },
+    { ...valid, sections: [{ heading: 'A', content: 'x'.repeat(8001) }] },
+    { ...valid, extra: 'Unsupported' },
+    { ...valid, sections: [{ heading: 'A', content: 'B', extra: true }] },
+    [],
+    null,
+  ])
+    assert.throws(() => parseSummaryOutput(invalid));
+});
+
+test('flashcard validation bounds collection, fields and aggregate persisted bytes', () => {
+  const valid = { title: ' Title ', cards: [{ front: ' Q ', back: ' A ' }] };
+  assert.deepEqual(parseFlashcardOutput(valid), {
+    title: 'Title',
+    cards: [{ front: 'Q', back: 'A' }],
+  });
+  for (const invalid of [
+    { ...valid, title: ' ' },
+    { ...valid, cards: [] },
+    { ...valid, cards: Array.from({ length: 31 }, () => valid.cards[0]) },
+    { ...valid, cards: [{ front: ' ', back: 'A' }] },
+    { ...valid, cards: [{ front: 'Q', back: ' ' }] },
+    { ...valid, cards: [{ front: 'x'.repeat(2001), back: 'A' }] },
+    { ...valid, cards: [{ front: 'Q', back: 'x'.repeat(4001) }] },
+    { ...valid, cards: [{ front: 'Q', back: 'A', extra: true }] },
+    { ...valid, extra: true },
+    {
+      ...valid,
+      cards: Array.from({ length: 30 }, () => ({
+        front: 'Я'.repeat(1500),
+        back: 'Я'.repeat(3000),
+      })),
+    },
+    [],
+    null,
+  ])
+    assert.throws(() => parseFlashcardOutput(invalid));
 });

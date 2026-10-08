@@ -99,6 +99,7 @@ function fixture() {
     return api;
   }
   const client = {
+    aIJob: { updateMany: async () => ({ count: 0 }) },
     document: table(documents, 'document'),
     documentTask: table(tasks, 'task'),
     documentUploadIntent: table(intents, 'intent'),

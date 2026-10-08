@@ -258,6 +258,7 @@ enum UploadIntentStatus {
 // remains pending after Redis delivery until a guarded DB parse commit.
 model DocumentTask {
   id          String             @id
+  operationId String?            @unique
   documentId  String
   workspaceId String
   storageKey  String
@@ -278,6 +279,7 @@ model DocumentTask {
 enum DocumentTaskKind {
   PARSE
   DELETE
+  AI
 }
 
 enum DocumentTaskStatus {
@@ -297,6 +299,7 @@ enum ProcessingStatus {
 
 model FlashcardSet {
   id               String   @id @default(cuid())
+  operationId      String?  @unique
   workspaceId      String
   title            String
   sourceDocumentId String?
@@ -389,11 +392,71 @@ model AIJob {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
+  // R4: one durable logical generation, distinct from queue delivery/attempts.
+  // Nullable identity fields preserve historical receipts without inventing keys.
+  idempotencyKey    String?
+  inputHash        String?
+  inputVersion     String?
+  model            String?
+  parametersJson   Json?
+  leaseToken       String?
+  leaseUntil       DateTime?
+  attemptCount     Int       @default(0)
+  maxAttempts      Int       @default(3)
+  deadlineAt       DateTime?
+  nextAttemptAt    DateTime  @default(now())
+  reservedMicros   Int       @default(0)
+  accountingStatus String    @default("NOT_STARTED")
+  finishedAt       DateTime?
+  budgetReleased   Boolean   @default(false)
+  attempts         AIAttempt[]
+
   document Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
 
   @@index([type, status])
   @@index([createdAt])
   @@index([userId])
+  @@unique([workspaceId, idempotencyKey])
+  @@index([status, nextAttemptAt])
+  @@index([status, leaseUntil])
+}
+
+// Technical ledger survives source-document deletion. Raw provider text is not
+// stored here. Unknown external outcomes retain the conservative reservation.
+model AIAttempt {
+  id                String   @id @default(cuid())
+  operationId       String
+  number            Int
+  leaseToken        String
+  status            String   @default("STARTED")
+  requestedModel    String
+  actualModel       String?
+  startedAt         DateTime @default(now())
+  finishedAt        DateTime?
+  promptTokens      Int?
+  completionTokens  Int?
+  totalTokens       Int?
+  estimatedCost     Float?
+  estimatedMicros   Int?
+  pricingVersion    String?
+  usageStatus       String   @default("UNKNOWN")
+  errorCode         String?
+  providerRequestId String?
+  latencyMs         Int?
+  operation         AIJob    @relation(fields: [operationId], references: [id], onDelete: Restrict)
+
+  @@unique([operationId, number])
+  @@index([status, startedAt])
+}
+
+// Admission counters are locked in the operation/outbox acceptance transaction.
+// USD micros are integer estimates, never represented as an invoice.
+model AIWorkspaceBudget {
+  workspaceId      String   @id
+  reservedMicros   Int      @default(0)
+  usedMicros       Int      @default(0)
+  activeOperations Int      @default(0)
+  updatedAt        DateTime @updatedAt
 }
 
 enum AIJobType {
@@ -412,6 +475,9 @@ enum JobStatus {
   PROCESSING
   COMPLETED
   FAILED
+  RETRY_WAIT
+  UNCERTAIN
+  CANCELLED
 }
 
 // ─── ANALYTICS ──────────────────────────────────────────────

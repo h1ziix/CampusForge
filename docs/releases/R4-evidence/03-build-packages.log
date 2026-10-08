@@ -1,0 +1,29 @@
+
+> campusforge@ build:packages C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> turbo build --filter=./packages/*
+
+
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared
+   • Running build in 3 packages
+   • Remote caching disabled
+
+@campusforge/db:build: cache hit, replaying logs a17c0f31a8ef15f5
+@campusforge/db:build: 
+@campusforge/db:build: > @campusforge/db@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\db
+@campusforge/db:build: > tsc -p tsconfig.build.json
+@campusforge/db:build: 
+@campusforge/shared:build: cache hit, replaying logs 09a6074f5651f5d9
+@campusforge/shared:build: 
+@campusforge/shared:build: > @campusforge/shared@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\shared
+@campusforge/shared:build: > tsc -p tsconfig.build.json
+@campusforge/shared:build: 
+@campusforge/ai:build: cache hit, replaying logs 690ca2156251afd0
+@campusforge/ai:build: 
+@campusforge/ai:build: > @campusforge/ai@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\ai
+@campusforge/ai:build: > tsc -p tsconfig.build.json
+@campusforge/ai:build: 
+
+ Tasks:    3 successful, 3 total
+Cached:    3 cached, 3 total
+  Time:    49ms >>> FULL TURBO
+

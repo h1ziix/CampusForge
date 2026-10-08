@@ -1,0 +1,20 @@
+{
+  "contract": "campusforge-r1-built-workspace",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.21.0",
+  "lockfileSha256": "fe987aea1d8cb82ca70abbec83da9175fddeac5ba021736f38d62d83ea0b6f31",
+  "devCliAbsent": true,
+  "missingEnvironmentRejectedBeforeStartup": true,
+  "environmentDiagnosticsRedacted": true,
+  "workspaceRuntimeImports": true,
+  "prismaClientConstructed": true,
+  "prismaNativeEngineLoaded": true,
+  "syntheticDatabaseConnectionError": "P1001",
+  "compiledPdfParserText": true,
+  "webHttpStatus": 200,
+  "workerModulesLoaded": true,
+  "publicUiChecked": false,
+  "infrastructureReady": false,
+  "readinessReason": "Disposable synthetic configuration points to unavailable local services; connection attempts may fail, no document jobs, user data, S3 calls, or AI calls executed."
+}

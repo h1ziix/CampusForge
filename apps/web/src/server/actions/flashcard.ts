@@ -2,7 +2,7 @@
 
 import { ok, err, type ActionResult } from '@campusforge/shared';
 import { requireAuth, requireWorkspaceMember } from '@/server/services/auth-helpers';
-import { enqueueFlashcardGeneration } from '@/lib/queue';
+import { requestGeneration, type GenerationReceipt } from '@/server/services/ai-generation';
 import { prisma } from '@campusforge/db';
 
 /**
@@ -11,11 +11,11 @@ import { prisma } from '@campusforge/db';
  * Preconditions:
  * - User must be authenticated and a member of the workspace
  * - Document must exist and have completed parsing (parsedText present)
- * - No in-flight flashcard job should already exist for this document
+ * - Required client idempotency key identifies one durable logical operation
  */
 export async function generateFlashcardsAction(
   formData: FormData,
-): Promise<ActionResult<{ documentId: string }>> {
+): Promise<ActionResult<GenerationReceipt>> {
   const user = await requireAuth();
 
   const documentId = formData.get('documentId');
@@ -30,54 +30,7 @@ export async function generateFlashcardsAction(
 
   await requireWorkspaceMember(user.id, workspaceId);
 
-  try {
-    // Verify document exists, belongs to workspace, and has parsed text
-    const doc = await prisma.document.findFirst({
-      where: { id: documentId, workspaceId, lifecycle: 'ACTIVE' },
-      select: {
-        id: true,
-        parsedText: true,
-        processingStatus: true,
-      },
-    });
-
-    if (!doc) {
-      return err('Document not found');
-    }
-
-    if (doc.processingStatus !== 'COMPLETED') {
-      return err('Document is still being processed. Please wait for parsing to complete.');
-    }
-
-    if (!doc.parsedText || doc.parsedText.trim().length === 0) {
-      return err('Document has no text content to generate flashcards from.');
-    }
-
-    // Check for in-flight flashcard job (PENDING or PROCESSING)
-    const existingJob = await prisma.aIJob.findFirst({
-      where: {
-        documentId,
-        type: 'FLASHCARD',
-        status: { in: ['PENDING', 'PROCESSING'] },
-      },
-    });
-
-    if (existingJob) {
-      return err('Flashcards are already being generated for this document.');
-    }
-
-    // Enqueue the flashcard generation job
-    await enqueueFlashcardGeneration({
-      documentId,
-      workspaceId,
-      userId: user.id,
-    });
-
-    return ok({ documentId });
-  } catch (error) {
-    console.error('[CampusForge] Generate flashcards error:', error);
-    return err('Failed to start flashcard generation. Please try again.');
-  }
+  return requestGeneration(user.id, 'FLASHCARD', formData);
 }
 
 /**

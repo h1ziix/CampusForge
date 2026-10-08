@@ -40,12 +40,17 @@ export interface FlashcardSetOutput {
 
 /** Metadata returned alongside every AI completion. */
 export interface CompletionMeta {
+  /** Actual identifier returned by the provider, not the configured alias. */
   model: string;
-  promptTokens: number;
-  completionTokens: number;
-  totalTokens: number;
+  requestedModel: string;
+  promptTokens: number | null;
+  completionTokens: number | null;
+  totalTokens: number | null;
+  usageStatus: 'RECEIVED' | 'MISSING';
   latencyMs: number;
-  estimatedCost: number;
+  estimatedCost: number | null;
+  pricingVersion: string | null;
+  requestId: string | null;
 }
 
 /** Result of an AI completion call. */

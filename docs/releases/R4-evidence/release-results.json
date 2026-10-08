@@ -1,0 +1,72 @@
+{
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "release": "C:\\Users\\rausa\\AppData\\Local\\Temp\\campusforge-r4-release-cb68687b-cb07-42ab-99c5-71590ac15610",
+  "boundary": "Fresh compiled artifact; synthetic unavailable endpoints; no user migration or AI",
+  "checks": [
+    {
+      "label": "pack",
+      "exitCode": 0,
+      "durationMs": 1365,
+      "log": "release-pack.log"
+    },
+    {
+      "label": "production-install",
+      "exitCode": 0,
+      "durationMs": 20375,
+      "log": "release-production-install.log"
+    },
+    {
+      "label": "runtime-probe",
+      "exitCode": 0,
+      "durationMs": 8034,
+      "log": "release-runtime-probe.log"
+    }
+  ],
+  "compiledFiles": [
+    {
+      "path": "apps/worker/dist/index.js",
+      "sha256": "6c3f730df3b0e9e7fc7871b2b618ac8be293bcc1123c043abeb6373e93c8a748"
+    },
+    {
+      "path": "apps/worker/dist/lifecycle/dispatcher.js",
+      "sha256": "3d9945107d7951d54347cae123ec804263d1d91b1364ecf85e23a11e2e80bf24"
+    },
+    {
+      "path": "apps/worker/dist/lib/dispatch-queue.js",
+      "sha256": "da662b97898f7a06159cfb3cce48cba6541afe91205a49105a9ac2d3c1bae0db"
+    },
+    {
+      "path": "apps/worker/dist/jobs/parse-document.js",
+      "sha256": "4b900fd2c9fb0bae89d5c3e0ace9ca3097c011845d29d9808e77a3b32ece77a3"
+    },
+    {
+      "path": "packages/db/dist/document-lifecycle.js",
+      "sha256": "a39440c503418abc16dc7a796653c2857c3c5af874e96cefbc13b2eae0b6d73e"
+    },
+    {
+      "path": "packages/db/dist/ai-lifecycle.js",
+      "sha256": "8773780b46c8129148239b7ad37740681d3a827c2c08b0ca4613fb427428db3a"
+    },
+    {
+      "path": "apps/worker/dist/jobs/ai-operation.js",
+      "sha256": "9e6ca61a2896d9f6f7b22883618e8435cea91b8b717be1b873f079069222b6cd"
+    },
+    {
+      "path": "apps/worker/dist/lifecycle/ai-maintenance.js",
+      "sha256": "5c4f3870871d8ae69a12633d92eac7bb818367cf471bbb0280be71fdedcc3f5e"
+    },
+    {
+      "path": "packages/ai/dist/pricing.js",
+      "sha256": "47ede33eeae693b32e88516ccce39cfa8d857f5e66bdd235e05b0c90bd8fe7f4"
+    },
+    {
+      "path": "packages/ai/dist/validation.js",
+      "sha256": "df7ac9df1341b03601cbc5ebadffdd521858ad92d197e9475ac3a6b2a200afe4"
+    }
+  ],
+  "compiledLifecycleImports": true,
+  "aiLifecycleAndCleanupImports": true,
+  "passed": true
+}

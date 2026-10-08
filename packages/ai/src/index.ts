@@ -7,8 +7,22 @@
  */
 
 // Provider
-export { AIProvider, getAIProvider } from './provider';
-export type { AIProviderConfig } from './provider';
+export { AIProvider, AIProviderError, getAIProvider } from './provider';
+export type {
+  AIProviderConfig,
+  CompleteJSONInput,
+  ProviderOutcome,
+  ProviderErrorCode,
+} from './provider';
+export {
+  PRICING_VERSION,
+  PRICING_SOURCES,
+  getModelPricing,
+  estimateCostUSD,
+  estimateReservationMicros,
+  estimateInputTokenUpperBound,
+} from './pricing';
+export { MAX_OUTPUT_BYTES } from './validation';
 
 // Types
 export type {

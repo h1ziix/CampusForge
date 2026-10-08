@@ -1,0 +1,42 @@
+{
+  "verifiedAt": "2026-10-08",
+  "pricingVersion": "openai-standard-text-2026-10-08-v1",
+  "currency": "USD",
+  "unit": "per 1000000 standard text tokens",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+      "input": 0.15,
+      "output": 0.6,
+      "identifiers": ["gpt-4o-mini", "gpt-4o-mini-2024-07-18"]
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-4o",
+      "input": 2.5,
+      "output": 10,
+      "identifiers": ["gpt-4o", "gpt-4o-2024-08-06", "gpt-4o-2024-11-20"]
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-4-turbo",
+      "input": 10,
+      "output": 30,
+      "identifiers": ["gpt-4-turbo", "gpt-4-turbo-2024-04-09"]
+    }
+  ],
+  "retryPolicySource": "https://developers.openai.com/api/docs/guides/rate-limits",
+  "sdkEvidence": {
+    "installedVersion": "6.34.0",
+    "source": "packages/ai/node_modules/openai/src/client.ts",
+    "defaultRetries": 2,
+    "r4Retries": 0,
+    "r4Logging": "off"
+  },
+  "notes": [
+    "Official pages were opened, including pricing and snapshot identifier sections; no paid provider requests were made.",
+    "These are standard text tariff estimates, not final provider invoices. Cached-input discounts are deliberately not assumed.",
+    "Unknown requested identifiers are rejected. Unknown returned identifiers retain received usage with null price, then fail validation safely.",
+    "gpt-4o-2024-05-13 is omitted because its historical distinct tariff is not established by the current generic model pricing page.",
+    "Missing or partial usage is represented by nullable counts and null estimated cost, never a fabricated zero.",
+    "Input admission uses UTF8 byte-BPE ceiling plus 128 framing tokens, explicitly conservative rather than exact token counting or character truncation."
+  ]
+}

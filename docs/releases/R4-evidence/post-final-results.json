@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "command": "pnpm format:check",
+      "exitCode": 0,
+      "log": "post-final-format.log"
+    },
+    {
+      "command": "pnpm --filter @campusforge/web typecheck",
+      "exitCode": 0,
+      "log": "post-final-web-typecheck.log"
+    }
+  ],
+  "priorEvidencePreserved": true,
+  "nextEnvPreserved": true
+}

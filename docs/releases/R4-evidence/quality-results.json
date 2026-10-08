@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "boundary": "Synthetic gate only; no real .env, migration, or provider calls",
+  "results": [
+    {
+      "command": "prisma generate --schema <isolated-copy>",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 27524,
+      "log": "01-db-generate.log"
+    },
+    {
+      "command": "prisma validate --schema <isolated-copy>",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 576,
+      "log": "02-db-validate.log"
+    },
+    {
+      "command": "pnpm build:packages",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 846,
+      "log": "03-build-packages.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 8625,
+      "log": "04-typecheck.log"
+    },
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 14551,
+      "log": "05-lint.log"
+    },
+    {
+      "command": "pnpm format:check",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 4168,
+      "log": "06-format-check.log"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 236253,
+      "log": "07-test.log"
+    },
+    {
+      "command": "pnpm env:probe",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 2036,
+      "log": "08-env-probe.log"
+    },
+    {
+      "command": "pnpm build --force",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 74194,
+      "log": "09-build.log"
+    }
+  ]
+}

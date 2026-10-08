@@ -15,6 +15,8 @@ import { processDocumentJob } from './jobs/parse-document';
 import { processSummaryJob } from './jobs/generate-summary';
 import { processFlashcardJob } from './jobs/generate-flashcards';
 import { documentDispatcher } from './lifecycle/dispatcher';
+import { processAIOperation } from './jobs/ai-operation';
+import { aiMaintenance } from './lifecycle/ai-maintenance';
 
 console.log('[CampusForge Worker] Runtime modules loaded; infrastructure readiness pending.');
 
@@ -42,6 +44,17 @@ function dispatchTick() {
 }
 const dispatchTimer = setInterval(dispatchTick, 2000);
 dispatchTick();
+let maintaining: Promise<void> | null = null;
+const maintenanceTimer = setInterval(() => {
+  if (stopping || maintaining) return;
+  maintaining = aiMaintenance()
+    .catch(() => {
+      console.error('[CampusForge Worker] AI maintenance unavailable; durable work retained.');
+    })
+    .finally(() => {
+      maintaining = null;
+    });
+}, 60_000);
 
 // ─── Document Processing Worker ─────────────────────────────────
 const documentWorker = new Worker(
@@ -83,6 +96,9 @@ const aiWorker = new Worker(
     console.log(`[CampusForge Worker] AI job ${job.id} (${job.name}) ...`);
 
     switch (job.name) {
+      case 'operation':
+        await processAIOperation(job.data?.operationId);
+        break;
       case 'summary':
         await processSummaryJob(job.data);
         break;
@@ -108,8 +124,8 @@ aiWorker.on('completed', (job) => {
   console.log(`[CampusForge Worker] AI job ${job.id} completed successfully.`);
 });
 
-aiWorker.on('failed', (job, err) => {
-  console.error(`[CampusForge Worker] AI job ${job?.id} failed: ${err.message}`);
+aiWorker.on('failed', (job) => {
+  console.error(`[CampusForge Worker] AI job ${job?.id} failed; durable recovery retained.`);
 });
 
 aiWorker.on('error', () => {
@@ -131,7 +147,9 @@ async function shutdown() {
   console.log('[CampusForge Worker] Shutting down...');
   stopping = true;
   clearInterval(dispatchTimer);
+  clearInterval(maintenanceTimer);
   await dispatching;
+  await maintaining;
   await Promise.all([documentWorker.close(), aiWorker.close()]);
   process.exit(0);
 }

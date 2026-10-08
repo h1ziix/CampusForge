@@ -28,7 +28,10 @@
     "verify:clean": "node scripts/verify-clean.mjs",
     "verify:r2": "node scripts/verify-r2.mjs",
     "verify:r3": "node scripts/verify-r3.mjs",
-    "verify:r3:release": "node scripts/probe-r3-release.mjs"
+    "verify:r3:release": "node scripts/probe-r3-release.mjs",
+    "verify:r4": "node scripts/verify-r4.mjs",
+    "verify:r4:release": "node scripts/probe-r4-release.mjs",
+    "verify:r4:integration": "node scripts/probe-r4-integration.mjs"
   },
   "devDependencies": {
     "prettier": "3.9.9",

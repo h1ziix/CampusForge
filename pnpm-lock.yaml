@@ -49,6 +49,9 @@ importers:
       '@aws-sdk/client-s3':
         specifier: 3.1146.0
         version: 3.1146.0
+      '@campusforge/ai':
+        specifier: workspace:*
+        version: link:../../packages/ai
       '@campusforge/db':
         specifier: workspace:*
         version: link:../../packages/db

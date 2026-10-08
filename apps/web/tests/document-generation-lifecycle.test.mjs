@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { applicationLoader } from '../../../tests/fixtures/r3-source-loader.mjs';
 
-test('actual generation processors reject malformed Redis identities before any DB or provider use', async () => {
+test('actual generation processors reject malformed and legacy Redis identities before any DB or provider use', async () => {
   let calls = 0;
   const deny = () => {
     calls++;
@@ -22,6 +22,10 @@ test('actual generation processors reject malformed Redis identities before any 
       { documentId: undefined, workspaceId: 'w', userId: 'u' },
       { documentId: 'd', workspaceId: '', userId: 'u' },
       { documentId: 'd', workspaceId: 'w', userId: 1 },
+      { operationId: '' },
+      { operationId: 1 },
+      { operationId: 'x'.repeat(129) },
+      { operationId: { documentId: 'd' } },
     ]) {
       await assert.rejects(operation(data), /Invalid document job/);
     }

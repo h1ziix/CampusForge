@@ -1,0 +1,11 @@
+Prisma schema loaded from schema.prisma
+
+✔ Installed the @prisma/client and prisma packages in your project
+
+✔ Generated Prisma Client (v5.22.0) to .\..\..\..\..\OneDrive\Рабочий стол\CampusForge\packages\db\generated\client in 158ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+
+Warning: [Prisma auto-install on generate] Prisma could not find a package.json file in the inferred project root C:\Users\rausa\AppData\Local\Temp\campusforge-r4-prisma-o0NNNU. During the next step, when an auto-install of Prisma package(s) will be attempted, it will then be created by your package manager on the appropriate level if necessary.

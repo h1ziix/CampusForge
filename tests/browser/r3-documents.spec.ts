@@ -19,7 +19,11 @@ for (const width of [390, 768, 1024, 1440]) {
       await expect(
         page.getByRole('button', { name: 'Generate Flashcards', exact: true }),
       ).toBeDisabled();
-      const evidence = resolve(__dirname, '../../docs/releases/R3-evidence/browser');
+      const evidence = resolve(
+        __dirname,
+        '../..',
+        process.env.R3_BROWSER_EVIDENCE_PATH ?? 'docs/releases/R3-evidence/browser',
+      );
       await mkdir(evidence, { recursive: true });
       await page.screenshot({ path: resolve(evidence, `pending-${width}-${theme}.png`) });
       await page.getByRole('button', { name: 'PROCESSING', exact: true }).click();
