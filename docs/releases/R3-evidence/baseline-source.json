@@ -1,0 +1,25 @@
+{
+  "gitRevision": "04837ed27670510daf21909f00b22783f86a9db1",
+  "files": [
+    {
+      "path": "apps/web/src/server/services/document.ts",
+      "sha256": "bad423cd6f49b958c2b8cd6eed84faba9311607b943d83fd086374968c4445a5"
+    },
+    {
+      "path": "apps/web/src/lib/queue.ts",
+      "sha256": "165d7ba861dd4bef1b9e07b4e54b914c2ced5674c5b9db333c51ccfe705ef909"
+    },
+    {
+      "path": "apps/web/src/lib/request-origin.ts",
+      "sha256": "34c00279c201c223cc7e1eff5707049c5cbae2fe5c4af22ad15ecff315dcd9c9"
+    },
+    {
+      "path": "apps/web/src/app/api/workspaces/[workspaceId]/documents/upload/route.ts",
+      "sha256": "9a580ce47d90f4d8c8a732d3f2abf56e380c4df3b29fd4a09d953604896f3920"
+    },
+    {
+      "path": "packages/shared/src/schemas/document.ts",
+      "sha256": "853539e843af7ae4ba855f1c930e86e507fb8761ce1c0b0c1490229d7dc1e748"
+    }
+  ]
+}

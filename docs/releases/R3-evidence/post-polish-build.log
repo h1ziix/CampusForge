@@ -1,0 +1,108 @@
+
+> campusforge@ build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> node scripts/build.mjs "--force"
+
+(node:17340) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/rausa/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/CampusForge/packages/shared/src/env.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\shared\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> campusforge@ db:generate C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> pnpm --filter @campusforge/db db:generate
+
+
+> @campusforge/db@0.0.0 db:generate C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\db
+> prisma generate
+
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v5.22.0) to .\generated\client in 127ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+
+
+   • turbo 2.11.7
+   • Packages in scope: @campusforge/ai, @campusforge/db, @campusforge/shared, @campusforge/web, @campusforge/worker
+   • Running build in 5 packages
+   • Remote caching disabled
+
+@campusforge/db:build: cache bypass, force executing 946c3f94f6b9f76d
+@campusforge/shared:build: cache bypass, force executing 861a4c1331135fef
+@campusforge/db:build: 
+@campusforge/db:build: > @campusforge/db@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\db
+@campusforge/db:build: > tsc -p tsconfig.build.json
+@campusforge/db:build: 
+@campusforge/shared:build: 
+@campusforge/shared:build: > @campusforge/shared@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\shared
+@campusforge/shared:build: > tsc -p tsconfig.build.json
+@campusforge/shared:build: 
+@campusforge/web:build: cache bypass, force executing 034dae04093e4baf
+@campusforge/ai:build: cache bypass, force executing 96bff0f4e581f512
+@campusforge/web:build: 
+@campusforge/web:build: > @campusforge/web@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\web
+@campusforge/web:build: > next build --webpack
+@campusforge/web:build: 
+@campusforge/ai:build: 
+@campusforge/ai:build: > @campusforge/ai@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\packages\ai
+@campusforge/ai:build: > tsc -p tsconfig.build.json
+@campusforge/ai:build: 
+@campusforge/web:build: ▲ Next.js 16.3.8 (webpack)
+@campusforge/web:build: ✓ Running next.config.mjs took 20ms
+@campusforge/web:build: 
+@campusforge/web:build: ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+@campusforge/web:build: 
+@campusforge/web:build:   To migrate automatically, run:
+@campusforge/web:build:   npx @next/codemod@canary middleware-to-proxy .
+@campusforge/web:build: 
+@campusforge/web:build:   Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+@campusforge/web:build:   Creating an optimized production build ...
+@campusforge/worker:build: cache bypass, force executing 23612dc5abb88e53
+@campusforge/worker:build: 
+@campusforge/worker:build: > @campusforge/worker@0.0.0 build C:\Users\rausa\OneDrive\Рабочий стол\CampusForge\apps\worker
+@campusforge/worker:build: > tsc -p tsconfig.build.json
+@campusforge/worker:build: 
+@campusforge/web:build: ✓ Compiled successfully in 11.6s
+@campusforge/web:build:   Running TypeScript ...
+@campusforge/web:build:   Finished TypeScript in 2.9s ...
+@campusforge/web:build:   Collecting page data using 11 workers ...
+@campusforge/web:build:   Generating static pages using 11 workers (0/7) ...
+@campusforge/web:build:   Generating static pages using 11 workers (1/7) 
+@campusforge/web:build:   Generating static pages using 11 workers (3/7) 
+@campusforge/web:build:   Generating static pages using 11 workers (5/7) 
+@campusforge/web:build: ✓ Generating static pages using 11 workers (7/7) in 835ms
+@campusforge/web:build:   Finalizing page optimization ...
+@campusforge/web:build:   Collecting build traces ...
+@campusforge/web:build: 
+@campusforge/web:build: Route (app)
+@campusforge/web:build: ┌ ○ /
+@campusforge/web:build: ├ ○ /_not-found
+@campusforge/web:build: ├ ƒ /api/auth/[...nextauth]
+@campusforge/web:build: ├ ƒ /api/workspaces/[workspaceId]/documents/upload
+@campusforge/web:build: ├ ƒ /dashboard
+@campusforge/web:build: ├ ƒ /onboarding
+@campusforge/web:build: ├ ○ /sign-in
+@campusforge/web:build: ├ ○ /sign-up
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/assistant
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/dashboard
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/documents/[documentId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/flashcards/[flashcardSetId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/[noteId]
+@campusforge/web:build: ├ ƒ /w/[workspaceId]/notes/new
+@campusforge/web:build: └ ƒ /w/[workspaceId]/tasks
+@campusforge/web:build: 
+@campusforge/web:build: 
+@campusforge/web:build: ƒ Proxy (Middleware)
+@campusforge/web:build: 
+@campusforge/web:build: ○  (Static)   prerendered as static content
+@campusforge/web:build: ƒ  (Dynamic)  server-rendered on demand
+@campusforge/web:build: 
+
+ Tasks:    5 successful, 5 total
+Cached:    0 cached, 5 total
+  Time:    32.898s 
+

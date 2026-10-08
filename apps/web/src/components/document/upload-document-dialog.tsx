@@ -75,7 +75,7 @@ export function UploadDocumentDialog({
     }
 
     if (file.size > MAX_DOCUMENT_SIZE_BYTES) {
-      setError(`File too large (${formatBytes(file.size)}). Max: 10 MB.`);
+      setError(`File too large (${formatBytes(file.size)}). Max: 10 MiB.`);
       return;
     }
 
@@ -125,14 +125,17 @@ export function UploadDocumentDialog({
         <DialogHeader>
           <DialogTitle>Upload Document</DialogTitle>
           <DialogDescription>
-            Upload a PDF, TXT, or Markdown file. Text will be extracted automatically for use with
-            study tools.
+            Upload one PDF, TXT, or Markdown file up to 10 MiB. Once saved, it is queued for text
+            extraction. Parsing may wait while background services recover.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-2">
           {error && (
-            <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <div
+              role="alert"
+              className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-error-foreground"
+            >
               {error}
             </div>
           )}
@@ -148,7 +151,7 @@ export function UploadDocumentDialog({
                 <Upload className="h-8 w-8 text-muted-foreground" />
                 <p className="mt-2 text-sm font-medium">Click to select a file</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  PDF, TXT, or Markdown up to 10 MB
+                  PDF, TXT, or Markdown up to 10 MiB
                 </p>
               </label>
               <input
@@ -193,7 +196,11 @@ export function UploadDocumentDialog({
           >
             Cancel
           </Button>
-          <Button onClick={handleUpload} disabled={!selectedFile || isUploading}>
+          <Button
+            className="dark:text-white"
+            onClick={handleUpload}
+            disabled={!selectedFile || isUploading}
+          >
             {isUploading ? 'Uploading...' : 'Upload'}
           </Button>
         </div>

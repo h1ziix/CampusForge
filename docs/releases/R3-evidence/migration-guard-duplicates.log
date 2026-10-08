@@ -1,0 +1,9 @@
+Prisma schema loaded from schema.prisma
+Datasource "db": PostgreSQL database "r3_legacy_duplicate_guard", schema "public" at "127.0.0.1:60845"
+
+3 migrations found in prisma/migrations
+
+Applying migration `20261005120000_document_durable_lifecycle`
+Error: ERROR: current transaction is aborted, commands ignored until end of transaction block
+
+

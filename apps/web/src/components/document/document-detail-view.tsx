@@ -254,6 +254,14 @@ function DocumentSession({
         <DocumentStatusBadge status={doc.processingStatus} />
       </div>
 
+      {doc.processingStatus !== 'COMPLETED' && (
+        <p className="mt-4 text-sm text-muted-foreground" role="status">
+          {doc.processingStatus === 'FAILED'
+            ? 'Text extraction failed. Automatic retries may be scheduled; study tools are unavailable until parsing succeeds.'
+            : 'Your file is saved. Text extraction is pending or in progress; study tools become available after parsing.'}
+        </p>
+      )}
+
       {/* Summary section */}
       <section className="mt-8 space-y-4">
         <div className="flex items-center justify-between gap-4">
@@ -263,7 +271,7 @@ function DocumentSession({
           </div>
           <Button
             onClick={handleGenerateSummary}
-            disabled={summaryState === 'loading'}
+            disabled={summaryState === 'loading' || doc.processingStatus !== 'COMPLETED'}
             size="sm"
             className="shadow-sm transition-transform active:scale-95"
           >
@@ -355,7 +363,7 @@ function DocumentSession({
           </div>
           <Button
             onClick={handleGenerateFlashcards}
-            disabled={flashcardState === 'loading'}
+            disabled={flashcardState === 'loading' || doc.processingStatus !== 'COMPLETED'}
             size="sm"
             variant="outline"
             className="shadow-sm transition-transform active:scale-95"

@@ -35,3 +35,13 @@ test('malformed PDF rejects and parser remains usable on the next document', asy
   await assert.rejects(() => extractPdfText(Buffer.from('not a PDF')));
   assert.match(await extractPdfText(syntheticPdf('R1 parser recovers')), /R1 parser recovers/);
 });
+
+test('cancelled PDF extraction destroys its runtime and later extraction remains usable', async () => {
+  const controller = new AbortController();
+  controller.abort();
+  await assert.rejects(() => extractPdfText(syntheticPdf('Cancelled'), controller.signal));
+  assert.match(
+    await extractPdfText(syntheticPdf('R3 after cancellation')),
+    /R3 after cancellation/,
+  );
+});

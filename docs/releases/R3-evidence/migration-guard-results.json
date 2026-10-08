@@ -1,0 +1,15 @@
+{
+  "node": "v24.21.0",
+  "migrationSHA256": "271d52d91788383331719d54f944b915aba717acc315ccb0f35bce9d3b054a05",
+  "paidAIRequests": 0,
+  "S3Requests": 0,
+  "existingDataTouched": false,
+  "freshFinalMigrationApplied": true,
+  "duplicateMigrationRejected": true,
+  "retainedLegacyRows": 2,
+  "newLifecycleColumnsAfterFailure": 0,
+  "newLifecycleTypesAfterFailure": 0,
+  "sqlTransactionRolledBack": true,
+  "prismaFailedMigrationRequiresOperatorResolution": true,
+  "cleaned": true
+}

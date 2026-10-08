@@ -33,7 +33,7 @@ export async function generateFlashcardsAction(
   try {
     // Verify document exists, belongs to workspace, and has parsed text
     const doc = await prisma.document.findFirst({
-      where: { id: documentId, workspaceId },
+      where: { id: documentId, workspaceId, lifecycle: 'ACTIVE' },
       select: {
         id: true,
         parsedText: true,

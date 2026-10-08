@@ -32,6 +32,8 @@ const required = [
   'apps/web/scripts/start.mjs',
   'apps/worker/package.json',
   'apps/worker/dist/index.js',
+  'apps/worker/dist/lifecycle/dispatcher.js',
+  'packages/db/dist/document-lifecycle.js',
   'apps/worker/scripts/start.mjs',
   'packages/db/package.json',
   'packages/db/dist/index.js',

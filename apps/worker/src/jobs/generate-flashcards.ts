@@ -21,6 +21,7 @@
  * - Re-throws so BullMQ can retry (up to configured attempts)
  */
 import { prisma } from '@campusforge/db';
+import { assertDocumentGenerationPayload } from '../lib/document-job';
 import {
   getAIProvider,
   FLASHCARD_SYSTEM_PROMPT,
@@ -37,7 +38,14 @@ export interface FlashcardJobData {
 }
 
 export async function processFlashcardJob(data: FlashcardJobData): Promise<void> {
+  assertDocumentGenerationPayload(data);
   const { documentId, workspaceId, userId } = data;
+
+  const doc = await prisma.document.findFirst({
+    where: { id: documentId, workspaceId, lifecycle: 'ACTIVE', processingStatus: 'COMPLETED' },
+    select: { parsedText: true, filename: true, summaryJson: true },
+  });
+  if (!doc) return;
 
   // 1. Create AIJob record
   const aiJob = await prisma.aIJob.create({
@@ -58,15 +66,6 @@ export async function processFlashcardJob(data: FlashcardJobData): Promise<void>
     });
 
     // 3. Fetch document with parsed text and summary
-    const doc = await prisma.document.findUnique({
-      where: { id: documentId },
-      select: { parsedText: true, filename: true, summaryJson: true },
-    });
-
-    if (!doc) {
-      throw new Error(`Document ${documentId} not found`);
-    }
-
     if (!doc.parsedText || doc.parsedText.trim().length === 0) {
       throw new Error(
         `Document ${documentId} has no parsed text. Parse must complete before flashcard generation.`,
@@ -99,9 +98,16 @@ export async function processFlashcardJob(data: FlashcardJobData): Promise<void>
     const cardsData = JSON.parse(JSON.stringify(result.data.cards));
     const outputData = JSON.parse(JSON.stringify(result.data));
 
-    await prisma.$transaction([
+    await prisma.$transaction(async (tx) => {
+      // Take a guarded document write lock before publishing a derived result.
+      // This serializes with the delete tombstone without changing retention.
+      const source = await tx.document.updateMany({
+        where: { id: documentId, workspaceId, lifecycle: 'ACTIVE', processingStatus: 'COMPLETED' },
+        data: { updatedAt: new Date() },
+      });
+      if (!source.count) throw new Error('Source document is no longer available');
       // Create the FlashcardSet record
-      prisma.flashcardSet.create({
+      await tx.flashcardSet.create({
         data: {
           workspaceId,
           title: result.data.title,
@@ -109,9 +115,9 @@ export async function processFlashcardJob(data: FlashcardJobData): Promise<void>
           cardsJson: cardsData,
           cardCount: result.data.cards.length,
         },
-      }),
+      });
       // Store output + metadata on the AIJob
-      prisma.aIJob.update({
+      await tx.aIJob.update({
         where: { id: aiJob.id },
         data: {
           status: 'COMPLETED',
@@ -120,8 +126,8 @@ export async function processFlashcardJob(data: FlashcardJobData): Promise<void>
           estimatedCost: result.meta.estimatedCost,
           latencyMs: result.meta.latencyMs,
         },
-      }),
-    ]);
+      });
+    });
 
     console.log(
       `[CampusForge Worker] Flashcards generated for "${doc.filename}" — ` +

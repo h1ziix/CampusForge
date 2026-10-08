@@ -38,6 +38,8 @@ const sourceFiles = [
   'components/layout/theme-toggle.tsx',
   'components/document/document-detail-view.tsx',
   'components/document/document-status-badge.tsx',
+  'components/document/upload-document-dialog.tsx',
+  'lib/document-upload.ts',
   'components/workspace/sidebar-workspace-nav.tsx',
   'components/workspace/workspace-switcher.tsx',
   'components/workspace/create-workspace-dialog.tsx',

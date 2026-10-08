@@ -1,0 +1,460 @@
+{
+  "sourceFiles": 54,
+  "preexistingUserChangesExcluded": [
+    ".env.example",
+    "infra/docker-compose.yml",
+    "apps/web/next-env.d.ts",
+    "apps/web/AGENTS.md",
+    "apps/web/CLAUDE.md"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "722337af70f25c678b00e415292b4923c0bd31af1b197b10a95894ba33c39d26",
+      "kind": "modified",
+      "preservesPreexistingUserContent": true
+    },
+    {
+      "path": "apps/web/src/app/api/workspaces/[workspaceId]/documents/upload/route.ts",
+      "sha256": "d73a657662064c6845864bdc1e4892d0977bf158b198f09191b0eb8e47b1c2e4",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/components/document/document-detail-view.tsx",
+      "sha256": "951b73cab5c2197ea83be782117f52e5474a7b2cee26a3634d939c85e7b1c90e",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/components/document/upload-document-dialog.tsx",
+      "sha256": "abd67ddc5c787d602883ffd3f81a46c12a5b2d337f964b91f25861e234148b6c",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/lib/document-upload.ts",
+      "sha256": "b9b377e78d7fb3c2dbcebf2b41eafcde59969ab8e87c0810d674b0c1fccc07ad",
+      "kind": "added"
+    },
+    {
+      "path": "apps/web/src/lib/queue.ts",
+      "sha256": "ea71eac3c49c529f16f5de33b57725a2c0e8f10c9f4a1cc17fb193bdebbf81aa",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/lib/s3.ts",
+      "sha256": "a20a38ec67a046860ff81afd503f0ef378075c6b645483a067e129081fcb0a2a",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/actions/flashcard.ts",
+      "sha256": "07fc3ff4f5b7c587d744a313c72dd1224b9e6459d77f1d512264401bf8632c3d",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/actions/summary.ts",
+      "sha256": "329b507d3e55b14e2a31b2b8b8f2407947d9d5d907a9196917f1dc231a9fe34b",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/queries/document.ts",
+      "sha256": "cf080975da9efaae83b9a88fe178f6038be2d188f72dad2d4d10224b79a1c01d",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/queries/flashcard.ts",
+      "sha256": "798c46022717582572b39f33d7935f4791b918159107e524c4ac4fc2757aaa44",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/queries/summary.ts",
+      "sha256": "88aad851ef1377d7401b205417b6a78de12cab121d5eb9c259b58a6c5adaa921",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/src/server/services/document.ts",
+      "sha256": "aafd955a0c3f8fd66007fcdfa4ff4d076b891c337e25f3f8dc9341b2e90d80d8",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/web/tests/document-generation-lifecycle.test.mjs",
+      "sha256": "2aa68238c1247b3205b23d099a9c336d22118f79467f4990912e4434b588a5f5",
+      "kind": "added"
+    },
+    {
+      "path": "apps/web/tests/document-service.test.mjs",
+      "sha256": "f96608cd135dca87b9035261fc0a1824a461288f73dd5b5959cf587971b2f60d",
+      "kind": "added"
+    },
+    {
+      "path": "apps/web/tests/document-upload.test.mjs",
+      "sha256": "d99a09d119863be05f0f81913e1df0ec7b4bafd587bae5542d1e2d32e84f87e2",
+      "kind": "added"
+    },
+    {
+      "path": "apps/web/tests/queue-deadline.test.mjs",
+      "sha256": "499905376bb2a7b3d8db64cd1a9a2de0805d70328d7ba7a440211f8c2aa2fdc9",
+      "kind": "added"
+    },
+    {
+      "path": "apps/web/tests/web-security.test.mjs",
+      "sha256": "65caa4a83534a5eb67f70c1585bcb36ef52ff39546f483d4901c627635de989a",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/index.ts",
+      "sha256": "d6b66c7d05dbdead4e6e8f30adc06aa9d99112875a03e0d6ccdeb3ec309a6f4e",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/jobs/generate-flashcards.ts",
+      "sha256": "2155918d6a574a1ec50e18ff61b6a3c10bfeb9284598fbf82a206f045409cd6c",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/jobs/generate-summary.ts",
+      "sha256": "b137f0db3686ae2393b996fa83623dba1b4ab36155fa5bb1efe0948ce3ac9dfd",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/jobs/parse-document.ts",
+      "sha256": "2aead18df400cea343c5bfb9471d9a414a6f765f5aa889e61aa4254134d125a4",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/lib/dispatch-queue.ts",
+      "sha256": "0188fb8eefb442353c1bde6137d2a507e43b011ca45e4bd071e45db8f5064e02",
+      "kind": "added"
+    },
+    {
+      "path": "apps/worker/src/lib/document-job.ts",
+      "sha256": "167517a5e421d5eb7f1954415053f0313f9f99e410bf86ae6f5b4b5ac26f6ffb",
+      "kind": "added"
+    },
+    {
+      "path": "apps/worker/src/lib/pdf.ts",
+      "sha256": "ababda197a38693591cf0b1c47d1ca20612f4ba0ae5d62cde6ee3b42364a422d",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/lib/s3.ts",
+      "sha256": "2115a3b6a0cd467845d8067f5f694f64c8fc8faad3f7bc51c5273aed7f152d3e",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/src/lifecycle/dispatcher.ts",
+      "sha256": "7f338fc62b65019bb481a04cf0bfc33c6640a3b8336727f3decfea734aad726e",
+      "kind": "added"
+    },
+    {
+      "path": "apps/worker/tests/document-lifecycle.test.ts",
+      "sha256": "c7ee0f0f524cf3723a6bb9fc483161b354880b4a82a6ff5f9d9a5a00fc4b48aa",
+      "kind": "added"
+    },
+    {
+      "path": "apps/worker/tests/pdf.test.ts",
+      "sha256": "e6e80356c40e48d8d25916fa51ced9787e54237db8283be9afb4d4bf654e7d80",
+      "kind": "modified"
+    },
+    {
+      "path": "apps/worker/tests/upload-cleanup.test.ts",
+      "sha256": "de22e7c0ebdbbac989a49a0b7bf3a8d49a7faa50bfd144f3c1a1c555b36fafb8",
+      "kind": "added"
+    },
+    {
+      "path": "docs/releases/R3-state-machine.md",
+      "sha256": "4f3e2e3909e3a51dfafeaae1f99ba470fc2476854dfe6498564395236eabca2e",
+      "kind": "added"
+    },
+    {
+      "path": "docs/releases/R3.md",
+      "sha256": "cdc97c368e918d629f793089d35945afa84359e7ff42930d269c68de7e9407ef",
+      "kind": "added"
+    },
+    {
+      "path": "package.json",
+      "sha256": "68d540296a802a9af66fdece1e75f1f3538c9313ce74a9daded2ff2609a9fe06",
+      "kind": "modified"
+    },
+    {
+      "path": "packages/db/prisma/migrations/20261005120000_document_durable_lifecycle/migration.sql",
+      "sha256": "271d52d91788383331719d54f944b915aba717acc315ccb0f35bce9d3b054a05",
+      "kind": "added"
+    },
+    {
+      "path": "packages/db/prisma/schema.prisma",
+      "sha256": "0018fc58ac96da7fd2193ca4e274d5b5fa67fe297f395a255925805e2714b4ea",
+      "kind": "modified"
+    },
+    {
+      "path": "packages/db/src/document-lifecycle.ts",
+      "sha256": "bbc40c774948fa6eed8dfd6dbd5ee3bf041434e9c7b4a45728a401ff22e2fa34",
+      "kind": "added"
+    },
+    {
+      "path": "packages/db/src/index.ts",
+      "sha256": "ad4d6bf87204a05f48cd72042199b1386dfcc0fbfd6b53a1e71080e89a3a2b7c",
+      "kind": "modified"
+    },
+    {
+      "path": "packages/shared/src/constants.ts",
+      "sha256": "4c3f81845f39dbf561fc4b940ddf045e974f25b9bf60c06105b5f548139b4f98",
+      "kind": "modified"
+    },
+    {
+      "path": "packages/shared/src/schemas/document.ts",
+      "sha256": "d8e686c8653598c066864de53be68c291047bb9e6682f88f91ca5fd379e199ac",
+      "kind": "modified"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "0e751d51643db73739ef285a7f697f8f0c2271249134d6ad914886738a683ca5",
+      "kind": "modified"
+    },
+    {
+      "path": "scripts/next-runtime-fixture.mjs",
+      "sha256": "78f2b9828ce3e7e7b71cca3cb2ea1da27dc1a94dcd8d4f49cf9131366d97f0d6",
+      "kind": "modified"
+    },
+    {
+      "path": "scripts/package-release.mjs",
+      "sha256": "b337dd11cafab817516d1b0a9c9a8aa21dac9ccdd382cf23c0a22be537dc8b16",
+      "kind": "modified"
+    },
+    {
+      "path": "scripts/probe-r3-baseline.mjs",
+      "sha256": "4adc0c45a8e77b44531e08fc50e80b1f6335f275f228cefb77022877acf9383c",
+      "kind": "added"
+    },
+    {
+      "path": "scripts/probe-r3-integration.mjs",
+      "sha256": "0c28041a1cd323a4f715aa87c737e853fcc1088825746304fdaebdd008b01f02",
+      "kind": "added"
+    },
+    {
+      "path": "scripts/probe-r3-migration-guard.mjs",
+      "sha256": "00c4cecc4cc77780958430c74a2e9be306c31603e07cbc29dab02a7694c84723",
+      "kind": "added"
+    },
+    {
+      "path": "scripts/probe-r3-release.mjs",
+      "sha256": "d1d916cafc68d6c3a8a8d00d94d891006a7074f10af471085eeda6815337453b",
+      "kind": "added"
+    },
+    {
+      "path": "scripts/probe-release.mjs",
+      "sha256": "0691fc16a85486d5a4bc8dbbe10816fe18e4f754fabf8abcabf5196498001706",
+      "kind": "modified"
+    },
+    {
+      "path": "scripts/snapshot-r3-baseline.mjs",
+      "sha256": "733bbc112cd5afa1a55aab4eab0041be516aad0d1b284fb4f5f448665253ac6f",
+      "kind": "added"
+    },
+    {
+      "path": "scripts/verify-r3.mjs",
+      "sha256": "e13c5984c37f0a3e1f8039fdbf3d751d37220d1e5074ffa4a637eb06a629764a",
+      "kind": "added"
+    },
+    {
+      "path": "tests/browser/r2-ui-privacy.spec.ts",
+      "sha256": "5c02816fdabcc331043b0773e12865e18e6f7c841f54ae60afbf7e26c08b1fce",
+      "kind": "modified"
+    },
+    {
+      "path": "tests/browser/r3-documents.spec.ts",
+      "sha256": "5ef443f07e55de246a2d5a3b0ba1c5219498767562658754755ebcf30cd59bf2",
+      "kind": "added"
+    },
+    {
+      "path": "tests/fixtures/next-runtime/src/app/r3-documents/page.tsx",
+      "sha256": "1d8ee3176c504fc132965e7f8db72ac8f4d79ee0929dd9bb1888a480b64bb18c",
+      "kind": "added"
+    },
+    {
+      "path": "tests/fixtures/r3-infrastructure.mjs",
+      "sha256": "d4f8913384f3d50d745839acc1a62feab026928acb64c40f281aea91bcb0cdc3",
+      "kind": "added"
+    },
+    {
+      "path": "tests/fixtures/r3-source-loader.mjs",
+      "sha256": "9d9c5bd1e17cbf3e8c55f1ac624defbad36b38104f0aa7cf9c75ec3b6b8af750",
+      "kind": "added"
+    }
+  ],
+  "evidenceFiles": [
+    "docs/releases/R3-evidence/01-db-generate.log",
+    "docs/releases/R3-evidence/02-db-validate.log",
+    "docs/releases/R3-evidence/03-typecheck.log",
+    "docs/releases/R3-evidence/04-lint.log",
+    "docs/releases/R3-evidence/05-format-check.log",
+    "docs/releases/R3-evidence/06-test.log",
+    "docs/releases/R3-evidence/07-env-probe.log",
+    "docs/releases/R3-evidence/08-build.log",
+    "docs/releases/R3-evidence/baseline-findings.json",
+    "docs/releases/R3-evidence/baseline-source.json",
+    "docs/releases/R3-evidence/baseline-source/apps/web/src/app/api/workspaces/[workspaceId]/documents/upload/route.ts",
+    "docs/releases/R3-evidence/baseline-source/apps/web/src/lib/queue.ts",
+    "docs/releases/R3-evidence/baseline-source/apps/web/src/lib/request-origin.ts",
+    "docs/releases/R3-evidence/baseline-source/apps/web/src/server/services/document.ts",
+    "docs/releases/R3-evidence/baseline-source/packages/shared/src/schemas/document.ts",
+    "docs/releases/R3-evidence/baseline.txt",
+    "docs/releases/R3-evidence/browser-destination-results.json",
+    "docs/releases/R3-evidence/browser-final-polish-results.json",
+    "docs/releases/R3-evidence/browser-gate/failed-1024-dark.png",
+    "docs/releases/R3-evidence/browser-gate/failed-1024-light.png",
+    "docs/releases/R3-evidence/browser-gate/failed-1440-dark.png",
+    "docs/releases/R3-evidence/browser-gate/failed-1440-light.png",
+    "docs/releases/R3-evidence/browser-gate/failed-390-dark.png",
+    "docs/releases/R3-evidence/browser-gate/failed-390-light.png",
+    "docs/releases/R3-evidence/browser-gate/failed-768-dark.png",
+    "docs/releases/R3-evidence/browser-gate/failed-768-light.png",
+    "docs/releases/R3-evidence/browser-gate/pending-1024-dark.png",
+    "docs/releases/R3-evidence/browser-gate/pending-1024-light.png",
+    "docs/releases/R3-evidence/browser-gate/pending-1440-dark.png",
+    "docs/releases/R3-evidence/browser-gate/pending-1440-light.png",
+    "docs/releases/R3-evidence/browser-gate/pending-390-dark.png",
+    "docs/releases/R3-evidence/browser-gate/pending-390-light.png",
+    "docs/releases/R3-evidence/browser-gate/pending-768-dark.png",
+    "docs/releases/R3-evidence/browser-gate/pending-768-light.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-1024-dark.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-1024-light.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-1440-dark.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-1440-light.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-390-dark.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-390-light.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-768-dark.png",
+    "docs/releases/R3-evidence/browser-gate/upload-error-768-light.png",
+    "docs/releases/R3-evidence/browser-polish.json",
+    "docs/releases/R3-evidence/browser-preliminary.json",
+    "docs/releases/R3-evidence/browser-results.json",
+    "docs/releases/R3-evidence/browser/failed-1024-dark.png",
+    "docs/releases/R3-evidence/browser/failed-1024-light.png",
+    "docs/releases/R3-evidence/browser/failed-1440-dark.png",
+    "docs/releases/R3-evidence/browser/failed-1440-light.png",
+    "docs/releases/R3-evidence/browser/failed-390-dark.png",
+    "docs/releases/R3-evidence/browser/failed-390-light.png",
+    "docs/releases/R3-evidence/browser/failed-768-dark.png",
+    "docs/releases/R3-evidence/browser/failed-768-light.png",
+    "docs/releases/R3-evidence/browser/pending-1024-dark.png",
+    "docs/releases/R3-evidence/browser/pending-1024-light.png",
+    "docs/releases/R3-evidence/browser/pending-1440-dark.png",
+    "docs/releases/R3-evidence/browser/pending-1440-light.png",
+    "docs/releases/R3-evidence/browser/pending-390-dark.png",
+    "docs/releases/R3-evidence/browser/pending-390-light.png",
+    "docs/releases/R3-evidence/browser/pending-768-dark.png",
+    "docs/releases/R3-evidence/browser/pending-768-light.png",
+    "docs/releases/R3-evidence/browser/upload-error-1024-dark.png",
+    "docs/releases/R3-evidence/browser/upload-error-1024-light.png",
+    "docs/releases/R3-evidence/browser/upload-error-1440-dark.png",
+    "docs/releases/R3-evidence/browser/upload-error-1440-light.png",
+    "docs/releases/R3-evidence/browser/upload-error-390-dark.png",
+    "docs/releases/R3-evidence/browser/upload-error-390-light.png",
+    "docs/releases/R3-evidence/browser/upload-error-768-dark.png",
+    "docs/releases/R3-evidence/browser/upload-error-768-light.png",
+    "docs/releases/R3-evidence/changed-files.json",
+    "docs/releases/R3-evidence/integration-migration-env-loading-initial.log",
+    "docs/releases/R3-evidence/integration-migration.log",
+    "docs/releases/R3-evidence/integration-results-initial.json",
+    "docs/releases/R3-evidence/integration-results.json",
+    "docs/releases/R3-evidence/integration-worker-process.log",
+    "docs/releases/R3-evidence/migration-guard-duplicates.log",
+    "docs/releases/R3-evidence/migration-guard-env-loading-initial.log",
+    "docs/releases/R3-evidence/migration-guard-fresh.log",
+    "docs/releases/R3-evidence/migration-guard-results.json",
+    "docs/releases/R3-evidence/post-gate-results.json",
+    "docs/releases/R3-evidence/post-polish-build.log",
+    "docs/releases/R3-evidence/post-polish-format.log",
+    "docs/releases/R3-evidence/post-polish-lint.log",
+    "docs/releases/R3-evidence/post-polish-results.json",
+    "docs/releases/R3-evidence/post-polish-typecheck.log",
+    "docs/releases/R3-evidence/preserved-before.json",
+    "docs/releases/R3-evidence/preserved-result.json",
+    "docs/releases/R3-evidence/quality-results.json",
+    "docs/releases/R3-evidence/r2-browser-destination-results.json",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-1024-dark.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-1024-light.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-1440-dark.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-1440-light.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-390-dark.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-390-light.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-768-dark.png",
+    "docs/releases/R3-evidence/r2-browser-regression/assistant-768-light.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1024-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1024-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1024-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1024-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1440-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1440-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1440-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-1440-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-390-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-390-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-390-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-390-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-768-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-768-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-768-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/onboarding-768-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1024-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-1440-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-390-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/session-cleared-768-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1024-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-1440-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-390-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-dark-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-dark-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-light-focus.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signin-768-light-pending.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-1024-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-1024-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-1440-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-1440-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-390-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-390-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-768-dark-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/signup-768-light-error.png",
+    "docs/releases/R3-evidence/r2-browser-regression/ui-matrix.json",
+    "docs/releases/R3-evidence/r2-evidence-restoration.json",
+    "docs/releases/R3-evidence/release-pack.log",
+    "docs/releases/R3-evidence/release-production-install.log",
+    "docs/releases/R3-evidence/release-results.json",
+    "docs/releases/R3-evidence/release-runtime-probe.log"
+  ]
+}

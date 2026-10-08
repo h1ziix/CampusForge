@@ -1,0 +1,51 @@
+{
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "release": "C:\\Users\\rausa\\AppData\\Local\\Temp\\campusforge-r3-release-d0b7d972-02b3-4aa1-bfc7-196f577dbb8e",
+  "boundary": "Fresh compiled artifact; synthetic unavailable endpoints; no user migration or AI",
+  "checks": [
+    {
+      "label": "pack",
+      "exitCode": 0,
+      "durationMs": 842,
+      "log": "release-pack.log"
+    },
+    {
+      "label": "production-install",
+      "exitCode": 0,
+      "durationMs": 17133,
+      "log": "release-production-install.log"
+    },
+    {
+      "label": "runtime-probe",
+      "exitCode": 0,
+      "durationMs": 5961,
+      "log": "release-runtime-probe.log"
+    }
+  ],
+  "compiledFiles": [
+    {
+      "path": "apps/worker/dist/index.js",
+      "sha256": "a4650df44e61c7221927ca61f50c5472552417f3801394c38517408a113a41c3"
+    },
+    {
+      "path": "apps/worker/dist/lifecycle/dispatcher.js",
+      "sha256": "5d04a45c9f1a81e6433968f2b7ce2416160151ca96a9d37ebf4af89fef3e4c17"
+    },
+    {
+      "path": "apps/worker/dist/lib/dispatch-queue.js",
+      "sha256": "579f5f73714c57f67ef04e615e90e4a75bdf5467f00f996ea845bb338697db2a"
+    },
+    {
+      "path": "apps/worker/dist/jobs/parse-document.js",
+      "sha256": "4b900fd2c9fb0bae89d5c3e0ace9ca3097c011845d29d9808e77a3b32ece77a3"
+    },
+    {
+      "path": "packages/db/dist/document-lifecycle.js",
+      "sha256": "a39440c503418abc16dc7a796653c2857c3c5af874e96cefbc13b2eae0b6d73e"
+    }
+  ],
+  "compiledLifecycleImports": true,
+  "passed": true
+}

@@ -48,7 +48,7 @@ export async function getWorkspaceFlashcardSets(
       cardCount: true,
       sourceDocumentId: true,
       sourceDocument: {
-        select: { filename: true },
+        select: { filename: true, lifecycle: true },
       },
       createdAt: true,
       updatedAt: true,
@@ -59,8 +59,9 @@ export async function getWorkspaceFlashcardSets(
     id: s.id,
     title: s.title,
     cardCount: s.cardCount,
-    sourceDocumentId: s.sourceDocumentId,
-    sourceDocumentFilename: s.sourceDocument?.filename ?? null,
+    sourceDocumentId: s.sourceDocument?.lifecycle === 'ACTIVE' ? s.sourceDocumentId : null,
+    sourceDocumentFilename:
+      s.sourceDocument?.lifecycle === 'ACTIVE' ? s.sourceDocument.filename : null,
     createdAt: s.createdAt.toISOString(),
     updatedAt: s.updatedAt.toISOString(),
   }));
@@ -83,7 +84,7 @@ export async function getFlashcardSetById(
       cardsJson: true,
       sourceDocumentId: true,
       sourceDocument: {
-        select: { filename: true },
+        select: { filename: true, lifecycle: true },
       },
       createdAt: true,
       updatedAt: true,
@@ -97,8 +98,9 @@ export async function getFlashcardSetById(
     title: set.title,
     cardCount: set.cardCount,
     cards: set.cardsJson as unknown as FlashcardCardRow[],
-    sourceDocumentId: set.sourceDocumentId,
-    sourceDocumentFilename: set.sourceDocument?.filename ?? null,
+    sourceDocumentId: set.sourceDocument?.lifecycle === 'ACTIVE' ? set.sourceDocumentId : null,
+    sourceDocumentFilename:
+      set.sourceDocument?.lifecycle === 'ACTIVE' ? set.sourceDocument.filename : null,
     createdAt: set.createdAt.toISOString(),
     updatedAt: set.updatedAt.toISOString(),
   };
@@ -112,7 +114,11 @@ export async function getFlashcardSetsForDocument(
   workspaceId: string,
 ): Promise<FlashcardSetListRow[]> {
   const sets = await prisma.flashcardSet.findMany({
-    where: { sourceDocumentId: documentId, workspaceId },
+    where: {
+      sourceDocumentId: documentId,
+      workspaceId,
+      sourceDocument: { is: { lifecycle: 'ACTIVE' } },
+    },
     orderBy: { createdAt: 'desc' },
     select: {
       id: true,

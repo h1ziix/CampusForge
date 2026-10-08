@@ -29,7 +29,7 @@ export interface DocumentDetail extends DocumentRow {
  */
 export async function getWorkspaceDocuments(workspaceId: string): Promise<DocumentRow[]> {
   const docs = await prisma.document.findMany({
-    where: { workspaceId },
+    where: { workspaceId, lifecycle: 'ACTIVE' },
     orderBy: { createdAt: 'desc' },
   });
 
@@ -54,7 +54,7 @@ export async function getDocumentById(
   workspaceId: string,
 ): Promise<DocumentDetail | null> {
   const doc = await prisma.document.findFirst({
-    where: { id: documentId, workspaceId },
+    where: { id: documentId, workspaceId, lifecycle: 'ACTIVE' },
   });
 
   if (!doc) return null;
@@ -77,7 +77,7 @@ export async function getDocumentById(
  * Get the total document count for a workspace (used on the dashboard).
  */
 export async function getDocumentCount(workspaceId: string): Promise<number> {
-  return prisma.document.count({ where: { workspaceId } });
+  return prisma.document.count({ where: { workspaceId, lifecycle: 'ACTIVE' } });
 }
 
 /**
@@ -85,7 +85,7 @@ export async function getDocumentCount(workspaceId: string): Promise<number> {
  */
 export async function getRecentDocuments(workspaceId: string, limit = 3): Promise<DocumentRow[]> {
   const docs = await prisma.document.findMany({
-    where: { workspaceId },
+    where: { workspaceId, lifecycle: 'ACTIVE' },
     orderBy: { createdAt: 'desc' },
     take: limit,
   });

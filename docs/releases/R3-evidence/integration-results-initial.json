@@ -1,0 +1,153 @@
+{
+  "executedAt": "2026-10-05T16:47:40.212Z",
+  "node": "v24.21.0",
+  "infrastructure": {
+    "runId": "2c80d042-486f-49db-a383-f031213b0929",
+    "containerNames": [
+      "campusforge-r3-2c80d042-486f-49db-a383-f031213b0929-postgres",
+      "campusforge-r3-2c80d042-486f-49db-a383-f031213b0929-redis",
+      "campusforge-r3-2c80d042-486f-49db-a383-f031213b0929-minio"
+    ],
+    "ports": {
+      "postgres": 65038,
+      "redis": 65039,
+      "minio": 65042
+    },
+    "disposable": true,
+    "cleaned": true
+  },
+  "scope": "Actual application source with real isolated PostgreSQL/Redis/MinIO; declared failure boundaries injected; synthetic AI only",
+  "paidAIRequests": 0,
+  "results": [
+    {
+      "name": "fresh disposable migration applied without touching existing data",
+      "passed": true,
+      "elapsedMs": 16,
+      "migration": "20261005120000_document_durable_lifecycle",
+      "tables": 0
+    },
+    {
+      "name": "actual authenticated/membership-guarded HTTP upload reaches PostgreSQL and MinIO",
+      "passed": true,
+      "elapsedMs": 126,
+      "response": 201,
+      "parseStatus": "COMPLETED"
+    },
+    {
+      "name": "100 concurrent fixed-time same/colliding-name uploads have independent objects and bytes",
+      "passed": true,
+      "elapsedMs": 1476,
+      "documents": 100,
+      "independentObjects": 100,
+      "parsed": 100
+    },
+    {
+      "name": "conditional S3 PUT refuses overwrite and foreign ownership cleanup preserves bytes",
+      "passed": true,
+      "elapsedMs": 25,
+      "overwriteRejected": 412,
+      "bytesPreserved": true
+    },
+    {
+      "name": "S3 success then real transaction failure rolls back document/task and retains recoverable cleanup",
+      "passed": true,
+      "elapsedMs": 125,
+      "rolledBack": true,
+      "durableCleanup": true
+    },
+    {
+      "name": "ambiguous DB commit response returns persisted acceptance and preserves its object",
+      "passed": true,
+      "elapsedMs": 80,
+      "honestAcceptance": true
+    },
+    {
+      "name": "upload crash after PUT before finalization expires to durable owned cleanup",
+      "passed": true,
+      "elapsedMs": 55,
+      "orphanDiscovered": true
+    },
+    {
+      "name": "durable commit survives actual Redis outage and parses after Redis recovery",
+      "passed": true,
+      "elapsedMs": 3732,
+      "recovered": true,
+      "task": "DONE"
+    },
+    {
+      "name": "two dispatcher instances atomically claim each durable operation once",
+      "passed": true,
+      "elapsedMs": 143,
+      "operations": 8,
+      "duplicateClaims": 0
+    },
+    {
+      "name": "queue.add success then delivery mark failure recovers expired claim with stable job identity",
+      "passed": true,
+      "elapsedMs": 78,
+      "stableIdentity": true,
+      "persistedParseExecutions": 1
+    },
+    {
+      "name": "outbox survives removed BullMQ record and dispatcher restart/expired lease",
+      "passed": true,
+      "elapsedMs": 76,
+      "redisRecordIndependent": true
+    },
+    {
+      "name": "actual BullMQ worker processes/replays only once using persisted leases",
+      "passed": true,
+      "elapsedMs": 217,
+      "realRedisWorker": true,
+      "replayPersistedExecutions": 1
+    },
+    {
+      "name": "concurrent parser delivery and expired PROCESSING lease recover safely",
+      "passed": true,
+      "elapsedMs": 50,
+      "concurrentReads": 1,
+      "expiredLeaseRecovered": true
+    },
+    {
+      "name": "accepted deletion hides normal queries/actions and pending Redis jobs before cleanup",
+      "passed": true,
+      "elapsedMs": 99,
+      "hiddenImmediately": true
+    },
+    {
+      "name": "delete S3 failure/restart retains intent; missing object and repeated deletion are safe",
+      "passed": true,
+      "elapsedMs": 107,
+      "retriesRecovered": true,
+      "artifactsRetained": true,
+      "repeatedDeleteAccepted": true
+    },
+    {
+      "name": "S3 deletion success then DB finalization failure remains tombstoned and recovers",
+      "passed": true,
+      "elapsedMs": 56,
+      "liveRowWithoutFile": false,
+      "retryRecovered": true
+    },
+    {
+      "name": "delete racing in-flight parser blocks publication and resurrected READY state",
+      "passed": true,
+      "elapsedMs": 47,
+      "publicationFenced": true
+    },
+    {
+      "name": "DB scope rejects stale/foreign AI payloads and delete races with synthetic provider publication",
+      "passed": true,
+      "elapsedMs": 82,
+      "providerCalls": 1,
+      "paidCalls": 0,
+      "publicationFenced": true
+    },
+    {
+      "name": "real worker OS process restart recovers prepared stale lease and ignores replay",
+      "passed": false,
+      "error": "Actual worker exited early: node:internal/modules/esm/load:193\r\n    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);\r\n          ^\r\n\r\nError [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'\r\n    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)\r\n    at defaultLoadSync (node:internal/modules/esm/load:146:3)\r\n    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:806:12)\r\n    at #loadSync (node:internal/modules/esm/loader:838:53)\r\n    at ModuleLoader.load (node:internal/modules/esm/loader:787:26)\r\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:498:31)\r\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\r\n    at afterResolve (node:internal/modules/esm/loader:611:52)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\r\n    at node:internal/modules/esm/loader:636:32 {\r\n  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'\r\n}\r\n\r\nNode.js v24.21.0\r\n",
+      "elapsedMs": 3865
+    }
+  ]
+}

@@ -11,7 +11,7 @@ export const ALLOWED_DOCUMENT_MIME_TYPES = [
 ] as const;
 
 /**
- * Max file size: 10 MB.
+ * Max file size: 10 MiB.
  * Sized for lecture notes, syllabi, and research papers.
  */
 export const MAX_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024;
@@ -36,7 +36,7 @@ export const uploadDocumentSchema = z.object({
     .number()
     .int()
     .positive('File must not be empty')
-    .max(MAX_DOCUMENT_SIZE_BYTES, 'File too large (max 10 MB)'),
+    .max(MAX_DOCUMENT_SIZE_BYTES, 'File too large (max 10 MiB)'),
 });
 
 export type UploadDocumentInput = z.infer<typeof uploadDocumentSchema>;

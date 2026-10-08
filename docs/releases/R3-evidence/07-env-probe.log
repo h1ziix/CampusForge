@@ -1,0 +1,28 @@
+
+> campusforge@ env:probe C:\Users\rausa\OneDrive\Рабочий стол\CampusForge
+> node scripts/probe-turbo-env.mjs
+
+
+   • Packages in scope: @campusforge/web, @campusforge/worker
+   • Running dev in 2 packages
+   • Remote caching disabled
+
+@campusforge/web:dev: cache bypass, force executing 8d959a1d00ddfeb6
+@campusforge/worker:dev: cache bypass, force executing 32260ac19705ec70
+@campusforge/web:dev: 
+@campusforge/web:dev: > @campusforge/web@0.0.0 dev C:\Users\rausa\AppData\Local\Temp\campusforge-r1-env-EjJguW\apps\web
+@campusforge/web:dev: > node probe-env.mjs web
+@campusforge/web:dev: 
+@campusforge/worker:dev: 
+@campusforge/worker:dev: > @campusforge/worker@0.0.0 dev C:\Users\rausa\AppData\Local\Temp\campusforge-r1-env-EjJguW\apps\worker
+@campusforge/worker:dev: > node probe-env.mjs worker
+@campusforge/worker:dev: 
+@campusforge/web:dev: {"scope":"web","present":{"S3_ENDPOINT":true,"S3_REGION":true,"S3_BUCKET":true,"S3_ACCESS_KEY":true,"S3_SECRET_KEY":true,"AUTH_RATE_LIMIT_TRUST_PROXY":true,"AUTH_RATE_LIMIT_IP_HEADER":true}}
+@campusforge/worker:dev: {"scope":"worker","present":{"S3_ENDPOINT":true,"S3_REGION":true,"S3_BUCKET":true,"S3_ACCESS_KEY":true,"S3_SECRET_KEY":true,"OPENAI_MODEL":true}}
+
+ Tasks:    2 successful, 2 total
+Cached:    0 cached, 2 total
+  Time:    498ms 
+
+Actual Turbo dev task strict environment probe passed; values not logged.
+ WARNING  No locally installed `turbo` found in your repository. Using globally installed version (2.11.7). Using a specified version in your repository will result in more predictable behavior.

@@ -1,0 +1,10 @@
+[CampusForge Worker] Runtime modules loaded; infrastructure readiness pending.
+[CampusForge Worker] Redis queues ready: document-processing, ai-pipeline. Database, S3, and AI readiness have not been checked.
+[CampusForge Worker] Processing job parse-5ff819b5-f444-4f24-b172-d3d38e1bbd10-v1 (parse) ...
+[CampusForge Worker] Job parse-5ff819b5-f444-4f24-b172-d3d38e1bbd10-v1 completed successfully.
+[CampusForge Worker] Runtime modules loaded; infrastructure readiness pending.
+[CampusForge Worker] Redis queues ready: document-processing, ai-pipeline. Database, S3, and AI readiness have not been checked.
+[CampusForge Worker] Processing job parse-5ff819b5-f444-4f24-b172-d3d38e1bbd10-v1 (parse) ...
+[CampusForge Worker] Job parse-5ff819b5-f444-4f24-b172-d3d38e1bbd10-v1 completed successfully.
+[CampusForge Worker] Processing job parse-ffacc0dc-d0c9-4a7f-98d0-3fddb3cadd31-v1 (parse) ...
+[CampusForge Worker] Job parse-ffacc0dc-d0c9-4a7f-98d0-3fddb3cadd31-v1 completed successfully.

@@ -14,6 +14,7 @@ import { getRedisConnection } from './lib/redis';
 import { processDocumentJob } from './jobs/parse-document';
 import { processSummaryJob } from './jobs/generate-summary';
 import { processFlashcardJob } from './jobs/generate-flashcards';
+import { documentDispatcher } from './lifecycle/dispatcher';
 
 console.log('[CampusForge Worker] Runtime modules loaded; infrastructure readiness pending.');
 
@@ -21,6 +22,26 @@ const connection = getRedisConnection();
 connection.on('error', () => {
   console.error('[CampusForge Worker] Redis connection unavailable.');
 });
+
+// Runs independently of Redis readiness; Postgres retains obligations during
+// outages. Every worker instance may dispatch using atomic expiring DB claims.
+let stopping = false;
+let dispatching: Promise<void> | null = null;
+function dispatchTick() {
+  if (stopping || dispatching) return;
+  dispatching = documentDispatcher
+    .tick()
+    .catch(() => {
+      console.error(
+        '[CampusForge Worker] Document dispatcher unavailable; durable retry retained.',
+      );
+    })
+    .finally(() => {
+      dispatching = null;
+    });
+}
+const dispatchTimer = setInterval(dispatchTick, 2000);
+dispatchTick();
 
 // ─── Document Processing Worker ─────────────────────────────────
 const documentWorker = new Worker(
@@ -108,6 +129,9 @@ Promise.all([documentWorker.waitUntilReady(), aiWorker.waitUntilReady()])
 // Graceful shutdown
 async function shutdown() {
   console.log('[CampusForge Worker] Shutting down...');
+  stopping = true;
+  clearInterval(dispatchTimer);
+  await dispatching;
   await Promise.all([documentWorker.close(), aiWorker.close()]);
   process.exit(0);
 }

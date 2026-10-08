@@ -1,0 +1,65 @@
+{
+  "restored": [
+    {
+      "path": "docs/releases/R2-evidence/assistant-390-dark.png",
+      "sha256": "092D46605D2C6AD827F59D8203C5C459B67C858CD5EAFE834607C2A6DF6F0EF4",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\assistant-390-dark.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/onboarding-1024-dark-error.png",
+      "sha256": "E9B3712E5A570AD769B5A2DA8F32E5439E3014394EF7EDF0E88987ED6D5445C0",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\onboarding-1024-dark-error.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/session-cleared-1024-dark-pending.png",
+      "sha256": "CA164E3B2C13389B3079C77642F4E684E7A20EC1172AA0165AAC0241B699B126",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\session-cleared-1024-dark-pending.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/session-cleared-1024-light-pending.png",
+      "sha256": "F4928E8B293736C657EDAB44DDFA10E885C80ABEE607C6E884EF54C02F217185",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\session-cleared-1024-light-pending.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/session-cleared-390-dark-pending.png",
+      "sha256": "6545C7C562340F430B335A097DDC0DE9A6FD6C7053CC8A5DEF6653BEE0083FD7",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\session-cleared-390-dark-pending.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/session-cleared-390-light-pending.png",
+      "sha256": "BB637332048F0DD3711A7CFB81D32D0252B1ACA9141E17D0C9C2AB846E08AC77",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\session-cleared-390-light-pending.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/session-cleared-768-light-pending.png",
+      "sha256": "FE4C67F76BDE924FEC48FE6C92A6E25961D103EBE511940B9F9712CC72C419D3",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\session-cleared-768-light-pending.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/signup-1024-light-error.png",
+      "sha256": "C57BF59A5ECF3C9F8CE9124EE2F71BD9FB9FA73D26BC7BBF68D7118E646082E7",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\signup-1024-light-error.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/signup-1440-dark-error.png",
+      "sha256": "44BAE1DB17782D3653A294DA5062B41698A57C421AF7A3AAC43279D3CF81420E",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\signup-1440-dark-error.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/signup-390-dark-error.png",
+      "sha256": "A363E1C34F8845FB942B6F3D66F24862631EF93932D0EA7EC561B5324F22510E",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\signup-390-dark-error.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/signup-768-dark-error.png",
+      "sha256": "06F352A4F3D4E9BDA97A4B3B4776BD82AF3719FE41DC7E8EE36BE0BBC218E1F4",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\signup-768-dark-error.png"
+    },
+    {
+      "path": "docs/releases/R2-evidence/signup-768-light-error.png",
+      "sha256": "72A01B72A50008CCEB2B2EDE1281290DFAB609120073C81CF48470FD21503A1B",
+      "savedNewScreenshot": "docs\\releases\\R3-evidence\\r2-browser-regression\\signup-768-light-error.png"
+    }
+  ],
+  "reason": "Legacy browser output path restored to original bytes; future test screenshots use separate test/R3 path"
+}

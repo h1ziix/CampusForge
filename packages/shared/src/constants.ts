@@ -31,10 +31,10 @@ export const NOTE_SOURCE_LABELS: Record<string, string> = {
 };
 
 export const PROCESSING_STATUS_LABELS: Record<string, string> = {
-  PENDING: 'Pending',
-  PROCESSING: 'Processing',
-  COMPLETED: 'Completed',
-  FAILED: 'Failed',
+  PENDING: 'Queued for parsing',
+  PROCESSING: 'Parsing',
+  COMPLETED: 'Text extracted',
+  FAILED: 'Parsing failed',
 };
 
 /**

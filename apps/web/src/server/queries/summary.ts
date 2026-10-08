@@ -40,7 +40,7 @@ export async function getDocumentSummary(
   workspaceId: string,
 ): Promise<DocumentSummaryRow | null> {
   const doc = await prisma.document.findFirst({
-    where: { id: documentId, workspaceId },
+    where: { id: documentId, workspaceId, lifecycle: 'ACTIVE' },
     select: { summaryJson: true },
   });
 
@@ -59,7 +59,7 @@ export async function getLatestAIJob(
   jobType: string,
 ): Promise<AIJobRow | null> {
   const job = await prisma.aIJob.findFirst({
-    where: { documentId, type: jobType as never },
+    where: { documentId, type: jobType as never, document: { is: { lifecycle: 'ACTIVE' } } },
     orderBy: { createdAt: 'desc' },
     select: {
       id: true,

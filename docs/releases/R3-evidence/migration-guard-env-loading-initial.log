@@ -1,0 +1,21 @@
+Environment variables loaded from .env
+Prisma schema loaded from packages\db\prisma\schema.prisma
+Datasource "db": PostgreSQL database "r3_disposable", schema "public" at "127.0.0.1:53794"
+
+3 migrations found in prisma/migrations
+
+Applying migration `20260415232835_type1`
+Applying migration `20260416185822_add_document_summary_json`
+Applying migration `20261005120000_document_durable_lifecycle`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20260415232835_type1/
+    └─ migration.sql
+  └─ 20260416185822_add_document_summary_json/
+    └─ migration.sql
+  └─ 20261005120000_document_durable_lifecycle/
+    └─ migration.sql
+      
+All migrations have been successfully applied.

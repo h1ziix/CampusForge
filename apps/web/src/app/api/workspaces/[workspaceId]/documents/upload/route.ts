@@ -5,7 +5,7 @@
  *
  * Accepts multipart/form-data with a single "file" field.
  * Validates auth, workspace membership, file type, and size.
- * Uploads to S3, creates DB record, enqueues parsing job.
+ * Uploads to S3, then atomically saves the document and durable parsing task.
  *
  * This is a Route Handler (not a Server Action) because file uploads
  * benefit from direct control over the request/response cycle and
@@ -14,9 +14,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@campusforge/db';
-import { uploadDocumentSchema } from '@campusforge/shared';
 import { createDocument } from '@/server/services/document';
 import { isTrustedMutationOrigin } from '@/lib/request-origin';
+import { DocumentUploadError, readDocumentUpload } from '@/lib/document-upload';
 
 export async function POST(
   request: NextRequest,
@@ -48,59 +48,29 @@ export async function POST(
     return NextResponse.json({ error: 'Not a member of this workspace' }, { status: 403 });
   }
 
-  // 3. Parse multipart form data
-  let formData: FormData;
+  // 3. Bound actual body reads and multipart structure before platform parsing.
+  let input: Awaited<ReturnType<typeof readDocumentUpload>>;
   try {
-    formData = await request.formData();
-  } catch {
-    return NextResponse.json({ error: 'Invalid form data' }, { status: 400 });
+    input = await readDocumentUpload(request, params.workspaceId);
+  } catch (error) {
+    if (error instanceof DocumentUploadError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
+    return NextResponse.json({ error: 'Invalid file upload' }, { status: 400 });
   }
 
-  const file = formData.get('file');
-  if (!file || !(file instanceof File)) {
-    return NextResponse.json(
-      { error: 'No file provided. Include a "file" field.' },
-      { status: 400 },
-    );
-  }
-
-  // 4. Validate file metadata
-  const validation = uploadDocumentSchema.safeParse({
-    workspaceId: params.workspaceId,
-    filename: file.name,
-    mimeType: file.type,
-    sizeBytes: file.size,
-  });
-
-  if (!validation.success) {
-    const firstError = validation.error.errors[0]?.message ?? 'Invalid file';
-    return NextResponse.json({ error: firstError }, { status: 400 });
-  }
-
-  // 5. Read file bytes
-  let fileBuffer: Buffer;
+  // 4. Durable upload acceptance. Redis is outside the HTTP request path.
   try {
-    const arrayBuffer = await file.arrayBuffer();
-    fileBuffer = Buffer.from(arrayBuffer);
-  } catch {
-    return NextResponse.json({ error: 'Failed to read file contents' }, { status: 400 });
-  }
-
-  // 6. Create document (S3 upload + DB record + enqueue parsing)
-  try {
-    const result = await createDocument({
-      workspaceId: params.workspaceId,
-      filename: file.name,
-      mimeType: file.type,
-      sizeBytes: file.size,
-      fileBuffer,
-    });
+    const result = await createDocument(input);
 
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 500 });
     }
 
-    return NextResponse.json({ documentId: result.documentId }, { status: 201 });
+    return NextResponse.json(
+      { documentId: result.documentId, processingStatus: 'PENDING' },
+      { status: 201 },
+    );
   } catch (error) {
     console.error('[CampusForge] Upload route error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

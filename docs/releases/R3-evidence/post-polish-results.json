@@ -1,0 +1,22 @@
+{
+  "node": "v24.21.0",
+  "change": "Improve Upload button text contrast in the existing dark-mode dialog",
+  "results": [
+    { "command": "pnpm typecheck", "exitCode": 0, "log": "post-polish-typecheck.log" },
+    { "command": "pnpm lint", "exitCode": 0, "log": "post-polish-lint.log" },
+    { "command": "pnpm format:check", "exitCode": 0, "log": "post-polish-format.log" },
+    {
+      "command": "pnpm test:browser tests/browser/r3-documents.spec.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "evidence": "browser-final-polish-results.json"
+    },
+    { "command": "pnpm build --force", "exitCode": 0, "log": "post-polish-build.log" }
+  ],
+  "releaseProbeEvidence": "release-results.json",
+  "visualInspection": [
+    "browser/upload-error-390-dark.png",
+    "browser/failed-1440-light.png"
+  ],
+  "userNextEnvRestoredFromBaselineAfterBuild": true
+}

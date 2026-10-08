@@ -1,0 +1,4 @@
+Baseline: C:/Users/rausa/AppData/Local/Temp/campusforge-r3-baseline-8223b8e6-7d1c-4657-9175-3c4b8f8d6a53
+User changes at entry: .env.example, README.md, apps/web/next-env.d.ts, infra/docker-compose.yml; untracked apps/web/AGENTS.md, apps/web/CLAUDE.md.
+No git commit, push, deployment, real .env read, existing data mutations authorized.
+State-machine contract agreed before parallel app edits; see R3-state-machine.md.

@@ -17,18 +17,18 @@ datasource db {
 // ─── AUTH + USER ────────────────────────────────────────────
 
 model User {
-  id                  String    @id @default(cuid())
-  email               String    @unique
+  id                  String   @id @default(cuid())
+  email               String   @unique
   name                String?
   passwordHash        String?
   image               String?
-  role                UserRole  @default(STUDENT)
+  role                UserRole @default(STUDENT)
   university          String?
   major               String?
   graduationYear      Int?
-  onboardingCompleted Boolean   @default(false)
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  onboardingCompleted Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   accounts        Account[]
   sessions        Session[]
@@ -191,17 +191,23 @@ enum NoteSource {
 // ─── DOCUMENTS ──────────────────────────────────────────────
 
 model Document {
-  id               String           @id @default(cuid())
-  workspaceId      String
-  filename         String
-  mimeType         String
-  sizeBytes        Int
-  storageKey       String
-  parsedText       String?          @db.Text
-  summaryJson      Json?            // Structured summary: { title, tldr, sections[], keyTerms[] }
-  processingStatus ProcessingStatus @default(PENDING)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id                 String            @id @default(cuid())
+  workspaceId        String
+  filename           String
+  mimeType           String
+  sizeBytes          Int
+  storageKey         String            @unique
+  parsedText         String?           @db.Text
+  summaryJson        Json? // Structured summary: { title, tldr, sections[], keyTerms[] }
+  processingStatus   ProcessingStatus  @default(PENDING)
+  lifecycle          DocumentLifecycle @default(ACTIVE)
+  parseLeaseToken    String?
+  parseLeaseUntil    DateTime?
+  parseAttempts      Int               @default(0)
+  parseNextAttemptAt DateTime          @default(now())
+  parseError         String?           @db.Text
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
 
   workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   flashcardSets FlashcardSet[]
@@ -210,6 +216,74 @@ model Document {
 
   @@index([workspaceId])
   @@index([processingStatus])
+  @@index([lifecycle, processingStatus, parseNextAttemptAt])
+}
+
+enum DocumentLifecycle {
+  ACTIVE
+  DELETING
+}
+
+// Independent ledgers intentionally survive Document/Workspace deletion. They
+// contain only operation metadata, and allow cleanup after ambiguous commits.
+model DocumentUploadIntent {
+  id           String             @id
+  workspaceId  String
+  filename     String
+  mimeType     String
+  sizeBytes    Int
+  storageKey   String             @unique
+  status       UploadIntentStatus @default(UPLOADING)
+  expiresAt    DateTime
+  cleanupUntil DateTime
+  availableAt  DateTime           @default(now())
+  leaseToken   String?
+  leaseUntil   DateTime?
+  attempts     Int                @default(0)
+  lastError    String?            @db.Text
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  @@index([status, availableAt])
+}
+
+enum UploadIntentStatus {
+  UPLOADING
+  FINALIZED
+  CLEANUP
+  DONE
+}
+
+// This is a transactional outbox plus a retained operation receipt. PARSE
+// remains pending after Redis delivery until a guarded DB parse commit.
+model DocumentTask {
+  id          String             @id
+  documentId  String
+  workspaceId String
+  storageKey  String
+  kind        DocumentTaskKind
+  status      DocumentTaskStatus @default(PENDING)
+  availableAt DateTime           @default(now())
+  leaseToken  String?
+  leaseUntil  DateTime?
+  attempts    Int                @default(0)
+  lastError   String?            @db.Text
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([status, availableAt])
+  @@index([documentId, kind])
+}
+
+enum DocumentTaskKind {
+  PARSE
+  DELETE
+}
+
+enum DocumentTaskStatus {
+  PENDING
+  CLAIMED
+  DONE
 }
 
 enum ProcessingStatus {
@@ -226,7 +300,7 @@ model FlashcardSet {
   workspaceId      String
   title            String
   sourceDocumentId String?
-  cardsJson        Json     // Array of { front: string, back: string }
+  cardsJson        Json // Array of { front: string, back: string }
   cardCount        Int
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -243,7 +317,7 @@ model Quiz {
   title            String
   sourceDocumentId String?
   difficulty       QuizDifficulty @default(MEDIUM)
-  questionsJson    Json           // Array of { question, options[], correctIndex, explanation }
+  questionsJson    Json // Array of { question, options[], correctIndex, explanation }
   questionCount    Int
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
@@ -286,9 +360,9 @@ model ResumeReview {
   userId      String
   documentId  String?
   score       Int?
-  strengths   Json     // string[]
-  weaknesses  Json     // string[]
-  suggestions Json     // string[]
+  strengths   Json // string[]
+  weaknesses  Json // string[]
+  suggestions Json // string[]
   rawOutput   Json?
   createdAt   DateTime @default(now())
 

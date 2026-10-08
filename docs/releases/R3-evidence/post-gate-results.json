@@ -1,0 +1,30 @@
+{
+  "node": "v24.21.0",
+  "reason": "Follow-up checks after release tooling, browser output path fixes, and restoring the user's generated next-env.d.ts",
+  "results": [
+    { "command": "pnpm lint", "exitCode": 0 },
+    { "command": "pnpm format:check", "exitCode": 0 },
+    { "command": "pnpm --filter @campusforge/web typecheck", "exitCode": 0 },
+    { "command": "node --test apps/web/tests/document-upload.test.mjs", "exitCode": 0, "passed": 7 },
+    {
+      "command": "pnpm test:browser tests/browser/r2-ui-privacy.spec.ts",
+      "exitCode": 0,
+      "passed": 5,
+      "evidence": "r2-browser-destination-results.json"
+    },
+    {
+      "command": "pnpm test:browser tests/browser/r3-documents.spec.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "evidence": "browser-destination-results.json"
+    },
+    {
+      "command": "pnpm exec eslint scripts/probe-r3-release.mjs scripts/verify-r3.mjs scripts/probe-release.mjs tests/browser/r2-ui-privacy.spec.ts tests/browser/r3-documents.spec.ts --max-warnings 0",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm exec prettier --check README.md docs/releases/R3.md scripts/probe-r3-release.mjs scripts/verify-r3.mjs tests/browser/r2-ui-privacy.spec.ts tests/browser/r3-documents.spec.ts",
+      "exitCode": 0
+    }
+  ]
+}

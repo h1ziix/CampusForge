@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "boundary": "Synthetic gate only; no real .env, migration, or provider calls",
+  "results": [
+    {
+      "command": "pnpm db:generate",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1818,
+      "log": "01-db-generate.log"
+    },
+    {
+      "command": "pnpm db:validate",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1176,
+      "log": "02-db-validate.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 9126,
+      "log": "03-typecheck.log"
+    },
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 14077,
+      "log": "04-lint.log"
+    },
+    {
+      "command": "pnpm format:check",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 3830,
+      "log": "05-format-check.log"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 193434,
+      "log": "06-test.log"
+    },
+    {
+      "command": "pnpm env:probe",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1607,
+      "log": "07-env-probe.log"
+    },
+    {
+      "command": "pnpm build --force",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 37652,
+      "log": "08-build.log"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "executedAt": "2026-10-05T16:44:21.016Z",
+  "node": "v24.21.0",
+  "gitRevision": "04837ed27670510daf21909f00b22783f86a9db1",
+  "scope": "snapshotted pre-R3 actual application entrances with mocks; isolated Redis transport probe",
+  "results": [
+    {
+      "finding": "PF-02",
+      "reproduced": true,
+      "scenario": "concurrent sanitized collision at fixed timestamp",
+      "documentRows": 2,
+      "objects": 1,
+      "firstBytes": "bravo"
+    },
+    {
+      "finding": "PF-02",
+      "reproduced": true,
+      "scenario": "DB failure cleanup removes neighbor object",
+      "survivingRows": 1,
+      "objects": 0
+    },
+    {
+      "finding": "PF-03",
+      "reproduced": true,
+      "response": {
+        "ok": true,
+        "documentId": "d1"
+      },
+      "documentStatus": "PENDING",
+      "queued": 0
+    },
+    {
+      "finding": "PF-08",
+      "reproduced": true,
+      "failure": "deleteFails",
+      "outcome": {
+        "ok": true,
+        "documentId": "d1"
+      },
+      "documentRows": 0,
+      "objects": 1
+    },
+    {
+      "finding": "PF-08",
+      "reproduced": true,
+      "failure": "dbDeleteFails",
+      "outcome": "rejected",
+      "documentRows": 1,
+      "objects": 0
+    },
+    {
+      "finding": "PF-06",
+      "reproduced": true,
+      "scenario": "actual upload route; tiny selected file and ignored 11 MiB part",
+      "bodyBytes": 11534660,
+      "response": 201,
+      "createCalls": 1
+    },
+    {
+      "finding": "PF-05",
+      "reproduced": true,
+      "endpoint": "close-only loopback TCP; zero real Redis writes",
+      "observedMs": 1504,
+      "connections": 8,
+      "outcome": "pending",
+      "maxRetriesPerRequest": null,
+      "enableOfflineQueue": true
+    }
+  ]
+}

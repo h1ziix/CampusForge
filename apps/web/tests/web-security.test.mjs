@@ -43,6 +43,11 @@ function sourceLoader(mocks = {}, environment = { AUTH_URL: 'https://campusforge
       FormData,
       File,
       Buffer,
+      Request,
+      Response,
+      TextDecoder,
+      AbortSignal,
+      performance,
       setTimeout,
       clearTimeout,
       process: { env: environment },
@@ -220,7 +225,10 @@ test('actual same-origin upload preserves auth, membership and multipart lifecyc
   fixture.state.member = true;
   const response = await fixture.POST(request(), fixture.params);
   assert.equal(response.status, 201);
-  assert.deepEqual(await response.json(), { documentId: 'synthetic-doc' });
+  assert.deepEqual(await response.json(), {
+    documentId: 'synthetic-doc',
+    processingStatus: 'PENDING',
+  });
   assert.equal(fixture.calls.createDocument, 1);
 });
 

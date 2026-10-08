@@ -16,6 +16,7 @@
  * - Re-throws so BullMQ can retry (up to configured attempts)
  */
 import { prisma } from '@campusforge/db';
+import { assertDocumentGenerationPayload } from '../lib/document-job';
 import {
   getAIProvider,
   SUMMARY_SYSTEM_PROMPT,
@@ -30,7 +31,15 @@ export interface SummaryJobData {
 }
 
 export async function processSummaryJob(data: SummaryJobData): Promise<void> {
+  assertDocumentGenerationPayload(data);
   const { documentId, workspaceId, userId } = data;
+
+  // Jobs already in Redis cannot resurrect a deleted source. DB determines scope.
+  const doc = await prisma.document.findFirst({
+    where: { id: documentId, workspaceId, lifecycle: 'ACTIVE', processingStatus: 'COMPLETED' },
+    select: { parsedText: true, filename: true },
+  });
+  if (!doc) return;
 
   // 1. Create AIJob record
   const aiJob = await prisma.aIJob.create({
@@ -51,15 +60,6 @@ export async function processSummaryJob(data: SummaryJobData): Promise<void> {
     });
 
     // 3. Fetch document with parsed text
-    const doc = await prisma.document.findUnique({
-      where: { id: documentId },
-      select: { parsedText: true, filename: true },
-    });
-
-    if (!doc) {
-      throw new Error(`Document ${documentId} not found`);
-    }
-
     if (!doc.parsedText || doc.parsedText.trim().length === 0) {
       throw new Error(
         `Document ${documentId} has no parsed text. Parse must complete before summarization.`,
@@ -78,14 +78,15 @@ export async function processSummaryJob(data: SummaryJobData): Promise<void> {
     // Cast to satisfy Prisma's JSON field typing (InputJsonValue)
     const summaryData = JSON.parse(JSON.stringify(result.data));
 
-    await prisma.$transaction([
+    await prisma.$transaction(async (tx) => {
       // Store structured summary on the document
-      prisma.document.update({
-        where: { id: documentId },
+      const published = await tx.document.updateMany({
+        where: { id: documentId, workspaceId, lifecycle: 'ACTIVE', processingStatus: 'COMPLETED' },
         data: { summaryJson: summaryData },
-      }),
+      });
+      if (!published.count) throw new Error('Source document is no longer available');
       // Store output + metadata on the AIJob
-      prisma.aIJob.update({
+      await tx.aIJob.update({
         where: { id: aiJob.id },
         data: {
           status: 'COMPLETED',
@@ -94,8 +95,8 @@ export async function processSummaryJob(data: SummaryJobData): Promise<void> {
           estimatedCost: result.meta.estimatedCost,
           latencyMs: result.meta.latencyMs,
         },
-      }),
-    ]);
+      });
+    });
 
     console.log(
       `[CampusForge Worker] Summary generated for "${doc.filename}" — ` +

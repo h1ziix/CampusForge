@@ -1,5 +1,7 @@
 # CampusForge
 
+R3 добавляет независимые UUID object keys, ограниченный multipart reader и durable upload/parse/delete lifecycle в PostgreSQL. Результаты failure tests и границы проверки: [R3](docs/releases/R3.md). Допуск к production по-прежнему требует остальных релизов и проверок инфраструктуры.
+
 R1 обеспечивает воспроизводимую сборку и контракт загрузки production runtime.
 R2 добавляет безопасные auth redirects, ограничения password endpoints, trusted session updates и изоляцию локальной истории. Это **не разрешение на production**: live auth/Redis integration, сохранность документов, реальные AI-сценарии и остальные acceptance пункты требуют отдельных проверок. Итоги и границы доказательства: [R1](docs/releases/R1.md), [R2](docs/releases/R2.md).
 
@@ -120,3 +122,32 @@ pnpm db:deploy
 ## CI и ограничения
 
 `.github/workflows/quality.yml` закрепляет Node/pnpm, frozen install, generation, пять typechecks, lint, format, unit/browser tests и build; проверки используют synthetic env. Hosted CI execution, disposable migrations и реальная DB/Redis/S3/AI readiness должны проверяться отдельно. `pnpm audit --json` и `pnpm audit --prod --json` оцениваются с issuer advisory и reachability; текущая triage находится в [docs/releases/R1-dependencies.md](docs/releases/R1-dependencies.md).
+
+## Документы: upload, recovery и удаление (R3)
+
+Upload принимает ровно один part `file`. Дополнительные файлы, duplicate file parts и текстовые поля отклоняются. Лимиты: файл 10 MiB, всё multipart body 10 MiB + 64 KiB, part headers 8 KiB, boundary 70 символов, filename 500 символов и 2048 UTF-8 bytes, MIME metadata 128 bytes. Неподдерживаемые текстовые поля ограничены 1 KiB до отказа. `Content-Length` лишь позволяет отказать раньше: фактически прочитанные bytes ограничиваются и без заголовка. Reader прекращает чтение и отменяет stream при переполнении, abort или deadline 30 секунд. PDF проверяется по расширению и signature, TXT/Markdown — по расширению, UTF-8 и отсутствию binary controls; MIME клиента не считается доказательством безопасности содержимого. Это проверка пригодности для parser, не антивирус.
+
+До S3 Put PostgreSQL сохраняет `DocumentUploadIntent` с UUID и уникальным ключом. S3 Put имеет conditional create, ownership metadata и deadline 30 секунд. После Put одна короткая транзакция создаёт Document и `DocumentTask` PARSE и финализирует intent. HTTP `201` означает файл сохранён и задача обработки durable (`processingStatus=PENDING`), parsing ещё может ожидать. В upload request path нет Redis. При неоднозначном DB ответе сервис проверяет persisted acceptance; если подтвердить его нельзя, возвращает ошибку с просьбой обновить список перед повтором. Принятый документ никогда не компенсируется cleanup своего FINALIZED intent.
+
+Compiled worker запускает dispatcher/reconciler вместе с BullMQ consumers. Его можно запустить на нескольких instances: PostgreSQL claims с токеном/lease выбирают одного владельца, expired claims восстанавливаются; Redis delivery повторяется с backoff. Task остаётся незавершённой до persisted parsing result, поэтому потеря/удаление Redis job record не теряет работу. Stable parse ID: `parse-{documentId}-v1`. Уже завершённый document пропускает повторную доставку; parsing lease и guarded result commit не допускают публикацию старой попытки после recovery или tombstone. При исчерпании пяти parse attempts документ остаётся FAILED для диагностики; cleanup/dispatch инфраструктурные retries продолжаются. Recovery не вызывает AI provider.
+
+Незавершённый upload после десятиминутного lease обнаруживается ledger sweep. Cleanup проверяет ownership metadata и повторяет Delete через 24-часовой quarantine, учитывая неоднозначный исход прерванного Put. Receipt остаётся в PostgreSQL. S3/Redis вызовы не выполняются внутри DB транзакций. Данные ledger/outbox следует мониторить: overdue tasks, expired leases, failed parsing и количество cleanup attempts. Worker должен работать постоянно; без него upload сохраняется, но parsing и физическое удаление ждут.
+
+Delete action подтверждает durable tombstone и cleanup intent. С этого commit документ исчезает из обычных queries и недоступен generation/новому parsing; физический S3 Delete выполняется фоном. S3 failure сохраняет retryable task. После S3 success транзакция удаляет tombstoned Document и отмечает receipt завершённым; её failure безопасно повторяет идемпотентный S3 Delete. Повторный delete через тот же workspace и уже отсутствующий объект безопасны. Существующие flashcards/quizzes/AIJob сохраняются согласно прежнему `SetNull`; R3 не вводит полное стирание производных материалов, backups или S3 versions.
+
+HTTP AI producers имеют deadline 1500 ms, отключённые offline queue/reconnect и закрывают отдельное соединение, дожидаясь окончания его операции. Worker consumers сохраняют долгоживущую retry policy; dispatcher использует отдельный ограниченный producer и durable retries. Неоднозначное принятие AI enqueue при потере ответа и AI billing/idempotency остаются R4.
+
+## Безопасный порядок миграции R3
+
+Новая migration: `20261005120000_document_durable_lifecycle`. Старые migrations не переписаны. Проверки R3 применяют её только на свежей disposable БД с отдельными ports, bucket и synthetic credentials. Для существующего target сначала backup/rollback plan, остановка старых web/worker writers, read-only preflight дубликатов и сверка S3 ownership; затем отдельное административное `pnpm db:deploy` из full build workspace и запуск только нового web/worker artifact.
+
+```sql
+SELECT "storageKey", COUNT(*)
+FROM "Document"
+GROUP BY "storageKey"
+HAVING COUNT(*) > 1;
+```
+
+Если preflight возвращает строки, миграция уникальности завершится ошибкой. Автоматического переименования/удаления пользовательских объектов нет: требуется отдельный reviewed recovery plan. Не запускайте `db:push`, reset или synthetic integration против пользовательской БД. Migration материализует tasks для старых PENDING/PROCESSING/FAILED документов, сохраняя object keys и COMPLETED результаты.
+
+`pnpm verify:r3` запускает generation/validation, все packages typecheck/lint, format check, tests, env probe и build с synthetic environment; evidence пишет только в R3. `pnpm verify:r3:release` создаёт новый временный bundle, устанавливает production dependencies, проверяет compiled dispatcher/lifecycle imports и запускает synthetic runtime probe. Отдельный disposable integration runner и его фактические команды описаны в [R3](docs/releases/R3.md). Release packaging требует compiled dispatcher и DB lifecycle module; dev TS/CLI не нужны runtime services.

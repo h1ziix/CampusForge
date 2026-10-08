@@ -2,7 +2,11 @@ import { expect, test, type Page } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const evidence = resolve(__dirname, '../../docs/releases/R2-evidence');
+const evidence = resolve(
+  __dirname,
+  '../..',
+  process.env.R2_BROWSER_EVIDENCE_PATH ?? 'test-results/r2-ui',
+);
 const errorMap = new Map<Page, string[]>();
 test.beforeEach(({ page }) => {
   const errors: string[] = [];

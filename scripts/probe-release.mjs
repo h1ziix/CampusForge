@@ -279,7 +279,7 @@ try {
         publicUiChecked: Boolean(uiOutput),
         infrastructureReady: false,
         readinessReason:
-          'Disposable synthetic configuration points to unavailable local services; no jobs, database queries, S3 calls, or AI calls executed.',
+          'Disposable synthetic configuration points to unavailable local services; connection attempts may fail, no document jobs, user data, S3 calls, or AI calls executed.',
       },
       null,
       2,

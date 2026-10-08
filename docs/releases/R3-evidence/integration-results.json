@@ -1,0 +1,158 @@
+{
+  "executedAt": "2026-10-05T16:54:13.608Z",
+  "node": "v24.21.0",
+  "infrastructure": {
+    "runId": "47a4c9c5-08b7-4d45-a28c-7851b7942c8b",
+    "containerNames": [
+      "campusforge-r3-47a4c9c5-08b7-4d45-a28c-7851b7942c8b-postgres",
+      "campusforge-r3-47a4c9c5-08b7-4d45-a28c-7851b7942c8b-redis",
+      "campusforge-r3-47a4c9c5-08b7-4d45-a28c-7851b7942c8b-minio"
+    ],
+    "ports": {
+      "postgres": 59854,
+      "redis": 59856,
+      "minio": 60226
+    },
+    "disposable": true,
+    "cleaned": true
+  },
+  "scope": "Actual application source with real isolated PostgreSQL/Redis/MinIO; declared failure boundaries injected; synthetic AI only",
+  "paidAIRequests": 0,
+  "results": [
+    {
+      "name": "fresh disposable migration applied without touching existing data",
+      "passed": true,
+      "elapsedMs": 10,
+      "migration": "20261005120000_document_durable_lifecycle",
+      "taskRows": 0
+    },
+    {
+      "name": "actual authenticated/membership-guarded HTTP upload reaches PostgreSQL and MinIO",
+      "passed": true,
+      "elapsedMs": 110,
+      "response": 201,
+      "parseStatus": "COMPLETED"
+    },
+    {
+      "name": "100 concurrent fixed-time same/colliding-name uploads have independent objects and bytes",
+      "passed": true,
+      "elapsedMs": 997,
+      "documents": 100,
+      "independentObjects": 100,
+      "parsed": 100
+    },
+    {
+      "name": "conditional S3 PUT refuses overwrite and foreign ownership cleanup preserves bytes",
+      "passed": true,
+      "elapsedMs": 21,
+      "overwriteRejected": 412,
+      "bytesPreserved": true
+    },
+    {
+      "name": "S3 success then real transaction failure rolls back document/task and retains recoverable cleanup",
+      "passed": true,
+      "elapsedMs": 95,
+      "rolledBack": true,
+      "durableCleanup": true
+    },
+    {
+      "name": "ambiguous DB commit response returns persisted acceptance and preserves its object",
+      "passed": true,
+      "elapsedMs": 47,
+      "honestAcceptance": true
+    },
+    {
+      "name": "upload crash after PUT before finalization expires to durable owned cleanup",
+      "passed": true,
+      "elapsedMs": 31,
+      "orphanDiscovered": true
+    },
+    {
+      "name": "durable commit survives actual Redis outage and parses after Redis recovery",
+      "passed": true,
+      "elapsedMs": 3623,
+      "recovered": true,
+      "task": "DONE"
+    },
+    {
+      "name": "two dispatcher instances atomically claim each durable operation once",
+      "passed": true,
+      "elapsedMs": 173,
+      "operations": 8,
+      "duplicateClaims": 0
+    },
+    {
+      "name": "queue.add success then delivery mark failure retries with stable job identity",
+      "passed": true,
+      "elapsedMs": 127,
+      "stableIdentity": true,
+      "persistedParseExecutions": 1
+    },
+    {
+      "name": "outbox survives removed BullMQ record and dispatcher restart/expired lease",
+      "passed": true,
+      "elapsedMs": 108,
+      "redisRecordIndependent": true
+    },
+    {
+      "name": "actual BullMQ worker processes/replays only once using persisted leases",
+      "passed": true,
+      "elapsedMs": 211,
+      "realRedisWorker": true,
+      "replayPersistedExecutions": 1
+    },
+    {
+      "name": "concurrent parser delivery and expired PROCESSING lease recover safely",
+      "passed": true,
+      "elapsedMs": 58,
+      "concurrentReads": 1,
+      "expiredLeaseRecovered": true
+    },
+    {
+      "name": "accepted deletion hides normal queries/actions and pending Redis jobs before cleanup",
+      "passed": true,
+      "elapsedMs": 104,
+      "hiddenImmediately": true
+    },
+    {
+      "name": "delete S3 failure/restart retains intent; missing object and repeated deletion are safe",
+      "passed": true,
+      "elapsedMs": 110,
+      "retriesRecovered": true,
+      "artifactsRetained": true,
+      "repeatedDeleteAccepted": true
+    },
+    {
+      "name": "S3 deletion success then DB finalization failure remains tombstoned and recovers",
+      "passed": true,
+      "elapsedMs": 62,
+      "liveRowWithoutFile": false,
+      "retryRecovered": true
+    },
+    {
+      "name": "delete racing in-flight parser blocks publication and resurrected READY state",
+      "passed": true,
+      "elapsedMs": 44,
+      "publicationFenced": true
+    },
+    {
+      "name": "DB scope rejects stale/foreign AI payloads and delete races with synthetic provider publication",
+      "passed": true,
+      "elapsedMs": 85,
+      "providerCalls": 1,
+      "paidCalls": 0,
+      "publicationFenced": true
+    },
+    {
+      "name": "real worker OS process restart recovers prepared stale lease and ignores replay",
+      "passed": true,
+      "elapsedMs": 5207,
+      "incarnations": 2,
+      "preparedExpiredLease": true,
+      "osProcessRestart": true,
+      "killedDuringExactS3CrashWindow": false,
+      "replayAttempts": 1,
+      "exhaustedCrashBudget": "FAILED"
+    }
+  ]
+}

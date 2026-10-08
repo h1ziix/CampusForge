@@ -8,7 +8,15 @@ export default defineConfig({
   retries: 0,
   reporter: [
     ['list'],
-    ['json', { outputFile: resolve(__dirname, 'docs/releases/R2-evidence/browser-results.json') }],
+    [
+      'json',
+      {
+        outputFile: resolve(
+          __dirname,
+          process.env.BROWSER_RESULTS_PATH ?? 'test-results/browser-results.json',
+        ),
+      },
+    ],
   ],
   timeout: 30_000,
   use: {

@@ -1,21 +1,20 @@
-import { prisma } from '@campusforge/db';
-import { uploadToS3, deleteFromS3 } from '@/lib/s3';
-import { enqueueDocumentParsing } from '@/lib/queue';
+import { randomUUID } from 'node:crypto';
+import {
+  beginDocumentUpload,
+  finalizeDocumentUpload,
+  getAcceptedDocumentUpload,
+  abandonDocumentUpload,
+  requestDocumentDeletion,
+} from '@campusforge/db';
+import { MAX_DOCUMENT_SIZE_BYTES } from '@campusforge/shared';
+import { documentStorageKey, isS3ObjectAlreadyPresent, uploadToS3 } from '@/lib/s3';
 
 type DocumentResult = { ok: true; documentId: string } | { ok: false; error: string };
 
 /**
- * Create a document record, upload its file to S3, and enqueue parsing.
- *
- * Responsibility chain:
- * 1. Generate a unique storage key
- * 2. Upload binary to S3/MinIO
- * 3. Create DB record with PENDING status
- * 4. Enqueue background job for text extraction
- *
- * If S3 upload fails, no DB record is created.
- * If DB insert fails after S3 upload, the orphaned S3 object is cleaned up.
- * If queue enqueue fails, the document stays PENDING (can be retried).
+ * Persist ownership before S3, then atomically accept the document and parsing task.
+ * Failed/ambiguous PUTs retain a cleanup ledger; Redis availability is irrelevant
+ * to HTTP acceptance. No network calls run inside the acceptance transaction.
  */
 export async function createDocument(input: {
   workspaceId: string;
@@ -24,97 +23,66 @@ export async function createDocument(input: {
   sizeBytes: number;
   fileBuffer: Buffer;
 }): Promise<DocumentResult> {
-  // Deterministic, collision-resistant storage key
-  const timestamp = Date.now();
-  const safeFilename = input.filename.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const storageKey = `documents/${input.workspaceId}/${timestamp}-${safeFilename}`;
-
-  // 1. Upload to S3
+  if (
+    input.fileBuffer.byteLength !== input.sizeBytes ||
+    input.sizeBytes <= 0 ||
+    input.sizeBytes > MAX_DOCUMENT_SIZE_BYTES
+  ) {
+    return { ok: false, error: 'Invalid document size.' };
+  }
+  const id = randomUUID();
+  const storageKey = documentStorageKey(input.workspaceId, id);
   try {
-    await uploadToS3(storageKey, input.fileBuffer, input.mimeType);
+    await beginDocumentUpload({
+      id,
+      storageKey,
+      workspaceId: input.workspaceId,
+      filename: input.filename,
+      mimeType: input.mimeType,
+      sizeBytes: input.sizeBytes,
+    });
+  } catch {
+    // No PUT has occurred. An ambiguously persisted intent will safely expire.
+    console.error('[CampusForge] Could not persist document upload intent.');
+    return { ok: false, error: 'Failed to prepare document upload. Please try again.' };
+  }
+
+  try {
+    await uploadToS3(storageKey, input.fileBuffer, input.mimeType, input.filename, id);
   } catch (error) {
-    console.error('[CampusForge] S3 upload failed:', error);
+    // A 412 never created an object. Other transport failures may have committed
+    // a PUT; deferred cleanup verifies the object's immutable ownership metadata.
+    await abandonDocumentUpload(id, !isS3ObjectAlreadyPresent(error)).catch(() => {
+      console.error('[CampusForge] Upload intent will require expiry recovery.');
+    });
+    console.error('[CampusForge] Document object upload failed.');
     return { ok: false, error: 'File upload failed. Please try again.' };
   }
 
-  // 2. Create DB record
-  let documentId: string;
   try {
-    const doc = await prisma.document.create({
-      data: {
-        workspaceId: input.workspaceId,
-        filename: input.filename,
-        mimeType: input.mimeType,
-        sizeBytes: input.sizeBytes,
-        storageKey,
-        processingStatus: 'PENDING',
-      },
-      select: { id: true },
+    const document = await finalizeDocumentUpload(id);
+    return { ok: true, documentId: document.id };
+  } catch {
+    // A lost DB response does not prove rollback. Check persisted acceptance,
+    // and never clean up a FINALIZED intent even if this check is unavailable.
+    const accepted = await getAcceptedDocumentUpload(id).catch(() => null);
+    if (accepted) return { ok: true, documentId: accepted.id };
+    await abandonDocumentUpload(id).catch(() => {
+      console.error('[CampusForge] Upload intent will require expiry recovery.');
     });
-    documentId = doc.id;
-  } catch (error) {
-    // Cleanup orphaned S3 object
-    console.error('[CampusForge] DB insert failed, cleaning up S3:', error);
-    await deleteFromS3(storageKey).catch(() => {});
-    return { ok: false, error: 'Failed to save document record.' };
+    console.error('[CampusForge] Document acceptance could not be confirmed.');
+    return {
+      ok: false,
+      error: 'Failed to confirm document upload. Please refresh before retrying.',
+    };
   }
-
-  // 3. Enqueue parsing job
-  try {
-    await enqueueDocumentParsing(documentId);
-  } catch (error) {
-    // Non-fatal: document stays PENDING, can be retried manually or by a cron
-    console.error('[CampusForge] Failed to enqueue parsing job:', error);
-  }
-
-  return { ok: true, documentId };
 }
 
-/**
- * Delete a document: remove from S3 and delete the DB record.
- * Verifies the document belongs to the given workspace.
- */
+/** Hide the document immediately and durably schedule object/DB cleanup. */
 export async function deleteDocument(
   documentId: string,
   workspaceId: string,
 ): Promise<DocumentResult> {
-  const doc = await prisma.document.findFirst({
-    where: { id: documentId, workspaceId },
-    select: { id: true, storageKey: true },
-  });
-
-  if (!doc) {
-    return { ok: false, error: 'Document not found' };
-  }
-
-  // Delete from S3 (best-effort — don't block DB delete on S3 failure)
-  await deleteFromS3(doc.storageKey).catch((error) => {
-    console.error('[CampusForge] S3 delete failed (non-blocking):', error);
-  });
-
-  await prisma.document.delete({
-    where: { id: documentId },
-  });
-
-  return { ok: true, documentId };
-}
-
-/**
- * Update the processing status of a document.
- * Called by the background worker after parsing completes or fails.
- */
-export async function updateDocumentProcessingStatus(
-  documentId: string,
-  status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED',
-  parsedText?: string | null,
-): Promise<void> {
-  const data: Record<string, unknown> = { processingStatus: status };
-  if (parsedText !== undefined) {
-    data.parsedText = parsedText;
-  }
-
-  await prisma.document.update({
-    where: { id: documentId },
-    data,
-  });
+  const accepted = await requestDocumentDeletion(documentId, workspaceId);
+  return accepted ? { ok: true, documentId } : { ok: false, error: 'Document not found' };
 }

@@ -1,0 +1,364 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\rausa\\AppData\\Local\\pnpm\\nodejs\\24.21.0\\node.exe",
+      "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser/r3-documents.spec.ts"
+    ],
+    "configFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\playwright.config.ts",
+    "rootDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\docs\\releases\\R3-evidence\\browser-destination-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "cwd": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge",
+      "command": "node scripts/next-runtime-fixture.mjs dev --webpack --hostname 127.0.0.1 --port 3217",
+      "url": "http://127.0.0.1:3217",
+      "reuseExistingServer": false,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "r3-documents.spec.ts",
+      "file": "r3-documents.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "R3 persisted parsing states and upload error 390 light",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2588,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:38.532Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-5c70cbccca6230d1ea4d",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 390 dark",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1588,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:42.080Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-18b0f14faa322450a61d",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 768 light",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1592,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:43.677Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-489c23742e76ac95bb9d",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 768 dark",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1518,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:45.280Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-8ac705f1255c1292664a",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 1024 light",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1488,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:46.808Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-219b37f9ed20dab3787d",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 1024 dark",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:48.306Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-7920f1b7ad6540c7619b",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 1440 light",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1498,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:49.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-f1a8c9f49e09267f0e1f",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        },
+        {
+          "title": "R3 persisted parsing states and upload error 1440 dark",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1538,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-05T17:03:51.327Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eef9af77b3547de86dc8-bd725e595571eb248855",
+          "file": "r3-documents.spec.ts",
+          "line": 7,
+          "column": 9
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-05T17:03:30.933Z",
+    "duration": 22156.433999999997,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
