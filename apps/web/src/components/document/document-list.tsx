@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FileText, Sparkles, Trash2, Upload } from 'lucide-react';
@@ -28,17 +28,21 @@ function formatBytes(bytes: number): string {
 /**
  * CampusForge document list with empty state, upload button, and delete flow.
  * Client component that manages dialog state and delete transitions.
- * Document rows link to the detail page where summaries can be generated.
+ * Document rows link to saved server results and generation status.
  */
 export function DocumentList({ documents, workspaceId }: DocumentListProps) {
   const router = useRouter();
   const [uploadOpen, setUploadOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const uploadTriggerRef = useRef<HTMLButtonElement | null>(null);
 
-  function handleDelete(e: React.MouseEvent, documentId: string) {
-    e.preventDefault(); // Prevent link navigation
-    e.stopPropagation();
+  function openUpload(event: React.MouseEvent<HTMLButtonElement>) {
+    uploadTriggerRef.current = event.currentTarget;
+    setUploadOpen(true);
+  }
+
+  function handleDelete(documentId: string) {
     if (!confirm('Delete this document? This cannot be undone.')) return;
 
     setDeletingId(documentId);
@@ -61,20 +65,24 @@ export function DocumentList({ documents, workspaceId }: DocumentListProps) {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Documents</h1>
           <p className="text-muted-foreground">
             {documents.length === 0
-              ? 'No documents yet. Upload one to get started.'
+              ? 'Your workspace is empty. Start with a short note.'
               : `${documents.length} document${documents.length === 1 ? '' : 's'} in this workspace`}
           </p>
         </div>
-        <Button onClick={() => setUploadOpen(true)}>
+        <Button onClick={openUpload}>
           <Upload className="mr-2 h-4 w-4" />
           Upload
         </Button>
       </div>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        Upload saves your file for text extraction. Open a document to check its AI input budget,
+        request a summary or flashcards, and follow the server status. Saved sets open in Study.
+      </p>
 
       {/* Empty state */}
       {documents.length === 0 && (
@@ -84,10 +92,10 @@ export function DocumentList({ documents, workspaceId }: DocumentListProps) {
           </div>
           <h2 className="mt-4 text-lg font-semibold">No documents yet</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Upload lecture notes, PDFs, or text files. Text is extracted automatically for use with
-            flashcards, quizzes, and summaries.
+            Use a short UTF-8 TXT note, Markdown file, or PDF with selectable text. Upload one file
+            up to 10 MiB; scans, images, and DOCX are not supported.
           </p>
-          <Button onClick={() => setUploadOpen(true)} className="mt-4">
+          <Button onClick={openUpload} className="mt-4">
             <Upload className="mr-2 h-4 w-4" />
             Upload First Document
           </Button>
@@ -96,52 +104,60 @@ export function DocumentList({ documents, workspaceId }: DocumentListProps) {
 
       {/* Document rows */}
       {documents.length > 0 && (
-        <div className="mt-6 space-y-2">
+        <ul className="mt-6 flex min-w-0 flex-col gap-2" aria-label="Documents">
           {documents.map((doc) => (
-            <Link
+            <li
               key={doc.id}
-              href={`/w/${workspaceId}/documents/${doc.id}`}
-              className="flex w-full items-center gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-accent/50"
+              className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 rounded-lg border bg-card p-4 xl:grid-cols-[minmax(0,1fr)_auto_auto]"
             >
-              {/* File icon */}
-              <div className="shrink-0">
-                <FileText className="h-5 w-5 text-muted-foreground" />
-              </div>
+              <Link
+                href={`/w/${workspaceId}/documents/${doc.id}`}
+                aria-label={`Open ${doc.filename}`}
+                className="col-span-2 flex min-w-0 items-center gap-3 rounded-md hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 xl:col-span-1"
+              >
+                {/* File icon */}
+                <div className="shrink-0">
+                  <FileText className="size-5 text-muted-foreground" aria-hidden="true" />
+                </div>
 
-              {/* Filename + meta */}
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-medium">{doc.filename}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  {DOCUMENT_TYPE_LABELS[doc.mimeType] ?? doc.mimeType}
-                  {' · '}
-                  {formatBytes(doc.sizeBytes)}
-                  {' · '}
-                  {new Date(doc.createdAt).toLocaleDateString()}
-                </p>
-              </div>
+                {/* Filename + meta */}
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium" title={doc.filename}>
+                    {doc.filename}
+                  </p>
+                  <p className="mt-0.5 break-words text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">
+                    {DOCUMENT_TYPE_LABELS[doc.mimeType] ?? doc.mimeType}
+                    {' · '}
+                    {formatBytes(doc.sizeBytes)}
+                    {' · '}
+                    {new Date(doc.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+              </Link>
 
               {/* Status + actions */}
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex min-w-0 flex-wrap items-center gap-2 pl-8 xl:pl-0">
                 {doc.hasSummary && (
                   <Badge variant="secondary" className="gap-1">
-                    <Sparkles className="h-3 w-3" />
+                    <Sparkles className="size-3" aria-hidden="true" />
                     Summary
                   </Badge>
                 )}
                 <DocumentStatusBadge status={doc.processingStatus} />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => handleDelete(e, doc.id)}
-                  disabled={isPending && deletingId === doc.id}
-                  className="text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
               </div>
-            </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => handleDelete(doc.id)}
+                disabled={isPending && deletingId === doc.id}
+                aria-label={`Delete ${doc.filename}`}
+                className="shrink-0 text-muted-foreground hover:text-destructive"
+              >
+                <Trash2 className="size-4" aria-hidden="true" />
+              </Button>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       {/* Upload dialog */}
@@ -149,6 +165,7 @@ export function DocumentList({ documents, workspaceId }: DocumentListProps) {
         open={uploadOpen}
         onOpenChange={setUploadOpen}
         workspaceId={workspaceId}
+        returnFocusRef={uploadTriggerRef}
       />
     </div>
   );
@@ -160,15 +177,16 @@ export function DocumentList({ documents, workspaceId }: DocumentListProps) {
  */
 export function DocumentListSkeleton() {
   return (
-    <div>
-      <div className="flex items-center justify-between">
+    <div role="status" aria-label="Loading documents" aria-busy="true">
+      <span className="sr-only">Loading documents...</span>
+      <div aria-hidden="true" className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <Skeleton className="h-9 w-40" />
           <Skeleton className="mt-2 h-5 w-56" />
         </div>
         <Skeleton className="h-10 w-24" />
       </div>
-      <div className="mt-6 space-y-2">
+      <div aria-hidden="true" className="mt-6 flex flex-col gap-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <Skeleton key={i} className="h-[68px] w-full rounded-lg" />
         ))}

@@ -33,21 +33,23 @@ export function FlashcardSetDetailView({
       {/* Back navigation */}
       <Link
         href={`/w/${workspaceId}/flashcards`}
-        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        className="mb-4 inline-flex items-center gap-1 rounded-sm text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft aria-hidden="true" className="h-4 w-4" />
         Back to Flashcards
       </Link>
 
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div className="flex items-start gap-3">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-1 items-start gap-3">
           <div className="mt-1 shrink-0">
             <Layers className="h-6 w-6 text-muted-foreground" />
           </div>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">{flashcardSet.title}</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+          <div className="min-w-0">
+            <h1 className="break-words text-2xl font-bold tracking-tight [overflow-wrap:anywhere]">
+              {flashcardSet.title}
+            </h1>
+            <p className="mt-1 break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
               {flashcardSet.cardCount} card{flashcardSet.cardCount === 1 ? '' : 's'}
               {flashcardSet.sourceDocumentFilename && (
                 <>
@@ -56,7 +58,7 @@ export function FlashcardSetDetailView({
                   {flashcardSet.sourceDocumentId ? (
                     <Link
                       href={`/w/${workspaceId}/documents/${flashcardSet.sourceDocumentId}`}
-                      className="underline hover:text-foreground"
+                      className="rounded-sm underline hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                       {flashcardSet.sourceDocumentFilename}
                     </Link>
@@ -70,9 +72,9 @@ export function FlashcardSetDetailView({
             </p>
           </div>
         </div>
-        <Badge variant="secondary" className="gap-1">
+        <Badge variant="secondary" className="shrink-0 gap-1 whitespace-nowrap">
           <Layers className="h-3 w-3" />
-          {flashcardSet.cardCount} cards
+          {flashcardSet.cardCount} {flashcardSet.cardCount === 1 ? 'card' : 'cards'}
         </Badge>
       </div>
 
@@ -98,13 +100,17 @@ export function FlashcardSetDetailView({
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Front
                   </span>
-                  <p className="mt-0.5 text-sm">{card.front}</p>
+                  <p className="mt-0.5 whitespace-pre-wrap break-words text-sm [overflow-wrap:anywhere]">
+                    {card.front}
+                  </p>
                 </div>
                 <div>
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Back
                   </span>
-                  <p className="mt-0.5 text-sm text-muted-foreground">{card.back}</p>
+                  <p className="mt-0.5 whitespace-pre-wrap break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                    {card.back}
+                  </p>
                 </div>
               </CardContent>
             </Card>

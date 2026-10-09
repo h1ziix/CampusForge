@@ -30,7 +30,11 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-9 gap-2 rounded-lg px-2.5 font-semibold">
+        <Button
+          variant="ghost"
+          className="h-9 gap-2 rounded-lg px-2.5 font-semibold"
+          aria-label={`Demo style: ${current.name}. No model API calls.`}
+        >
           <span
             className={cn(
               'flex h-6 w-6 items-center justify-center rounded-md ring-1 ring-inset ring-black/5 dark:ring-white/10',
@@ -39,13 +43,14 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
           >
             <CurrentIcon className={cn('h-4 w-4', current.color)} />
           </span>
+          <span className="text-xs text-muted-foreground">Demo style</span>
           <span className="hidden sm:inline">{current.name}</span>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="cf-pop w-72 rounded-xl p-1.5">
         <DropdownMenuLabel className="px-2 py-1.5 text-xs uppercase tracking-wide text-muted-foreground">
-          Choose a model
+          Demo styles · no model API calls
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {MODEL_LIST.map((m) => {
@@ -71,10 +76,7 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
                   {active && <Check className="h-3.5 w-3.5 text-primary" />}
                 </div>
                 <span className="truncate text-xs leading-5 text-muted-foreground">
-                  {m.tagline}
-                </span>
-                <span className="mt-0.5 text-[11px] text-muted-foreground/70">
-                  {m.vendor} / {m.context}
+                  Local sample tone and avatar only
                 </span>
               </div>
             </DropdownMenuItem>

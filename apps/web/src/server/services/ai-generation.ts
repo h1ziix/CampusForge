@@ -1,13 +1,7 @@
 import { requestAIOperation, AIOperationError } from '@campusforge/db';
-import {
-  estimateReservationMicros,
-  estimateInputTokenUpperBound,
-  SUMMARY_SYSTEM_PROMPT,
-  FLASHCARD_SYSTEM_PROMPT,
-  buildSummaryUserPrompt,
-  buildFlashcardUserPrompt,
-} from '@campusforge/ai';
+import { estimateReservationMicros } from '@campusforge/ai';
 import { readAIEnvironmentPolicy, ok, err, type ActionResult } from '@campusforge/shared';
+import { estimateDocumentInput } from '@/server/services/ai-input';
 
 export interface GenerationReceipt {
   documentId: string;
@@ -66,13 +60,7 @@ export async function requestGeneration(
       operationBudgetMicros: policy.operationBudgetMicros,
       workspaceConcurrency: policy.workspaceConcurrency,
       validateSnapshot: ({ text, filename }) => {
-        const summary = type === 'SUMMARY';
-        const tokens = estimateInputTokenUpperBound(
-          summary ? SUMMARY_SYSTEM_PROMPT : FLASHCARD_SYSTEM_PROMPT,
-          summary
-            ? buildSummaryUserPrompt(text, filename)
-            : buildFlashcardUserPrompt(text, filename),
-        );
+        const tokens = estimateDocumentInput(type, text, filename);
         if (tokens > policy.parameters.maxInputTokens)
           throw new AIOperationError('INPUT_TOKEN_BUDGET_EXCEEDED');
       },

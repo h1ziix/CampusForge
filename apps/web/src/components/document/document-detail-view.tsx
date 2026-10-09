@@ -1,153 +1,40 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   ArrowLeft,
   FileText,
   Sparkles,
   Loader2,
-  Clock,
   RefreshCw,
   Layers,
-  CheckCircle2,
   GraduationCap,
+  AlertCircle,
+  CheckCircle2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
 import { DocumentStatusBadge } from '@/components/document/document-status-badge';
 import { DOCUMENT_TYPE_LABELS } from '@campusforge/shared';
-import { cn } from '@/lib/utils';
 import { identityNamespace, type LocalIdentity, type SensitiveLease } from '@/lib/privacy';
 import { SessionEnded, usePrivacyLease } from '@/lib/use-privacy-lease';
-import type { DocumentDetail } from '@/server/queries/document';
-import type { DocumentSummaryRow, AIJobRow } from '@/server/queries/summary';
-import type { FlashcardSetListRow } from '@/server/queries/flashcard';
+import { useDocumentGeneration } from '@/lib/use-document-generation';
+import type { DocumentGenerationState } from '@/server/queries/document';
+import type { AIJobRow } from '@/server/queries/summary';
+import type { GenerationReceipt } from '@/server/services/ai-generation';
 
-interface DocumentDetailViewProps {
-  document: DocumentDetail;
-  summary: DocumentSummaryRow | null;
-  summaryJob: AIJobRow | null;
-  flashcardSets: FlashcardSetListRow[];
-  flashcardJob: AIJobRow | null;
+interface DocumentDetailViewProps extends DocumentGenerationState {
   workspaceId: string;
   identity: LocalIdentity;
 }
 
-interface DemoSummary {
-  intro: string;
-  keyPoints: string[];
-  assessment: string;
-  readingTime: string;
-}
-
-interface Flashcard {
-  question: string;
-  answer: string;
-}
-
-type GenState = 'idle' | 'loading' | 'done';
-
-/** Format bytes to human-readable size */
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MiB`;
 }
 
-const storageKey = (identity: LocalIdentity, id: string) =>
-  `campusforge:doc-ai:v2:${identityNamespace(identity)}:${encodeURIComponent(id)}`;
-
-function loadCache(
-  identity: LocalIdentity,
-  id: string,
-  lease: SensitiveLease,
-): { summary?: DemoSummary; flashcards?: Flashcard[] } {
-  if (!lease.isValid()) return {};
-  try {
-    const raw = window.localStorage.getItem(storageKey(identity, id));
-    if (!raw) return {};
-    const saved = JSON.parse(raw) as {
-      epoch?: string;
-      summary?: DemoSummary;
-      flashcards?: Flashcard[];
-    };
-    if (saved.epoch !== lease.epoch) return {};
-    const summary =
-      saved.summary &&
-      typeof saved.summary.intro === 'string' &&
-      typeof saved.summary.assessment === 'string' &&
-      typeof saved.summary.readingTime === 'string' &&
-      Array.isArray(saved.summary.keyPoints) &&
-      saved.summary.keyPoints.every((point) => typeof point === 'string')
-        ? saved.summary
-        : undefined;
-    const flashcards =
-      Array.isArray(saved.flashcards) &&
-      saved.flashcards.every(
-        (card) => card && typeof card.question === 'string' && typeof card.answer === 'string',
-      )
-        ? saved.flashcards
-        : undefined;
-    return { summary, flashcards };
-  } catch {
-    return {};
-  }
-}
-
-function buildSummary(filename: string): DemoSummary {
-  const name = filename.replace(/\.[^.]+$/, '').trim() || 'the uploaded material';
-  return {
-    intro: `This document provides an overview of ${name} and highlights the key information it contains.`,
-    keyPoints: [
-      'Introduces the primary objectives and scope.',
-      'Explains the core concepts and supporting details.',
-      'Identifies important recommendations.',
-      'Summarizes major conclusions.',
-      'Highlights actionable next steps.',
-    ],
-    assessment:
-      'The document is well structured and covers its topic clearly. Recommended reading time: approximately 8–10 minutes.',
-    readingTime: '8–10 min read',
-  };
-}
-
-const DEMO_FLASHCARDS: Flashcard[] = [
-  {
-    question: 'What is the main objective of this document?',
-    answer: 'To explain the core concepts and provide practical recommendations.',
-  },
-  {
-    question: 'What are the key takeaways?',
-    answer: 'Objectives, methodology, recommendations and conclusions.',
-  },
-  {
-    question: 'What should the reader remember?',
-    answer: 'Focus on the implementation strategy and final recommendations.',
-  },
-  {
-    question: 'Which section contains the most important information?',
-    answer: 'The recommendations and conclusion.',
-  },
-  {
-    question: 'Who is the intended audience?',
-    answer: 'Students, researchers and project teams.',
-  },
-  {
-    question: 'What is the next recommended action?',
-    answer: 'Review the summary and apply the listed recommendations.',
-  },
-];
-
-/**
- * CampusForge document detail view.
- *
- * AI summary + flashcard generation run entirely client-side as a simulated,
- * offline experience — no API calls, no backend, no error states. Generated
- * results persist per-document in localStorage so the page feels lived-in.
- */
 export function DocumentDetailView(props: DocumentDetailViewProps) {
   return (
     <DocumentPrivacySession
@@ -160,93 +47,48 @@ export function DocumentDetailView(props: DocumentDetailViewProps) {
 function DocumentPrivacySession(props: DocumentDetailViewProps) {
   const { lease, revoked } = usePrivacyLease();
   if (revoked) return <SessionEnded />;
-  if (!lease) return <div className="min-h-[50vh]" aria-busy="true" />;
+  if (!lease)
+    return (
+      <div className="min-h-[50vh]" role="status" aria-label="Loading document" aria-busy="true">
+        <span className="sr-only">Loading document...</span>
+      </div>
+    );
   return <DocumentSession {...props} lease={lease} />;
 }
 
-function DocumentSession({
-  document: doc,
-  workspaceId,
-  identity,
-  lease,
-}: DocumentDetailViewProps & { lease: SensitiveLease }) {
-  const [initial] = useState(() => loadCache(identity, doc.id, lease));
-  const [summaryState, setSummaryState] = useState<GenState>(initial.summary ? 'done' : 'idle');
-  const [summaryData, setSummaryData] = useState<DemoSummary | null>(initial.summary ?? null);
-
-  const [flashcardState, setFlashcardState] = useState<GenState>(
-    initial.flashcards?.length ? 'done' : 'idle',
-  );
-  const [flashcards, setFlashcards] = useState<Flashcard[]>(initial.flashcards ?? []);
-  const [flipped, setFlipped] = useState<Record<number, boolean>>({});
-
-  const timers = useRef<number[]>([]);
-
-  // Persist generated results.
-  useEffect(() => {
-    if (!lease.isValid()) return;
-    try {
-      window.localStorage.setItem(
-        storageKey(identity, doc.id),
-        JSON.stringify({
-          epoch: lease.epoch,
-          summary: summaryState === 'done' ? summaryData : undefined,
-          flashcards: flashcardState === 'done' ? flashcards : undefined,
-        }),
-      );
-    } catch {
-      /* ignore */
-    }
-  }, [identity, lease, doc.id, summaryState, summaryData, flashcardState, flashcards]);
-
-  useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
-
-  const handleGenerateSummary = useCallback(() => {
-    setSummaryState('loading');
-    const delay = 1500 + Math.random() * 1000; // 1.5–2.5s
-    const t = window.setTimeout(() => {
-      if (!lease.isValid()) return;
-      setSummaryData(buildSummary(doc.filename));
-      setSummaryState('done');
-    }, delay);
-    timers.current.push(t);
-  }, [doc.filename, lease]);
-
-  const handleGenerateFlashcards = useCallback(() => {
-    setFlashcardState('loading');
-    setFlipped({});
-    const t = window.setTimeout(() => {
-      if (!lease.isValid()) return;
-      setFlashcards(DEMO_FLASHCARDS);
-      setFlashcardState('done');
-    }, 2000);
-    timers.current.push(t);
-  }, [lease]);
+function DocumentSession(props: DocumentDetailViewProps & { lease: SensitiveLease }) {
+  const { workspaceId, lease } = props;
+  const flow = useDocumentGeneration(props, workspaceId, lease);
+  const { document: doc, summary, summaryJob, flashcardSets, flashcardJob } = flow.state;
+  const input = doc.aiInput;
+  const summaryDisabled =
+    !input.summary.eligible ||
+    Boolean(summaryJob || summary || flow.receipts.SUMMARY) ||
+    flow.submitting !== null;
+  const cardsDisabled =
+    !input.flashcards.eligible ||
+    Boolean(flashcardJob || flashcardSets.length || flow.receipts.FLASHCARD) ||
+    flow.submitting !== null;
 
   return (
-    <div>
-      {/* Back navigation */}
+    <div className="mx-auto max-w-4xl pb-8">
       <Link
         href={`/w/${workspaceId}/documents`}
-        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="mb-5 inline-flex items-center gap-1.5 rounded-sm text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Documents
+        <ArrowLeft className="size-4" aria-hidden="true" /> Back to Documents
       </Link>
-
-      {/* Document header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3.5">
-          <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <FileText className="h-5 w-5" />
+      <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:gap-4">
+        <div className="flex w-full min-w-0 flex-1 items-start gap-3.5">
+          <div className="mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <FileText className="size-5" aria-hidden="true" />
           </div>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">{doc.filename}</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {DOCUMENT_TYPE_LABELS[doc.mimeType] ?? doc.mimeType}
-              {' · '}
-              {formatBytes(doc.sizeBytes)}
-              {' · '}
+          <div className="min-w-0">
+            <h1 className="break-words text-2xl font-bold tracking-tight [overflow-wrap:anywhere]">
+              {doc.filename}
+            </h1>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              {DOCUMENT_TYPE_LABELS[doc.mimeType] ?? doc.mimeType} · {formatBytes(doc.sizeBytes)} ·
               Uploaded {new Date(doc.createdAt).toLocaleDateString()}
             </p>
           </div>
@@ -254,269 +96,376 @@ function DocumentSession({
         <DocumentStatusBadge status={doc.processingStatus} />
       </div>
 
-      {doc.processingStatus !== 'COMPLETED' && (
-        <p className="mt-4 text-sm text-muted-foreground" role="status">
-          {doc.processingStatus === 'FAILED'
-            ? 'Text extraction failed. Automatic retries may be scheduled; study tools are unavailable until parsing succeeds.'
-            : 'Your file is saved. Text extraction is pending or in progress; study tools become available after parsing.'}
+      <div className="mt-5 flex flex-col gap-3 border-y py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xs leading-5 text-muted-foreground" role="status" aria-live="polite">
+          <p className="font-medium text-foreground">
+            {flow.active ? 'Waiting for server processing' : 'Saved server state'}
+          </p>
+          <p>
+            {flow.active && flow.refreshStopped === 'limit'
+              ? 'Automatic checks paused after 6 attempts. Check status manually or return later.'
+              : flow.active && flow.refreshStopped === 'error'
+                ? 'Automatic checks paused. Check status when connected.'
+                : flow.active
+                  ? 'Up to 6 automatic checks, with increasing intervals. You can leave and return.'
+                  : 'Results are loaded from your workspace and remain available after reopening.'}
+          </p>
+          {flow.checkedAt && <p>Last checked {flow.checkedAt}</p>}
+        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          className="w-fit shrink-0 gap-2"
+          onClick={flow.checkStatus}
+          disabled={flow.checking}
+        >
+          <RefreshCw
+            data-icon="inline-start"
+            className={flow.checking ? 'size-4 animate-spin motion-reduce:animate-none' : 'size-4'}
+            aria-hidden="true"
+          />
+          {flow.checking ? 'Checking...' : 'Check status'}
+        </Button>
+      </div>
+      {flow.checkError && (
+        <p role="alert" className="mt-3 text-sm text-error-foreground">
+          {flow.checkError}
         </p>
       )}
 
-      {/* Summary section */}
-      <section className="mt-8 space-y-4">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-[18px] w-[18px] text-primary" />
-            <h2 className="text-lg font-semibold">AI Summary</h2>
-          </div>
-          <Button
-            onClick={handleGenerateSummary}
-            disabled={summaryState === 'loading' || doc.processingStatus !== 'COMPLETED'}
-            size="sm"
-            className="shadow-sm transition-transform active:scale-95"
-          >
-            {summaryState === 'loading' ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating Summary...
-              </>
-            ) : summaryState === 'done' ? (
-              <>
-                <RefreshCw className="mr-2 h-4 w-4" />
-                Regenerate Summary
-              </>
-            ) : (
-              <>
-                <Sparkles className="mr-2 h-4 w-4" />
-                Generate Summary
-              </>
-            )}
-          </Button>
+      {doc.processingStatus !== 'COMPLETED' && (
+        <div className="mt-5 rounded-lg border bg-muted/30 p-4 text-sm leading-6" role="status">
+          <p className="font-medium">
+            {doc.processingStatus === 'FAILED'
+              ? 'Text extraction failed'
+              : 'Your file is saved for text extraction'}
+          </p>
+          <p className="text-muted-foreground">
+            {doc.processingStatus === 'FAILED'
+              ? doc.parseError || 'The file could not be processed.'
+              : 'Generation becomes available after the worker extracts text. No generated result is ready yet.'}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Attempts: {doc.parseAttempts}/{doc.parseMaxAttempts}.{' '}
+            {doc.parseRetryScheduled
+              ? `A server retry is scheduled${doc.parseNextAttemptAt ? ` for ${new Date(doc.parseNextAttemptAt).toLocaleString()}` : ''}.`
+              : doc.processingStatus === 'FAILED'
+                ? 'No automatic extraction retry is scheduled. Try a supported UTF-8 text file.'
+                : 'Check status to read the latest server state.'}
+          </p>
         </div>
+      )}
 
-        {summaryState === 'loading' && <SummarySkeleton />}
+      <aside
+        aria-label="AI input limits"
+        className="mt-5 rounded-lg bg-muted/40 px-4 py-3 text-xs leading-5 text-muted-foreground"
+      >
+        <p className="font-semibold text-foreground">
+          AI input budget · {input.maxInputTokens?.toLocaleString() ?? 'Unavailable'}
+        </p>
+        <p>
+          The server uses a conservative estimate: UTF-8 bytes of both prompts + 128, rather than an
+          exact tokenizer. Upload size is a separate limit. Full text is sent; oversized material is
+          rejected without truncation.
+        </p>
+        <dl className="mt-2 flex flex-wrap gap-x-6 gap-y-1">
+          <div className="flex gap-1.5">
+            <dt>Summary estimate:</dt>
+            <dd className="font-medium text-foreground">
+              {input.summary.estimatedInputTokens?.toLocaleString() ?? 'Unavailable'}
+            </dd>
+          </div>
+          <div className="flex gap-1.5">
+            <dt>Cards estimate:</dt>
+            <dd className="font-medium text-foreground">
+              {input.flashcards.estimatedInputTokens?.toLocaleString() ?? 'Unavailable'}
+            </dd>
+          </div>
+        </dl>
+        <p className="mt-2">
+          Generation sends extracted text to the configured AI provider. Use material you are
+          allowed to process, and verify answers against your source.
+        </p>
+      </aside>
 
-        {summaryState === 'idle' && (
-          <EmptyState
-            icon={<Sparkles className="h-6 w-6" />}
-            title="No summary yet"
-            description="AI can generate a structured summary of this document with key points and an overall assessment."
-          />
+      <section aria-labelledby="document-summary-heading" className="mt-8 flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2
+            id="document-summary-heading"
+            className="flex items-center gap-2 text-lg font-semibold"
+          >
+            <Sparkles className="size-[18px] text-primary" aria-hidden="true" />
+            Summary
+          </h2>
+          {summary ? (
+            <Badge variant="secondary" className="gap-1.5">
+              <CheckCircle2 className="size-3.5" aria-hidden="true" />
+              Saved
+            </Badge>
+          ) : (
+            <Button
+              size="sm"
+              variant={summaryJob || flow.receipts.SUMMARY ? 'outline' : 'default'}
+              className="gap-2"
+              disabled={summaryDisabled}
+              onClick={() => flow.generate('SUMMARY')}
+            >
+              {flow.submitting === 'SUMMARY' && (
+                <Loader2
+                  className="size-4 animate-spin motion-reduce:animate-none"
+                  aria-hidden="true"
+                />
+              )}
+              {flow.submitting === 'SUMMARY'
+                ? 'Submitting...'
+                : flow.requestErrors.SUMMARY
+                  ? 'Retry request'
+                  : summary
+                    ? 'Summary saved'
+                    : flow.receipts.SUMMARY || summaryJob
+                      ? 'Summary requested'
+                      : 'Generate summary'}
+            </Button>
+          )}
+        </div>
+        {!input.summary.eligible && !summary && (
+          <p className="text-sm text-muted-foreground">{input.summary.reason}</p>
         )}
-
-        {summaryState === 'done' && summaryData && (
-          <Card className="animate-fade-in-up overflow-hidden border shadow-sm">
-            {/* Premium header */}
-            <div className="flex items-center justify-between gap-3 border-b bg-gradient-to-r from-primary/[0.07] via-primary/[0.03] to-transparent px-5 py-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-blue-600 text-white shadow-sm">
-                  <Sparkles className="h-[18px] w-[18px]" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold leading-tight">AI Summary</p>
-                  <p className="text-xs text-muted-foreground">Generated just now</p>
-                </div>
-              </div>
+        <JobState
+          job={summaryJob}
+          receipt={flow.receipts.SUMMARY}
+          requestError={flow.requestErrors.SUMMARY}
+        />
+        {summary ? (
+          <Card className="overflow-hidden shadow-none">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-muted/20 px-5 py-3">
+              <p className="text-xs font-medium text-muted-foreground">Saved to your workspace</p>
               <Badge variant="secondary" className="gap-1">
-                <Clock className="h-3 w-3" />
-                {summaryData.readingTime}
+                <CheckCircle2 className="size-3" aria-hidden="true" />
+                Server result
               </Badge>
             </div>
-
-            <CardContent className="space-y-6 p-5">
-              <p className="leading-relaxed text-foreground/90">{summaryData.intro}</p>
-
+            <CardContent className="flex flex-col gap-6 p-5 sm:p-6">
               <div>
-                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  Key Points
+                <h3 className="break-words text-xl font-semibold [overflow-wrap:anywhere]">
+                  {summary.title}
                 </h3>
-                <ul className="space-y-2.5">
-                  {summaryData.keyPoints.map((point, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed">
-                      <CheckCircle2 className="mt-0.5 h-[18px] w-[18px] shrink-0 text-primary" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rounded-lg border bg-muted/40 p-4">
-                <h3 className="mb-1.5 text-sm font-semibold">Overall Assessment</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {summaryData.assessment}
+                <p className="mt-3 whitespace-pre-wrap break-words leading-7 [overflow-wrap:anywhere]">
+                  {summary.tldr}
                 </p>
               </div>
+              {summary.sections.map((section, index) => (
+                <div key={index}>
+                  <h4 className="font-semibold">{section.heading}</h4>
+                  <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7 text-muted-foreground [overflow-wrap:anywhere]">
+                    {section.content}
+                  </p>
+                </div>
+              ))}
+              {summary.keyTerms.length > 0 && (
+                <div className="border-t pt-4">
+                  <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Key terms
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {summary.keyTerms.map((term, index) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="max-w-full whitespace-normal break-words [overflow-wrap:anywhere]"
+                      >
+                        {term}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
+        ) : (
+          !summaryJob &&
+          !flow.receipts.SUMMARY && (
+            <EmptyState
+              title="A summary from your notes"
+              description="Generate a concise overview and key terms from the extracted text. The result will be saved here."
+            />
+          )
         )}
       </section>
 
-      {/* Flashcard section */}
-      <section className="mt-10 space-y-4">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Layers className="h-[18px] w-[18px] text-primary" />
-            <h2 className="text-lg font-semibold">Flashcards</h2>
-            {flashcardState === 'done' && (
-              <Badge variant="secondary">{flashcards.length} cards</Badge>
-            )}
-          </div>
-          <Button
-            onClick={handleGenerateFlashcards}
-            disabled={flashcardState === 'loading' || doc.processingStatus !== 'COMPLETED'}
-            size="sm"
-            variant="outline"
-            className="shadow-sm transition-transform active:scale-95"
-          >
-            {flashcardState === 'loading' ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating Flashcards...
-              </>
-            ) : flashcardState === 'done' ? (
-              <>
-                <RefreshCw className="mr-2 h-4 w-4" />
-                Regenerate
-              </>
-            ) : (
-              <>
-                <Layers className="mr-2 h-4 w-4" />
-                Generate Flashcards
-              </>
-            )}
-          </Button>
+      <section aria-labelledby="document-cards-heading" className="mt-9 flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 id="document-cards-heading" className="flex items-center gap-2 text-lg font-semibold">
+            <Layers className="size-[18px] text-primary" aria-hidden="true" />
+            Flashcards
+          </h2>
+          {flashcardSets.length > 0 ? (
+            <Badge variant="secondary" className="gap-1.5">
+              <CheckCircle2 className="size-3.5" aria-hidden="true" />
+              Saved
+            </Badge>
+          ) : (
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-2"
+              disabled={cardsDisabled}
+              onClick={() => flow.generate('FLASHCARD')}
+            >
+              {flow.submitting === 'FLASHCARD' && (
+                <Loader2
+                  className="size-4 animate-spin motion-reduce:animate-none"
+                  aria-hidden="true"
+                />
+              )}
+              {flow.submitting === 'FLASHCARD'
+                ? 'Submitting...'
+                : flow.requestErrors.FLASHCARD
+                  ? 'Retry request'
+                  : flashcardSets.length
+                    ? 'Flashcards saved'
+                    : flow.receipts.FLASHCARD || flashcardJob
+                      ? 'Flashcards requested'
+                      : 'Generate flashcards'}
+            </Button>
+          )}
         </div>
-
-        {flashcardState === 'loading' && <FlashcardSkeleton />}
-
-        {flashcardState === 'idle' && (
-          <EmptyState
-            icon={<GraduationCap className="h-6 w-6" />}
-            title="Study flashcards"
-            description="AI can generate study flashcards from this document."
-          />
+        {!input.flashcards.eligible && !flashcardSets.length && (
+          <p className="text-sm text-muted-foreground">{input.flashcards.reason}</p>
         )}
-
-        {flashcardState === 'done' && (
-          <div className="grid gap-3 sm:grid-cols-2">
-            {flashcards.map((card, i) => {
-              const isFlipped = !!flipped[i];
-              return (
-                <button
-                  key={i}
-                  onClick={() => setFlipped((p) => ({ ...p, [i]: !p[i] }))}
-                  style={{ animationDelay: `${i * 50}ms` }}
-                  className="animate-fade-in-up group flex flex-col rounded-xl border bg-card p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-                >
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Card {i + 1}
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className={cn('transition-colors', isFlipped && 'bg-primary/10 text-primary')}
-                    >
-                      {isFlipped ? 'Answer' : 'Question'}
-                    </Badge>
-                  </div>
-
-                  <p className="text-sm font-medium leading-relaxed">{card.question}</p>
-
-                  <div
-                    className={cn(
-                      'grid transition-all duration-300',
-                      isFlipped ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
-                    )}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="border-t pt-3 text-sm leading-relaxed text-muted-foreground">
-                        {card.answer}
-                      </div>
-                    </div>
-                  </div>
-
-                  {!isFlipped && (
-                    <span className="mt-3 text-xs text-muted-foreground/70 transition-colors group-hover:text-primary">
-                      Click to reveal answer
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+        <JobState
+          job={flashcardJob}
+          receipt={flow.receipts.FLASHCARD}
+          requestError={flow.requestErrors.FLASHCARD}
+        />
+        {flashcardSets.length > 0 ? (
+          <ul className="flex flex-col gap-3">
+            {flashcardSets.map((set) => (
+              <li
+                key={set.id}
+                className="flex min-w-0 flex-col gap-4 rounded-lg border bg-card p-5 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="min-w-0">
+                  <h3 className="break-words font-semibold [overflow-wrap:anywhere]">
+                    {set.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {set.cardCount} {set.cardCount === 1 ? 'card' : 'cards'} · Saved{' '}
+                    {new Date(set.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+                <Button asChild size="sm" className="w-fit shrink-0 gap-2">
+                  <Link href={`/w/${workspaceId}/flashcards/${set.id}`}>
+                    <GraduationCap className="size-4" aria-hidden="true" />
+                    Study
+                  </Link>
+                </Button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          !flashcardJob &&
+          !flow.receipts.FLASHCARD && (
+            <EmptyState
+              title="Turn your material into practice"
+              description="Generate a saved flashcard set from the extracted text, then open it in Study to reveal and review answers."
+            />
+          )
         )}
       </section>
     </div>
   );
 }
 
-function EmptyState({
-  icon,
-  title,
-  description,
+function JobState({
+  job,
+  receipt,
+  requestError,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
+  job: AIJobRow | null;
+  receipt?: GenerationReceipt;
+  requestError?: string;
 }) {
-  return (
-    <Card className="border-dashed shadow-none">
-      <CardContent className="flex flex-col items-center justify-center py-14 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-          {icon}
-        </div>
-        <h3 className="mt-4 text-sm font-semibold">{title}</h3>
-        <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
-      </CardContent>
-    </Card>
-  );
-}
-
-function SummarySkeleton() {
-  return (
-    <Card className="overflow-hidden border shadow-sm">
-      <div className="flex items-center gap-3 border-b bg-muted/30 px-5 py-4">
-        <Skeleton className="h-9 w-9 rounded-lg" />
-        <div className="space-y-1.5">
-          <Skeleton className="h-3.5 w-28" />
-          <Skeleton className="h-3 w-20" />
-        </div>
+  const status = job?.status ?? receipt?.status;
+  const descriptions: Record<string, string> = {
+    PENDING: 'Queued on the server. Waiting for a worker.',
+    PROCESSING: 'The worker is processing this request. Check status for its latest saved result.',
+    RETRY_WAIT: 'The server scheduled a bounded retry of this same operation.',
+    COMPLETED: 'The server completed this operation. Saved results appear below.',
+    FAILED: 'Generation failed. This operation has stopped and has no successful new result.',
+    CANCELLED: 'This operation was cancelled. No successful new result was created.',
+    UNCERTAIN:
+      'The provider outcome is unknown. A charge may have occurred. No new paid generation will start automatically. Check status or ask the workspace owner to reconcile the operation.',
+  };
+  const failed = ['FAILED', 'CANCELLED', 'UNCERTAIN'].includes(status ?? '');
+  if (status === 'COMPLETED' && !requestError)
+    return (
+      <div
+        role="status"
+        className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs leading-5 text-muted-foreground"
+      >
+        <span className="inline-flex items-center gap-1.5 font-medium text-foreground">
+          <CheckCircle2 className="size-3.5" aria-hidden="true" />
+          COMPLETED
+        </span>
+        {job && (
+          <span className="break-all">
+            Operation {job.id} · Attempts {job.attemptCount}/{job.maxAttempts}
+          </span>
+        )}
       </div>
-      <CardContent className="space-y-5 p-5">
-        <div className="space-y-2">
-          <Skeleton className="h-3.5 w-full" />
-          <Skeleton className="h-3.5 w-[92%]" />
-          <Skeleton className="h-3.5 w-3/4" />
+    );
+  return (
+    <>
+      {requestError && (
+        <div
+          role="alert"
+          className="rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm leading-6 text-error-foreground"
+        >
+          <p className="font-medium">Request not confirmed</p>
+          <p>{requestError}</p>
+          <p className="mt-1 text-xs">
+            Retry request keeps the same idempotency key. Check status first if the connection was
+            interrupted.
+          </p>
         </div>
-        <div className="space-y-2.5">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-2.5">
-              <Skeleton className="h-4 w-4 shrink-0 rounded-full" />
-              <Skeleton className="h-3.5 w-[80%]" style={{ width: `${88 - i * 9}%` }} />
-            </div>
-          ))}
+      )}
+      {status && (
+        <div
+          role={failed ? 'alert' : 'status'}
+          className={`rounded-lg border p-4 text-sm leading-6 ${failed ? 'border-destructive/30 bg-destructive/5' : 'bg-muted/20'}`}
+        >
+          <div className="flex items-center gap-2">
+            {failed && (
+              <AlertCircle className="size-4 shrink-0 text-error-foreground" aria-hidden="true" />
+            )}
+            <p className="font-semibold">{status}</p>
+          </div>
+          <p className="mt-1 text-muted-foreground">
+            {descriptions[status] ?? 'Unknown server state. Check status before continuing.'}
+          </p>
+          {job?.errorMessage && (
+            <p className="mt-1 break-words text-error-foreground">{job.errorMessage}</p>
+          )}
+          {job && (
+            <p className="mt-2 break-all text-xs text-muted-foreground">
+              Operation {job.id} · Attempts {job.attemptCount}/{job.maxAttempts}
+              {job.nextAttemptAt && status === 'RETRY_WAIT'
+                ? ` · Next ${new Date(job.nextAttemptAt).toLocaleString()}`
+                : ''}
+            </p>
+          )}
         </div>
-        <Skeleton className="h-20 w-full rounded-lg" />
-      </CardContent>
-    </Card>
+      )}
+    </>
   );
 }
 
-function FlashcardSkeleton() {
+function EmptyState({ title, description }: { title: string; description: string }) {
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <Card key={i} className="shadow-sm">
-          <CardContent className="space-y-3 p-4">
-            <div className="flex items-center justify-between">
-              <Skeleton className="h-3 w-14" />
-              <Skeleton className="h-5 w-16 rounded-full" />
-            </div>
-            <Skeleton className="h-3.5 w-full" />
-            <Skeleton className="h-3.5 w-2/3" />
-          </CardContent>
-        </Card>
-      ))}
+    <div className="rounded-lg border border-dashed px-5 py-7">
+      <h3 className="text-sm font-medium">{title}</h3>
+      <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">{description}</p>
     </div>
   );
 }

@@ -125,7 +125,7 @@ export function AssistantSidebar({
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-blue-600 text-white shadow-sm ring-1 ring-white/20">
             <Sparkles className="h-4 w-4" />
           </span>
-          <span className="text-sm font-semibold tracking-tight">CampusForge AI</span>
+          <span className="text-sm font-semibold tracking-tight">Assistant demo</span>
         </div>
         {onClose && (
           <button

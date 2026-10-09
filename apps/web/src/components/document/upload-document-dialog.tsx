@@ -12,16 +12,21 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { ALLOWED_DOCUMENT_MIME_TYPES, MAX_DOCUMENT_SIZE_BYTES } from '@campusforge/shared';
+import {
+  ALLOWED_DOCUMENT_MIME_TYPES,
+  MAX_DOCUMENT_SIZE_BYTES,
+  resolveDocumentMimeType,
+} from '@campusforge/shared';
 
 interface UploadDocumentDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   workspaceId: string;
+  returnFocusRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
 /** Human-readable accept string for the file input */
-const ACCEPT_STRING = '.pdf,.txt,.md';
+const ACCEPT_STRING = '.pdf,.txt,.md,.markdown';
 
 /** Format bytes to human-readable size */
 function formatBytes(bytes: number): string {
@@ -43,6 +48,7 @@ export function UploadDocumentDialog({
   open,
   onOpenChange,
   workspaceId,
+  returnFocusRef,
 }: UploadDocumentDialogProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,11 +71,16 @@ export function UploadDocumentDialog({
 
   function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     setError(null);
+    setSelectedFile(null);
     const file = e.target.files?.[0];
     if (!file) return;
 
     // Client-side validation
-    if (!(ALLOWED_DOCUMENT_MIME_TYPES as readonly string[]).includes(file.type)) {
+    if (
+      !(ALLOWED_DOCUMENT_MIME_TYPES as readonly string[]).includes(
+        resolveDocumentMimeType(file.name, file.type),
+      )
+    ) {
       setError('Unsupported file type. Allowed: PDF, TXT, Markdown.');
       return;
     }
@@ -121,14 +132,35 @@ export function UploadDocumentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[480px]">
+      <DialogContent
+        className="max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] grid-cols-[minmax(0,1fr)] overflow-y-auto rounded-lg sm:max-w-[480px]"
+        aria-busy={isUploading}
+        onCloseAutoFocus={(event) => {
+          if (returnFocusRef?.current?.isConnected) {
+            event.preventDefault();
+            returnFocusRef.current.focus();
+          }
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Upload Document</DialogTitle>
           <DialogDescription>
-            Upload one PDF, TXT, or Markdown file up to 10 MiB. Once saved, it is queued for text
-            extraction. Parsing may wait while background services recover.
+            Start with a short UTF-8 TXT note. Upload one PDF with selectable text, TXT, or Markdown
+            file up to 10 MiB. Once saved, it is queued for text extraction.
           </DialogDescription>
         </DialogHeader>
+
+        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+          <p>
+            Scans, images, and DOCX are not supported. Markdown with an empty browser MIME is
+            accepted by extension; the server still checks encoding and content.
+          </p>
+          <p>
+            Uploading does not start AI generation. Open the saved document to check its actual AI
+            input budget and request a summary or flashcards. Text that exceeds this budget is
+            rejected without truncation.
+          </p>
+        </div>
 
         <div className="space-y-4 py-2">
           {error && (
@@ -142,7 +174,7 @@ export function UploadDocumentDialog({
 
           {/* File input */}
           {!selectedFile ? (
-            <div>
+            <div className="rounded-lg focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
               <Label htmlFor="doc-file">Select file</Label>
               <label
                 htmlFor="doc-file"
@@ -180,12 +212,17 @@ export function UploadDocumentDialog({
                   if (fileInputRef.current) fileInputRef.current.value = '';
                 }}
                 disabled={isUploading}
+                aria-label="Remove selected file"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
           )}
         </div>
+
+        <p role="status" aria-live="polite" className="text-sm text-muted-foreground">
+          {isUploading ? 'Uploading your file. Waiting for the server to confirm it is saved.' : ''}
+        </p>
 
         <div className="flex justify-end gap-2 pt-2">
           <Button

@@ -53,7 +53,7 @@ export function MessageList({
   };
 
   return (
-    <div className="relative flex-1 overflow-hidden">
+    <div className="relative min-h-0 flex-1 overflow-hidden">
       <div ref={scrollRef} onScroll={checkAtBottom} className="cf-scroll h-full overflow-y-auto">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 px-4 py-7 sm:px-6">
           {messages.map((m) => (

@@ -1,0 +1,332 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\rausa\\AppData\\Local\\pnpm\\nodejs\\24.21.0\\node.exe",
+      "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\node_modules\\.pnpm\\@playwright+test@1.63.0\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser/upgrade-r3-set-list.spec.ts",
+      "--output",
+      "output/playwright/r3-set-list-final-artifacts"
+    ],
+    "configFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\playwright.config.ts",
+    "rootDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/output/playwright/r3-set-list-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\output\\playwright\\r3-set-list-final-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "cwd": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge",
+      "command": "node scripts/next-runtime-fixture.mjs dev --webpack --hostname 127.0.0.1 --port 3217",
+      "url": "http://127.0.0.1:3217",
+      "reuseExistingServer": false,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "upgrade-r3-set-list.spec.ts",
+      "file": "upgrade-r3-set-list.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "R3 saved set open and delete are separate named keyboard controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3047,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:33.051Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-fc31de82ba5f1cfe017f",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 15,
+          "column": 5
+        },
+        {
+          "title": "R3 empty saved sets explain current generation and offer a single semantic link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1101,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:37.281Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-acf9136fd680d1f0c4a8",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "R3 saved set loading announces progress and fits the mobile shell",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1072,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:38.395Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-47e4aa5eaff097605607",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 55,
+          "column": 5
+        },
+        {
+          "title": "R3 saved set metadata and actions fit at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:39.478Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-4296106a19a7e0b0b997",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 65,
+          "column": 7
+        },
+        {
+          "title": "R3 saved set metadata and actions fit at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1119,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:40.601Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-843069f19a2f47eb2b5a",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 65,
+          "column": 7
+        },
+        {
+          "title": "R3 saved set metadata and actions fit at 1024px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1125,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:41.732Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-0e28b5067bdef5fd5e31",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 65,
+          "column": 7
+        },
+        {
+          "title": "R3 saved set metadata and actions fit at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:31:42.869Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a9cea4741311a21d9f9f-24bb9084a756e042e68d",
+          "file": "upgrade-r3-set-list.spec.ts",
+          "line": 65,
+          "column": 7
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T04:31:25.409Z",
+    "duration": 18837.051,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

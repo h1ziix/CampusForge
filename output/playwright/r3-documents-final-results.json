@@ -1,0 +1,368 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\rausa\\AppData\\Local\\pnpm\\nodejs\\24.21.0\\node.exe",
+      "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\node_modules\\.pnpm\\@playwright+test@1.63.0\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser/upgrade-r3-documents.spec.ts",
+      "--config",
+      "playwright.config.ts",
+      "--output",
+      "output/playwright/r3-documents-final-artifacts"
+    ],
+    "configFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\playwright.config.ts",
+    "rootDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/output/playwright/r3-documents-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/rausa/OneDrive/Рабочий стол/CampusForge/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge\\output\\playwright\\r3-documents-final-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "cwd": "C:\\Users\\rausa\\OneDrive\\Рабочий стол\\CampusForge",
+      "command": "node scripts/next-runtime-fixture.mjs dev --webpack --hostname 127.0.0.1 --port 3217",
+      "url": "http://127.0.0.1:3217",
+      "reuseExistingServer": false,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "upgrade-r3-documents.spec.ts",
+      "file": "upgrade-r3-documents.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "R3 document rows preserve long names, badges and separate actions 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3365,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:33:52.868Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-9042148eb195aa9438df",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 14,
+          "column": 7
+        },
+        {
+          "title": "R3 document rows preserve long names, badges and separate actions 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1271,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:33:57.490Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-4438b6baed0c68e4b4eb",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 14,
+          "column": 7
+        },
+        {
+          "title": "R3 document rows preserve long names, badges and separate actions 1024",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:33:58.773Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-fd66e59b6b3a7aa97311",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 14,
+          "column": 7
+        },
+        {
+          "title": "R3 document rows preserve long names, badges and separate actions 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:34:00.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-af7bd6cac0c16a88bcab",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 14,
+          "column": 7
+        },
+        {
+          "title": "R3 loading list and detail announce progress and fit a mobile shell",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2076,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:34:01.356Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-5c7f05ec09fcebb5193f",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 49,
+          "column": 5
+        },
+        {
+          "title": "R3 upload Escape returns focus to each launcher including empty CTA",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1202,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:34:03.444Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-df9f76112bd539ccbd56",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 57,
+          "column": 5
+        },
+        {
+          "title": "R3 upload progress is announced and remains scrollable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1296,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:34:04.658Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-95b0c102fa74f54e7603",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 70,
+          "column": 5
+        },
+        {
+          "title": "R3 long selected filename cannot horizontally scroll the upload dialog on keyboard focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1194,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T04:34:05.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a17b805662f6e6201c17-80de11418e8b7a4c6902",
+          "file": "upgrade-r3-documents.spec.ts",
+          "line": 97,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T04:33:44.864Z",
+    "duration": 22615.166,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

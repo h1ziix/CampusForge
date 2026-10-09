@@ -1,20 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DocumentDetailView } from '@/components/document/document-detail-view';
 import { UploadDocumentDialog } from '@/components/document/upload-document-dialog';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
+import { syntheticDocumentMetadata } from '@/fixture/document-metadata';
+import { setSyntheticParseStatusAction } from '@/server/actions/document';
 
 export default function R3DocumentStates() {
   const [status, setStatus] = useState('PENDING');
   const [uploadOpen, setUploadOpen] = useState(false);
+  useEffect(() => {
+    void setSyntheticParseStatusAction('PENDING');
+  }, []);
   return (
     <main className="mx-auto max-w-3xl p-6">
       <div className="mb-6 flex flex-wrap gap-2">
         <ThemeToggle />
         {['PENDING', 'PROCESSING', 'FAILED', 'COMPLETED'].map((value) => (
-          <Button key={value} variant="outline" onClick={() => setStatus(value)}>
+          <Button
+            key={value}
+            variant="outline"
+            onClick={async () => {
+              await setSyntheticParseStatusAction(value);
+              setStatus(value);
+            }}
+          >
             {value}
           </Button>
         ))}
@@ -31,8 +43,7 @@ export default function R3DocumentStates() {
           hasSummary: false,
           createdAt: '2026-10-05T00:00:00Z',
           updatedAt: '2026-10-05T00:00:00Z',
-          parsedText: status === 'COMPLETED' ? 'Synthetic content' : null,
-          storageKey: 'synthetic',
+          ...syntheticDocumentMetadata(status),
         }}
         summary={null}
         summaryJob={null}

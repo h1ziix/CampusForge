@@ -1,4 +1,7 @@
-import { prisma } from '@campusforge/db';
+import { prisma, Prisma, PARSE_MAX_ATTEMPTS } from '@campusforge/db';
+import { getDocumentAIInput, type DocumentAIInput } from '@/server/services/ai-input';
+import type { DocumentSummaryRow, AIJobRow } from '@/server/queries/summary';
+import type { FlashcardSetListRow } from '@/server/queries/flashcard';
 
 /**
  * Serializable document shape returned from queries.
@@ -16,11 +19,60 @@ export interface DocumentRow {
 }
 
 /**
- * Extended document shape with parsed text (for detail view).
+ * Public detail DTO. Raw source text is measured only on the server.
  */
 export interface DocumentDetail extends DocumentRow {
-  parsedText: string | null;
-  storageKey: string;
+  parseError: string | null;
+  parseAttempts: number;
+  parseMaxAttempts: number;
+  parseNextAttemptAt: string | null;
+  parseRetryScheduled: boolean;
+  aiInput: DocumentAIInput;
+}
+
+export interface DocumentGenerationState {
+  document: DocumentDetail;
+  summary: DocumentSummaryRow | null;
+  summaryJob: AIJobRow | null;
+  flashcardSets: FlashcardSetListRow[];
+  flashcardJob: AIJobRow | null;
+}
+
+const metadataSelect = {
+  id: true,
+  filename: true,
+  mimeType: true,
+  sizeBytes: true,
+  processingStatus: true,
+  createdAt: true,
+  updatedAt: true,
+} as const;
+
+type MetadataDocument = Prisma.DocumentGetPayload<{ select: typeof metadataSelect }>;
+const metadataRow = (document: MetadataDocument, hasSummary: boolean): DocumentRow => ({
+  id: document.id,
+  filename: document.filename,
+  mimeType: document.mimeType,
+  sizeBytes: document.sizeBytes,
+  processingStatus: document.processingStatus,
+  hasSummary,
+  createdAt: document.createdAt.toISOString(),
+  updatedAt: document.updatedAt.toISOString(),
+});
+
+/** Read presence without fetching summary JSON in metadata lists. */
+async function documentsWithSummary(workspaceId: string, ids: string[]): Promise<Set<string>> {
+  if (!ids.length) return new Set();
+  const documents = await prisma.document.findMany({
+    where: {
+      workspaceId,
+      lifecycle: 'ACTIVE',
+      id: { in: ids },
+      summaryJson: { not: Prisma.DbNull },
+    },
+    select: { id: true },
+  });
+  return new Set(documents.map((document) => document.id));
 }
 
 /**
@@ -31,18 +83,13 @@ export async function getWorkspaceDocuments(workspaceId: string): Promise<Docume
   const docs = await prisma.document.findMany({
     where: { workspaceId, lifecycle: 'ACTIVE' },
     orderBy: { createdAt: 'desc' },
+    select: metadataSelect,
   });
-
-  return docs.map((d) => ({
-    id: d.id,
-    filename: d.filename,
-    mimeType: d.mimeType,
-    sizeBytes: d.sizeBytes,
-    processingStatus: d.processingStatus,
-    hasSummary: !!(d as Record<string, unknown>).summaryJson,
-    createdAt: d.createdAt.toISOString(),
-    updatedAt: d.updatedAt.toISOString(),
-  }));
+  const summaries = await documentsWithSummary(
+    workspaceId,
+    docs.map((document) => document.id),
+  );
+  return docs.map((document) => metadataRow(document, summaries.has(document.id)));
 }
 
 /**
@@ -55,21 +102,26 @@ export async function getDocumentById(
 ): Promise<DocumentDetail | null> {
   const doc = await prisma.document.findFirst({
     where: { id: documentId, workspaceId, lifecycle: 'ACTIVE' },
+    select: { ...metadataSelect, parsedText: true, parseAttempts: true, parseNextAttemptAt: true },
   });
 
   if (!doc) return null;
 
+  const summaries = await documentsWithSummary(workspaceId, [doc.id]);
+  const retry = doc.processingStatus === 'FAILED' && doc.parseAttempts < PARSE_MAX_ATTEMPTS;
   return {
-    id: doc.id,
-    filename: doc.filename,
-    mimeType: doc.mimeType,
-    sizeBytes: doc.sizeBytes,
-    storageKey: doc.storageKey,
-    parsedText: doc.parsedText,
-    processingStatus: doc.processingStatus,
-    hasSummary: !!(doc as Record<string, unknown>).summaryJson,
-    createdAt: doc.createdAt.toISOString(),
-    updatedAt: doc.updatedAt.toISOString(),
+    ...metadataRow(doc, summaries.has(doc.id)),
+    parseError:
+      doc.processingStatus !== 'FAILED'
+        ? null
+        : retry
+          ? 'Text extraction failed. A server retry is scheduled.'
+          : 'Text extraction failed after the configured retry limit.',
+    parseAttempts: doc.parseAttempts,
+    parseMaxAttempts: PARSE_MAX_ATTEMPTS,
+    parseNextAttemptAt: retry ? doc.parseNextAttemptAt.toISOString() : null,
+    parseRetryScheduled: retry,
+    aiInput: getDocumentAIInput(doc),
   };
 }
 
@@ -88,16 +140,11 @@ export async function getRecentDocuments(workspaceId: string, limit = 3): Promis
     where: { workspaceId, lifecycle: 'ACTIVE' },
     orderBy: { createdAt: 'desc' },
     take: limit,
+    select: metadataSelect,
   });
-
-  return docs.map((d) => ({
-    id: d.id,
-    filename: d.filename,
-    mimeType: d.mimeType,
-    sizeBytes: d.sizeBytes,
-    processingStatus: d.processingStatus,
-    hasSummary: !!(d as Record<string, unknown>).summaryJson,
-    createdAt: d.createdAt.toISOString(),
-    updatedAt: d.updatedAt.toISOString(),
-  }));
+  const summaries = await documentsWithSummary(
+    workspaceId,
+    docs.map((document) => document.id),
+  );
+  return docs.map((document) => metadataRow(document, summaries.has(document.id)));
 }

@@ -4,6 +4,7 @@ import { SignOutButton } from '@/components/auth/sign-out-button';
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { SidebarWorkspaceNav } from '@/components/workspace/sidebar-workspace-nav';
+import { MobileWorkspaceNav } from '@/components/workspace/mobile-workspace-nav';
 import type { WorkspaceItem } from '@/components/workspace/workspace-switcher';
 import { AuthenticatedPrivacyBoundary } from '@/components/auth/authenticated-privacy-boundary';
 
@@ -40,14 +41,15 @@ export function AppShell({ children, user, workspaces }: AppShellProps) {
         </aside>
 
         {/* Main content area */}
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col">
           {/* Header */}
-          <header className="flex h-16 items-center justify-between border-b bg-background/80 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-            <div className="md:hidden">
+          <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-3 backdrop-blur supports-[backdrop-filter]:bg-background/70 sm:px-6">
+            <div className="flex min-w-0 items-center gap-1 md:hidden">
+              <MobileWorkspaceNav workspaces={workspaces} />
               <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
             </div>
             <div className="hidden md:block" />
-            <div className="flex items-center gap-4">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-4">
               <div className="hidden items-center gap-2 rounded-lg border bg-background px-3 py-2 text-sm shadow-sm sm:flex">
                 <User className="h-4 w-4 text-muted-foreground" />
                 <span>{user.name || user.email}</span>
@@ -58,7 +60,7 @@ export function AppShell({ children, user, workspaces }: AppShellProps) {
           </header>
 
           {/* Page content */}
-          <main className="flex-1 p-6">{children}</main>
+          <main className="min-w-0 flex-1 p-4 sm:p-6">{children}</main>
         </div>
       </div>
     </AuthenticatedPrivacyBoundary>

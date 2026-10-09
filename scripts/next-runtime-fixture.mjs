@@ -10,6 +10,7 @@ const fixture = resolve(web, '.r1-runtime-fixture');
 if (dirname(fixture) !== web)
   throw new Error('Fixture directory must stay inside the web workspace');
 const sourceFiles = [
+  'app/(dashboard)/w/[workspaceId]/documents/[documentId]/loading.tsx',
   'components/task/create-task-dialog.tsx',
   'components/task/task-form.tsx',
   'components/ui/button.tsx',
@@ -36,10 +37,20 @@ const sourceFiles = [
   'server/services/auth.ts',
   'server/services/auth-helpers.ts',
   'components/layout/theme-toggle.tsx',
+  'components/layout/app-shell.tsx',
+  'components/dashboard/study-dashboard.tsx',
+  'components/document/upload-document-button.tsx',
+  'components/document/document-list.tsx',
+  'components/flashcard/flashcard-viewer.tsx',
+  'components/flashcard/flashcard-set-list.tsx',
+  'components/flashcard/flashcard-set-detail-view.tsx',
+  'components/workspace/mobile-workspace-nav.tsx',
   'components/document/document-detail-view.tsx',
   'components/document/document-status-badge.tsx',
   'components/document/upload-document-dialog.tsx',
   'lib/document-upload.ts',
+  'lib/document-generation.ts',
+  'lib/use-document-generation.ts',
   'components/workspace/sidebar-workspace-nav.tsx',
   'components/workspace/workspace-switcher.tsx',
   'components/workspace/create-workspace-dialog.tsx',
@@ -57,6 +68,9 @@ if (command !== 'start') {
     await mkdir(dirname(target), { recursive: true });
     await cp(resolve(web, 'src', source), target);
   }
+  const landingTarget = resolve(fixture, 'src/app/r1-landing/page.tsx');
+  await mkdir(dirname(landingTarget), { recursive: true });
+  await cp(resolve(web, 'src/app/page.tsx'), landingTarget);
   await cp(resolve(root, 'packages/shared/src'), resolve(fixture, 'src/shared'), {
     recursive: true,
   });

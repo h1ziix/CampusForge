@@ -5,7 +5,7 @@ import { requireWorkspaceMember } from '@/server/services/auth-helpers';
 import { AssistantApp } from '@/components/assistant/assistant-app';
 
 export const metadata: Metadata = {
-  title: 'AI Assistant',
+  title: 'Assistant demo',
 };
 
 /**

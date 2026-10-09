@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: '%s | CampusForge',
   },
   description:
-    'AI-powered operating system for students and academic teams. Manage deadlines, collaborate, study smarter.',
+    'A pre-pilot workspace for short notes and saved flashcard practice. Document summaries and cards currently use sample previews.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

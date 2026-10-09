@@ -15,5 +15,6 @@ export {
   ALLOWED_DOCUMENT_MIME_TYPES,
   MAX_DOCUMENT_SIZE_BYTES,
   PROCESSING_STATUSES,
+  resolveDocumentMimeType,
 } from './document';
 export type { UploadDocumentInput } from './document';

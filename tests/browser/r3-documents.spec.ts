@@ -12,12 +12,14 @@ for (const width of [390, 768, 1024, 1440]) {
       await page.goto('/r3-documents');
       await expect(page.locator('html')).toHaveClass(theme === 'dark' ? /dark/ : /^(?!.*dark)/);
       await expect(page.getByText('Queued for parsing', { exact: true })).toBeVisible();
-      await expect(page.getByRole('status')).toContainText('Your file is saved');
       await expect(
-        page.getByRole('button', { name: 'Generate Summary', exact: true }),
+        page.getByRole('status').filter({ hasText: 'Your file is saved' }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('button', { name: 'Generate summary', exact: true }),
       ).toBeDisabled();
       await expect(
-        page.getByRole('button', { name: 'Generate Flashcards', exact: true }),
+        page.getByRole('button', { name: 'Generate flashcards', exact: true }),
       ).toBeDisabled();
       const evidence = resolve(
         __dirname,
@@ -29,12 +31,17 @@ for (const width of [390, 768, 1024, 1440]) {
       await page.getByRole('button', { name: 'PROCESSING', exact: true }).click();
       await expect(page.getByText('Parsing', { exact: true })).toBeVisible();
       await page.getByRole('button', { name: 'FAILED', exact: true }).click();
-      await expect(page.getByRole('status')).toContainText('Text extraction failed');
+      await expect(
+        page
+          .getByRole('status')
+          .filter({ hasText: /extraction failed/i })
+          .first(),
+      ).toBeVisible();
       await page.screenshot({ path: resolve(evidence, `failed-${width}-${theme}.png`) });
       await page.getByRole('button', { name: 'COMPLETED', exact: true }).click();
       await expect(page.getByText('Text extracted', { exact: true })).toBeVisible();
       await expect(
-        page.getByRole('button', { name: 'Generate Summary', exact: true }),
+        page.getByRole('button', { name: 'Generate summary', exact: true }),
       ).toBeEnabled();
       await page.getByRole('button', { name: 'Open upload fixture' }).click();
       await expect(page.getByRole('dialog')).toContainText('Once saved, it is queued');

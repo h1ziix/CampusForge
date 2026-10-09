@@ -9,7 +9,7 @@ import type {
   Message,
   ModelId,
 } from '@/lib/assistant/types';
-import { generateResponse, generateFileAnalysis } from '@/lib/assistant/engine';
+import { generateResponse } from '@/lib/assistant/engine';
 import { loadState, saveState } from '@/lib/assistant/storage';
 import { AssistantSidebar } from './assistant-sidebar';
 import { ChatView } from './chat-view';
@@ -50,7 +50,8 @@ export function AssistantApp(props: AssistantAppProps) {
 function AssistantPrivacySession(props: AssistantAppProps) {
   const { lease, revoked } = usePrivacyLease();
   if (revoked) return <SessionEnded />;
-  if (!lease) return <div className="-m-6 h-[calc(100dvh-4rem)] bg-background" aria-busy="true" />;
+  if (!lease)
+    return <div className="-m-4 h-[calc(100dvh-4rem)] bg-background sm:-m-6" aria-busy="true" />;
   return <AssistantSession {...props} lease={lease} />;
 }
 
@@ -207,7 +208,7 @@ function AssistantSession({
         if (token !== cancelRef.current || !lease.isValid()) return;
         const full =
           userMessage.attachments && userMessage.attachments.length > 0
-            ? generateFileAnalysis(userMessage.attachments, ctx)
+            ? 'This demo only shows attachment names and local image previews. It does not read or analyze file contents. Open Documents to upload supported notes. Document summary and card previews also use sample content; content-based generation is pending.'
             : generateResponse(userMessage.content, ctx);
         streamResponse(convId, full, model, token);
       }, delay);
@@ -417,7 +418,7 @@ function AssistantSession({
   /* -------------------------------------------------------------- */
 
   return (
-    <div className="-m-6 flex h-[calc(100dvh-4rem)] overflow-hidden bg-background">
+    <div className="-m-4 flex h-[calc(100dvh-4rem)] overflow-hidden bg-background sm:-m-6">
       {/* Desktop sidebar */}
       <aside className="hidden w-72 shrink-0 border-r bg-muted/30 dark:bg-background/40 lg:block">
         <MemoSidebar
@@ -462,6 +463,7 @@ function AssistantSession({
 
       {/* Main chat area */}
       <ChatView
+        documentsHref={`/w/${identity.workspaceId}/documents`}
         conversation={active}
         model={currentModel}
         user={user}

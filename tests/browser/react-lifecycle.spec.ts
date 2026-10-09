@@ -29,7 +29,7 @@ test('theme hydrates consistently and suggested prompt remains editable and subm
   await page.getByRole('button', { name: 'Switch to light mode' }).click();
   await expect(page.locator('html')).not.toHaveClass(/dark/);
   await page.getByRole('button', { name: 'Set synthetic prompt' }).click();
-  const input = page.getByPlaceholder('Message CampusForge AI...');
+  const input = page.getByPlaceholder('Try the local demo...');
   await expect(input).toHaveValue('R1 suggested prompt');
   await input.fill('R1 edited synthetic prompt');
   await page.getByRole('button', { name: 'Send message' }).click();
@@ -81,7 +81,9 @@ test('assistant hydrates synthetic stored conversations without replacing them',
   await captureRender(page, testInfo, 'assistant-hydration');
 });
 
-test('document preserves stored demo artifacts during hydration', async ({ page }, testInfo) => {
+test('document ignores legacy local sample artifacts during hydration', async ({
+  page,
+}, testInfo) => {
   await page.addInitScript(() =>
     localStorage.setItem(
       'campusforge:doc-ai:v2:r1-synthetic-user:r1-synthetic-workspace:r1-synthetic-document',
@@ -98,20 +100,9 @@ test('document preserves stored demo artifacts during hydration', async ({ page 
     ),
   );
   await page.goto('/document');
-  await expect(page.getByText('R1 persisted synthetic summary', { exact: true })).toBeVisible();
-  await expect(page.getByText('R1 synthetic question', { exact: true })).toBeVisible();
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          JSON.parse(
-            localStorage.getItem(
-              'campusforge:doc-ai:v2:r1-synthetic-user:r1-synthetic-workspace:r1-synthetic-document',
-            ) ?? '{}',
-          ).summary?.intro,
-      ),
-    )
-    .toBe('R1 persisted synthetic summary');
+  await expect(page.getByText('R1 persisted synthetic summary', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('R1 synthetic question', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Generate summary', exact: true })).toBeEnabled();
   await captureRender(page, testInfo, 'document-hydration');
 });
 

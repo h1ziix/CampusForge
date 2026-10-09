@@ -220,6 +220,28 @@ test('actual route rejects client MIME spoofing and invalid UTF-8 bytes', async 
   assert.equal(f.calls.create.length, 0);
 });
 
+test('Markdown with an empty browser MIME is inferred narrowly and still validates UTF-8 bytes', async () => {
+  const f = fixture();
+  for (const part of [
+    { filename: 'notes.md', mime: '', text: '# Respiration\nATP is produced in mitochondria.' },
+    { filename: 'notes.MARKDOWN', mime: 'application/octet-stream', text: '# Photosynthesis' },
+  ]) {
+    const response = await f.post(streamed(multipart([part])).request);
+    assert.equal(response.status, 201);
+    assert.equal(f.calls.create.at(-1).mimeType, 'text/markdown');
+  }
+  for (const part of [
+    { filename: 'notes.md', mime: '', text: Buffer.from([0xff]) },
+    { filename: 'notes.md', mime: 'application/octet-stream', text: Buffer.from([0, 1]) },
+    { filename: 'notes.md', mime: 'application/pdf', text: '# Spoofed type' },
+    { filename: 'notes.exe', mime: '', text: '# Unsupported extension' },
+  ]) {
+    const response = await f.post(streamed(multipart([part])).request);
+    assert.ok([400, 415].includes(response.status));
+  }
+  assert.equal(f.calls.create.length, 2);
+});
+
 test('actual route rejects disconnected/aborted streams, cancels hanging reads at finite deadline', async () => {
   const f = fixture({
     setTimeout(callback, ms, ...args) {

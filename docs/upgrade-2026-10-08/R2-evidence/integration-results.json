@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Asia/Qyzylorda",
+  "node": "v24.21.0",
+  "runId": "8ad8315d-ed20-4a18-800f-36c4c1972a4f",
+  "containers": [
+    "campusforge-r4-8ad8315d-ed20-4a18-800f-36c4c1972a4f-postgres",
+    "campusforge-r4-8ad8315d-ed20-4a18-800f-36c4c1972a4f-redis",
+    "campusforge-r4-8ad8315d-ed20-4a18-800f-36c4c1972a4f-minio"
+  ],
+  "boundary": "Fresh run-labelled tmpfs PostgreSQL16/Redis7/MinIO; actual application route/actions/queries, Prisma transactions, S3 and BullMQ dispatcher/worker; synthetic auth and in-memory AI HTTP transport; paid provider calls 0",
+  "realProvider": {
+    "status": "NOT_RUN",
+    "reason": "Dedicated test project, verified spend cap and permitted corpus not supplied."
+  },
+  "providerRequests": 6,
+  "workerErrors": [],
+  "results": [
+    {
+      "name": "fresh disposable migrations; repository .env never loaded",
+      "passed": true,
+      "elapsedMs": 1001,
+      "repositoryEnvironmentLoaded": false
+    },
+    {
+      "name": "actual upload → MinIO → durable parse task → Redis worker → complete text in PostgreSQL",
+      "passed": true,
+      "elapsedMs": 244,
+      "documents": 2,
+      "sourceHashes": [
+        "9f2aa2acfd33a58a18cf1a8a63545051ac7581706bf1dec4ff7dcd731d714768",
+        "cc13f2cdb498e907c9dafd0c508bb44b8cf18830307d45cf49a059b47a7c347f"
+      ],
+      "parseStates": [
+        "COMPLETED",
+        "COMPLETED"
+      ],
+      "sourceBytesPreserved": true
+    },
+    {
+      "name": "two sources with the same filename receive their own summary/cards; 20 duplicate clicks create one logical operation",
+      "passed": true,
+      "elapsedMs": 1049,
+      "parallelClicksPerBiologyAction": 20,
+      "logicalOperations": 4,
+      "providerRequests": 4,
+      "attempts": 4,
+      "inputPreservedThroughProvider": true,
+      "qualityBoundary": "Deterministic test adapter echoes full source; this does not evaluate a real model."
+    },
+    {
+      "name": "same key request after completion and queue redelivery reuse persisted results without another AI call",
+      "passed": true,
+      "elapsedMs": 17,
+      "additionalProviderRequests": 0,
+      "flashcardArtifacts": 1
+    },
+    {
+      "name": "new database connection/reopen queries show saved summary, jobs and the real Study set without source/storage payloads",
+      "passed": true,
+      "elapsedMs": 105,
+      "reopenedUsingIndependentDatabaseConnection": true,
+      "summaryPersisted": true,
+      "operationStatus": "COMPLETED",
+      "studySetId": "cmuzvivy6001tj0pathh071iv",
+      "studyCards": 1,
+      "sourceAndStorageInternalsInPayload": false,
+      "foreignWorkspaceDenied": true
+    },
+    {
+      "name": "empty browser MIME Markdown is normalized by server policy and parsed without weakening binary rejection",
+      "passed": true,
+      "elapsedMs": 99,
+      "normalizedMimeType": "text/markdown",
+      "binaryStatus": 415
+    },
+    {
+      "name": "configured input budget rejects the entire oversized source before operation, reservation or provider request",
+      "passed": true,
+      "elapsedMs": 121,
+      "maxInputTokens": 16000,
+      "sourceBytes": 32010,
+      "estimatedInputTokens": 33316,
+      "silentlyTruncated": false,
+      "newOperations": 0,
+      "newReservations": 0,
+      "newProviderRequests": 0
+    },
+    {
+      "name": "known failure remains FAILED without success artifacts; same key cannot manufacture another operation",
+      "passed": true,
+      "elapsedMs": 241,
+      "state": "FAILED",
+      "artifacts": 0,
+      "replayProviderRequests": 0
+    },
+    {
+      "name": "ambiguous provider result remains UNCERTAIN through dispatcher, status checks and same-key replay without a paid retry",
+      "passed": true,
+      "elapsedMs": 275,
+      "state": "UNCERTAIN",
+      "attempts": 1,
+      "replayProviderRequests": 0,
+      "artifacts": 0,
+      "uncertainReservationRetained": true,
+      "authenticatedReadOnlyStatusChecks": 3
+    }
+  ]
+}

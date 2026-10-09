@@ -30,7 +30,7 @@ export default async function FlashcardSetDetailPage({
 
   // Fetch the latest flashcard AI job for the source document (for metadata display)
   const flashcardJob = flashcardSet.sourceDocumentId
-    ? await getLatestAIJob(flashcardSet.sourceDocumentId, 'FLASHCARD')
+    ? await getLatestAIJob(flashcardSet.sourceDocumentId, 'FLASHCARD', params.workspaceId)
     : null;
 
   return (

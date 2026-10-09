@@ -19,7 +19,7 @@ test.afterEach(({ page }) => {
 });
 
 async function send(page: Page, marker: string) {
-  await page.getByPlaceholder('Message CampusForge AI...').fill(marker);
+  await page.getByPlaceholder('Try the local demo...').fill(marker);
   await page.getByRole('button', { name: 'Send message', exact: true }).click();
   await expect(
     page.getByText(marker, { exact: true }).filter({ visible: true }).first(),
@@ -127,7 +127,7 @@ test('A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transi
   ).toBeVisible();
   const stop = page.getByRole('button', { name: 'Stop generating' });
   if (await stop.count()) await stop.click();
-  await page.getByPlaceholder('Message CampusForge AI...').fill('R2 unsent private draft');
+  await page.getByPlaceholder('Try the local demo...').fill('R2 unsent private draft');
   await page.locator('input[type=file]').setInputFiles({
     name: 'R2_PRIVATE_ATTACHMENT.txt',
     mimeType: 'text/plain',
@@ -135,7 +135,7 @@ test('A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transi
   });
   await expect(page.getByText('R2_PRIVATE_ATTACHMENT.txt', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'A/ws2', exact: true }).click();
-  await expect(page.getByPlaceholder('Message CampusForge AI...')).toHaveValue('');
+  await expect(page.getByPlaceholder('Try the local demo...')).toHaveValue('');
   await expect(page.getByText('R2_PRIVATE_ATTACHMENT.txt', { exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Sign Out', exact: true }).click();
   await expect(page).toHaveURL(/\/sign-in$/);
@@ -144,7 +144,7 @@ test('A/ws1 to A/ws2 to logout to B/ws1 isolates content, attachments and transi
   ).toBeVisible();
   await expect(other.getByText('R2_A_WS1_PRIVATE', { exact: true })).toHaveCount(0);
   await page.goto('/r2-privacy?user=b');
-  await expect(page.getByPlaceholder('Message CampusForge AI...')).toBeVisible();
+  await expect(page.getByPlaceholder('Try the local demo...')).toBeVisible();
   await expect(page.getByText(/R2_A_WS[12]_PRIVATE/)).toHaveCount(0);
   await send(page, 'R2_B_WS1_PRIVATE');
   await expect
@@ -278,7 +278,7 @@ test('auth and revoked session UI matrix checks 390/768/1024/1440 light/dark key
       });
       await page.goto('/r2-privacy');
       await page.emulateMedia({ colorScheme: theme });
-      await expect(page.getByPlaceholder('Message CampusForge AI...')).toBeVisible();
+      await expect(page.getByPlaceholder('Try the local demo...')).toBeVisible();
       await page.screenshot({
         path: resolve(evidence, `assistant-${width}-${theme}.png`),
         animations: 'disabled',

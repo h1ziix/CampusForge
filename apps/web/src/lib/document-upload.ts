@@ -1,4 +1,8 @@
-import { MAX_DOCUMENT_SIZE_BYTES, uploadDocumentSchema } from '@campusforge/shared';
+import {
+  MAX_DOCUMENT_SIZE_BYTES,
+  resolveDocumentMimeType,
+  uploadDocumentSchema,
+} from '@campusforge/shared';
 
 export const MAX_MULTIPART_BODY_BYTES = MAX_DOCUMENT_SIZE_BYTES + 64 * 1024;
 export const MAX_MULTIPART_HEADER_BYTES = 8 * 1024;
@@ -227,13 +231,13 @@ export async function readDocumentUpload(request: Request, workspaceId: string) 
   const validation = uploadDocumentSchema.safeParse({
     workspaceId,
     filename: file.name,
-    mimeType: file.type,
+    mimeType: resolveDocumentMimeType(file.name, file.type),
     sizeBytes: file.size,
   });
   if (!validation.success) {
     throw new DocumentUploadError(validation.error.errors[0]?.message ?? 'Invalid file', 400);
   }
   const fileBuffer = Buffer.from(await file.arrayBuffer());
-  validateDocumentBytes(file.name, file.type, fileBuffer);
+  validateDocumentBytes(file.name, validation.data.mimeType, fileBuffer);
   return { ...validation.data, fileBuffer };
 }

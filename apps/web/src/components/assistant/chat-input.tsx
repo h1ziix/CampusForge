@@ -13,11 +13,6 @@ interface ChatInputProps {
   initialText?: string;
 }
 
-interface PendingAttachment extends Attachment {
-  analyzing: boolean;
-  progress: number;
-}
-
 const ACCEPT = '.pdf,.docx,.txt,.png,.jpg,.jpeg';
 const IMAGE_EXT = new Set(['png', 'jpg', 'jpeg', 'gif', 'webp']);
 
@@ -32,10 +27,9 @@ let attCounter = 0;
 export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps) {
   const [text, setText] = React.useState(initialText ?? '');
   const [previousInitialText, setPreviousInitialText] = React.useState(initialText);
-  const [attachments, setAttachments] = React.useState<PendingAttachment[]>([]);
+  const [attachments, setAttachments] = React.useState<Attachment[]>([]);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const fileRef = React.useRef<HTMLInputElement>(null);
-  const timers = React.useRef<number[]>([]);
   const previewUrls = React.useRef(new Set<string>());
 
   // Prop changes replace the draft before its next render; effects only handle focus.
@@ -65,10 +59,8 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
   }, [text]);
 
   React.useEffect(() => {
-    const activeTimers = timers.current;
     const activePreviews = previewUrls.current;
     return () => {
-      activeTimers.forEach((t) => window.clearInterval(t));
       activePreviews.forEach((url) => URL.revokeObjectURL(url));
       activePreviews.clear();
     };
@@ -79,31 +71,16 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
     Array.from(files).forEach((file) => {
       const ext = (file.name.split('.').pop() ?? '').toLowerCase();
       const kind = IMAGE_EXT.has(ext) ? 'image' : 'document';
-      const att: PendingAttachment = {
+      const att: Attachment = {
         id: `att-${++attCounter}-${Date.now()}`,
         name: file.name,
         ext,
         size: formatSize(file.size),
         kind,
         previewUrl: kind === 'image' ? URL.createObjectURL(file) : undefined,
-        analyzing: true,
-        progress: 0,
       };
       if (att.previewUrl) previewUrls.current.add(att.previewUrl);
       setAttachments((prev) => [...prev, att]);
-
-      // Fake "Analyzing document..." progress over ~1.5s.
-      const start = Date.now();
-      const duration = 1500;
-      const timer = window.setInterval(() => {
-        const elapsed = Date.now() - start;
-        const pct = Math.min(100, Math.round((elapsed / duration) * 100));
-        setAttachments((prev) =>
-          prev.map((a) => (a.id === att.id ? { ...a, progress: pct, analyzing: pct < 100 } : a)),
-        );
-        if (pct >= 100) window.clearInterval(timer);
-      }, 80);
-      timers.current.push(timer);
     });
   };
 
@@ -122,8 +99,7 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
 
   const submit = () => {
     if (!canSend) return;
-    const clean: Attachment[] = attachments.map(({ analyzing: _a, progress: _p, ...rest }) => rest);
-    onSend(text.trim(), clean);
+    onSend(text.trim(), attachments);
     setText('');
     setAttachments([]);
   };
@@ -135,10 +111,8 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
     }
   };
 
-  const stillAnalyzing = attachments.some((a) => a.analyzing);
-
   return (
-    <div className="px-4 pb-4 pt-2 sm:px-6">
+    <div className="shrink-0 px-4 pb-4 pt-2 sm:px-6">
       <div className="mx-auto w-full max-w-3xl">
         <div className="rounded-2xl border bg-card/95 shadow-lg shadow-slate-950/[0.04] transition-all duration-200 focus-within:border-primary/30 focus-within:shadow-xl focus-within:shadow-slate-950/[0.06] focus-within:ring-1 focus-within:ring-ring/30 dark:bg-card">
           {/* Attachment previews */}
@@ -167,21 +141,9 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-xs font-medium">{att.name}</p>
-                    {att.analyzing ? (
-                      <>
-                        <p className="text-[11px] text-muted-foreground">Analyzing document...</p>
-                        <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-muted">
-                          <div
-                            className="h-full rounded-full bg-primary transition-all duration-150"
-                            style={{ width: `${att.progress}%` }}
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      <p className="text-[11px] text-emerald-600 dark:text-emerald-400">
-                        Ready / {att.ext.toUpperCase()} / {att.size}
-                      </p>
-                    )}
+                    <p className="text-[11px] text-muted-foreground">
+                      Preview only / {att.ext.toUpperCase()} / {att.size}
+                    </p>
                   </div>
                   <button
                     onClick={() => removeAttachment(att.id)}
@@ -212,7 +174,7 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
               onClick={() => fileRef.current?.click()}
               className="mb-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-foreground active:scale-95"
               aria-label="Attach file"
-              title="Attach PDF, DOCX, TXT, PNG, or JPG"
+              title="Demo attachment preview only; contents are not analyzed"
             >
               <Paperclip className="h-[18px] w-[18px]" />
             </button>
@@ -223,7 +185,8 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
               onChange={(e) => setText(e.target.value)}
               onKeyDown={onKeyDown}
               rows={1}
-              placeholder="Message CampusForge AI..."
+              placeholder="Try the local demo..."
+              aria-label="Demo message"
               className="cf-scroll max-h-[200px] flex-1 resize-none bg-transparent py-2.5 text-sm leading-6 outline-none placeholder:text-muted-foreground/80"
             />
 
@@ -239,10 +202,10 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
             ) : (
               <button
                 onClick={submit}
-                disabled={!canSend || stillAnalyzing}
+                disabled={!canSend}
                 className={cn(
                   'mb-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-all duration-200',
-                  canSend && !stillAnalyzing
+                  canSend
                     ? 'bg-primary text-primary-foreground shadow-sm hover:scale-105 hover:bg-primary/90 hover:shadow-md active:scale-95'
                     : 'cursor-not-allowed bg-muted text-muted-foreground',
                 )}
@@ -253,6 +216,9 @@ export function ChatInput({ onSend, onStop, busy, initialText }: ChatInputProps)
             )}
           </div>
         </div>
+        <p className="mt-2 text-center text-[11px] leading-4 text-muted-foreground">
+          Demo samples are not based on your study materials.
+        </p>
       </div>
     </div>
   );

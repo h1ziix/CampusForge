@@ -374,18 +374,19 @@ test('actual document entrance passes verified principal into the cache view (au
         calls.push({ userId, workspaceId });
       },
     },
-    '@/server/queries/document': {
-      getDocumentById: async (id, workspaceId) => {
+    '@/server/queries/document-state': {
+      getDocumentGenerationState: async (id, workspaceId) => {
         assert.equal(id, doc.id);
         assert.equal(workspaceId, A1.workspaceId);
-        return doc;
+        return {
+          document: doc,
+          summary: null,
+          summaryJob: null,
+          flashcardSets: [],
+          flashcardJob: null,
+        };
       },
     },
-    '@/server/queries/summary': {
-      getDocumentSummary: async () => null,
-      getLatestAIJob: async () => null,
-    },
-    '@/server/queries/flashcard': { getFlashcardSetsForDocument: async () => [] },
     '@/components/document/document-detail-view': { DocumentDetailView() {} },
   });
   const element = await page({

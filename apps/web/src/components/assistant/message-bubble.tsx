@@ -112,7 +112,7 @@ export function MessageBubble({
           )}
         >
           <span className="font-medium text-foreground/80">
-            {isUser ? userName || 'You' : model.name}
+            {isUser ? userName || 'You' : 'Scripted demo reply'}
           </span>
           <span>{formatTime(message.createdAt)}</span>
         </div>

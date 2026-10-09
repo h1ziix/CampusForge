@@ -1,6 +1,7 @@
 'use client';
 
 import { DocumentDetailView } from '@/components/document/document-detail-view';
+import { syntheticDocumentMetadata } from '@/fixture/document-metadata';
 
 export default function DocumentRegression() {
   return (
@@ -16,8 +17,7 @@ export default function DocumentRegression() {
           hasSummary: false,
           createdAt: '2026-10-04T00:00:00Z',
           updatedAt: '2026-10-04T00:00:00Z',
-          parsedText: 'Synthetic content',
-          storageKey: 'synthetic',
+          ...syntheticDocumentMetadata(),
         }}
         summary={null}
         summaryJob={null}

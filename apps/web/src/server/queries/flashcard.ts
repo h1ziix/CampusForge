@@ -38,10 +38,12 @@ export interface FlashcardSetDetailRow {
  */
 export async function getWorkspaceFlashcardSets(
   workspaceId: string,
+  limit?: number,
 ): Promise<FlashcardSetListRow[]> {
   const sets = await prisma.flashcardSet.findMany({
     where: { workspaceId },
     orderBy: { createdAt: 'desc' },
+    take: limit,
     select: {
       id: true,
       title: true,

@@ -31,7 +31,9 @@ export function DocumentStatusBadge({ status, className }: DocumentStatusBadgePr
         className,
       )}
     >
-      {status === 'PROCESSING' && <Loader2 className="h-3 w-3 animate-spin" />}
+      {status === 'PROCESSING' && (
+        <Loader2 className="size-3 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+      )}
       {PROCESSING_STATUS_LABELS[status] ?? status}
     </span>
   );

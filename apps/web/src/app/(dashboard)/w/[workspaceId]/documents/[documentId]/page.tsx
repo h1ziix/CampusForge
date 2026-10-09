@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import { auth } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import { requireWorkspaceMember } from '@/server/services/auth-helpers';
-import { getDocumentById } from '@/server/queries/document';
-import { getDocumentSummary, getLatestAIJob } from '@/server/queries/summary';
-import { getFlashcardSetsForDocument } from '@/server/queries/flashcard';
+import { getDocumentGenerationState } from '@/server/queries/document-state';
 import { DocumentDetailView } from '@/components/document/document-detail-view';
 
 export const metadata: Metadata = {
@@ -27,24 +25,13 @@ export default async function DocumentDetailPage({
 
   await requireWorkspaceMember(session.user.id, params.workspaceId);
 
-  const document = await getDocumentById(params.documentId, params.workspaceId);
-  if (!document) notFound();
-
-  const [summary, latestSummaryJob, flashcardSets, latestFlashcardJob] = await Promise.all([
-    getDocumentSummary(params.documentId, params.workspaceId),
-    getLatestAIJob(params.documentId, 'SUMMARY'),
-    getFlashcardSetsForDocument(params.documentId, params.workspaceId),
-    getLatestAIJob(params.documentId, 'FLASHCARD'),
-  ]);
+  const state = await getDocumentGenerationState(params.documentId, params.workspaceId);
+  if (!state) notFound();
 
   return (
     <div className="space-y-6">
       <DocumentDetailView
-        document={document}
-        summary={summary}
-        summaryJob={latestSummaryJob}
-        flashcardSets={flashcardSets}
-        flashcardJob={latestFlashcardJob}
+        {...state}
         workspaceId={params.workspaceId}
         identity={{ userId: session.user.id, workspaceId: params.workspaceId }}
       />

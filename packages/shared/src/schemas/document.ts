@@ -19,6 +19,21 @@ export const MAX_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024;
 export const PROCESSING_STATUSES = ['PENDING', 'PROCESSING', 'COMPLETED', 'FAILED'] as const;
 
 /**
+ * Browsers send an empty File.type as application/octet-stream in multipart.
+ * Infer only supported Markdown extensions; server byte validation still applies.
+ * A specific conflicting MIME must never be overridden by the filename.
+ */
+export function resolveDocumentMimeType(filename: string, mimeType: string): string {
+  if (
+    (mimeType === '' || mimeType === 'application/octet-stream') &&
+    /\.(md|markdown)$/i.test(filename)
+  ) {
+    return 'text/markdown';
+  }
+  return mimeType;
+}
+
+/**
  * Validates metadata for a document upload.
  * Used server-side in the upload route handler.
  * The actual file bytes are handled separately (not part of Zod).

@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition, useState } from 'react';
+import { useTransition, useState, type ComponentProps } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,6 +20,7 @@ const WORKSPACE_TYPES = ['PERSONAL', 'TEAM', 'RESEARCH'] as const;
 interface CreateWorkspaceDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onCloseAutoFocus?: ComponentProps<typeof DialogContent>['onCloseAutoFocus'];
 }
 
 /**
@@ -27,7 +28,11 @@ interface CreateWorkspaceDialogProps {
  * Opens from the workspace switcher. Creates a new workspace
  * and redirects to its dashboard.
  */
-export function CreateWorkspaceDialog({ open, onOpenChange }: CreateWorkspaceDialogProps) {
+export function CreateWorkspaceDialog({
+  open,
+  onOpenChange,
+  onCloseAutoFocus,
+}: CreateWorkspaceDialogProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string>('TEAM');
@@ -56,7 +61,7 @@ export function CreateWorkspaceDialog({ open, onOpenChange }: CreateWorkspaceDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" onCloseAutoFocus={onCloseAutoFocus}>
         <DialogHeader>
           <DialogTitle>Create Workspace</DialogTitle>
           <DialogDescription>

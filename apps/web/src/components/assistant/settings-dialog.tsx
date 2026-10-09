@@ -140,10 +140,10 @@ function Switch({
   );
 }
 
-function SoonBadge() {
+function UnavailableBadge() {
   return (
     <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-      Soon
+      Unavailable
     </span>
   );
 }
@@ -162,9 +162,10 @@ export function SettingsDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="cf-scroll max-h-[85vh] max-w-lg overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Settings</DialogTitle>
+          <DialogTitle>Demo settings</DialogTitle>
           <DialogDescription>
-            Personalize your AI assistant. Changes are saved automatically.
+            Local interface preferences. No selected model is called, and sample replies are not
+            based on your files or workspace.
           </DialogDescription>
         </DialogHeader>
 
@@ -181,11 +182,11 @@ export function SettingsDialog({
                 onChange={(v) => onChange({ theme: v })}
               />
             </Row>
-            <Row label="Language" hint="Interface & response language">
+            <Row label="Language" hint="Unavailable in this demo">
               <select
                 aria-label="Language"
                 value={settings.language}
-                onChange={(e) => onChange({ language: e.target.value })}
+                disabled
                 className="h-9 rounded-md border border-input bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {LANGUAGES.map((l) => (
@@ -200,11 +201,11 @@ export function SettingsDialog({
           {/* Model behavior */}
           <div className="pb-1">
             <p className="pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Model
+              Demo reply style
             </p>
-            <Row label="Default model" hint="Used for new conversations">
+            <Row label="Default demo style" hint="Changes sample tone and avatar only">
               <select
-                aria-label="Default model"
+                aria-label="Default demo style"
                 value={settings.model}
                 onChange={(e) => onChange({ model: e.target.value as ModelId })}
                 className="h-9 rounded-md border border-input bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -216,10 +217,7 @@ export function SettingsDialog({
                 ))}
               </select>
             </Row>
-            <Row
-              label="Temperature"
-              hint={`${settings.temperature.toFixed(1)} / higher = more creative`}
-            >
+            <Row label="Temperature" hint="Unavailable; no effect on sample replies">
               <div className="flex w-40 items-center gap-2">
                 <span className="text-xs text-muted-foreground">0</span>
                 <input
@@ -229,13 +227,13 @@ export function SettingsDialog({
                   max={1}
                   step={0.1}
                   value={settings.temperature}
-                  onChange={(e) => onChange({ temperature: Number(e.target.value) })}
-                  className="cf-range h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-muted accent-primary"
+                  disabled
+                  className="cf-range h-1.5 flex-1 appearance-none rounded-full bg-muted accent-primary disabled:opacity-50"
                 />
                 <span className="text-xs text-muted-foreground">1</span>
               </div>
             </Row>
-            <Row label="Response length" hint="How much detail to include">
+            <Row label="Response length" hint="Trims the scripted sample">
               <Segmented
                 options={LENGTHS}
                 value={settings.responseLength}
@@ -249,19 +247,11 @@ export function SettingsDialog({
             <p className="pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Features
             </p>
-            <Row label="Memory" hint="Remember context across your chats">
-              <Switch
-                label="Memory"
-                checked={settings.memory}
-                onChange={(v) => onChange({ memory: v })}
-              />
+            <Row label="Memory" hint="No context is remembered for replies">
+              <Switch label="Memory" checked={false} disabled />
             </Row>
-            <Row label="Notifications" hint="Alert me when a response is ready">
-              <Switch
-                label="Notifications"
-                checked={settings.notifications}
-                onChange={(v) => onChange({ notifications: v })}
-              />
+            <Row label="Notifications" hint="Unavailable in this demo">
+              <Switch label="Notifications" checked={false} disabled />
             </Row>
             <Row label="Auto-save chats" hint="Keep conversation history on this device">
               <Switch
@@ -270,15 +260,15 @@ export function SettingsDialog({
                 onChange={(v) => onChange({ autoSave: v })}
               />
             </Row>
-            <Row label="Internet access" hint="Let the assistant browse the web">
+            <Row label="Internet access" hint="This demo does not browse the web">
               <div className="flex items-center gap-2">
-                <SoonBadge />
+                <UnavailableBadge />
                 <Switch label="Internet access" checked={false} disabled />
               </div>
             </Row>
-            <Row label="Voice mode" hint="Talk to the assistant hands-free">
+            <Row label="Voice mode" hint="Unavailable in this demo">
               <div className="flex items-center gap-2">
-                <SoonBadge />
+                <UnavailableBadge />
                 <Switch label="Voice mode" checked={false} disabled />
               </div>
             </Row>
@@ -292,11 +282,12 @@ export function SettingsDialog({
             <textarea
               aria-label="System prompt"
               value={settings.systemPrompt}
-              onChange={(e) => onChange({ systemPrompt: e.target.value })}
+              disabled
               rows={3}
               className="cf-scroll w-full resize-none rounded-md border border-input bg-background p-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              placeholder="Set the assistant's persona and ground rules..."
+              placeholder="Unavailable; sample replies do not use a system prompt"
             />
+            <p className="mt-1 text-xs text-muted-foreground">No effect on this demo.</p>
           </div>
 
           {/* Data */}
@@ -341,7 +332,8 @@ export function SettingsDialog({
 
         <Separator />
         <p className="text-center text-xs text-muted-foreground">
-          Everything here is stored locally in your browser. No data leaves this device.
+          Demo chat history stays in this browser when auto-save is enabled. Attachments are not
+          uploaded by this demo.
         </p>
       </DialogContent>
     </Dialog>

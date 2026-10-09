@@ -5,8 +5,7 @@ import type { ModelId } from '@/lib/assistant/types';
 import { cn } from '@/lib/utils';
 
 /**
- * Animated "assistant is thinking" indicator shown before the response streams.
- * Mirrors the model's avatar so it feels like the selected model is replying.
+ * Local demo delay shown before a scripted response streams.
  */
 export function TypingIndicator({ model }: { model: ModelId }) {
   const def = getModel(model);
@@ -26,7 +25,7 @@ export function TypingIndicator({ model }: { model: ModelId }) {
         <span className="cf-dot h-2 w-2 rounded-full bg-muted-foreground/70" />
         <span className="cf-dot cf-dot-2 h-2 w-2 rounded-full bg-muted-foreground/70" />
         <span className="cf-dot cf-dot-3 h-2 w-2 rounded-full bg-muted-foreground/70" />
-        <span className="ml-1 text-xs text-muted-foreground">{def.name} is thinking...</span>
+        <span className="ml-1 text-xs text-muted-foreground">Preparing demo sample...</span>
       </div>
     </div>
   );
